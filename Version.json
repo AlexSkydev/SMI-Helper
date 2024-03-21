@@ -1,0 +1,9 @@
+{
+    "version": "0.2",
+    "updateurl": "https://raw.githubusercontent.com/Kvisk/LuaARZNewsHelper/main/[LUA] ARZ News by Kvisk.lua",
+    "telemetry": "https://vk.com/val1kdobriy",
+    "description": {
+        "heading": "Небольшие дороботки и справления",
+        "line": " - Новое Обновление Скрипта!"
+    }
+}
