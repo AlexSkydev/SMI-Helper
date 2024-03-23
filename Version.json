@@ -1,9 +1,9 @@
 {
-    "version": "0.3",
+    "version": "0.3.1",
     "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.luac",
     "telemetry": "https://vk.com/val1kdobriy",
     "description": {
         "heading": "Добавлены новые заготовки в редактирование обьявлений",
-        "line": " - Куплю дом/квартиру в любой точке области"
+        "line": " - Куплю дом/квартиру в любой точке области + П"
     }
 }
