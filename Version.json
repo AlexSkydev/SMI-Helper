@@ -1,9 +1,9 @@
 {
-    "version": "0.2",
+    "version": "0.2.1",
     "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.luaс",
     "telemetry": "https://vk.com/val1kdobriy",
     "description": {
-        "heading": "Небольшие дороботки и справления",
-        "line": " - Новое Обновление Скрипта!"
+        "heading": "Добавлены новые заготовки в редактирование обьявлений",
+        "line": " - Куплю дом/квартиру в любой точке области"
     }
 }
