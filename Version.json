@@ -1,9 +1,9 @@
 {
-    "version": "0.4",
+    "version": "0.4.2",
     "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.luac",
     "telemetry": "https://vk.com/val1kdobriy",
     "description": {
-        "heading": "Добавлен раздел Реклам в эфирах",
-        "line": " - реклама всех организаций + собственная реклама, любой текст."
+        "heading": "Добавлен эфир Погода",
+        "line": " - Эфир погода, с градусами в арзамасе,лыткарино,альпийск"
     }
 }
