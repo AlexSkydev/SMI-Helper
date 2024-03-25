@@ -1,9 +1,11 @@
 {
-    "version": "0.4.2",
+    "version": "0.5",
     "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.luac",
     "telemetry": "https://vk.com/val1kdobriy",
     "description": {
-        "heading": "Добавлен эфир Погода",
-        "line": " - Эфир погода, с градусами в арзамасе,лыткарино,альпийск"
+        "heading": "Новые доработки скрипта.",
+        "line": " - Скрипт перешёл в BETA",
+        "line": " - Изменён дизайн скрипта.",
+        "line": " - Исправлено большинство багов, и недочётов."
     }
 }
