@@ -1,5 +1,5 @@
-script_name('Rodina SMI Helper')
-script_version('0.3')
+script_name('Rodina News Helper')
+script_version('0.5')
 script_description('')
 script_author('V.Kiselev')
 
@@ -24,14 +24,14 @@ local ComboLanguage = new.int()
 local languageList = {'Английский', 'Французский', 'Испанский', 'Немецкий', 'Итальянский'--[[, 'Китайский', 'Казахский']]}
 local languageItems = imgui.new['const char*'][#languageList](languageList)
 -- ======
-local mainPages, fastPages, eventPages = new.int(1), new.int(1), new.int(1) -- Номер страницы
+local mainPages, fastPages, eventPages, advertspages,interwpages = new.int(1), new.int(1), new.int(1), new.int(1), new.int(1) -- Номер страницы
 local buttonPages = {true, false, false, false} -- Номер переключателей Редакция
-local buttonPagesEf = {true, false, false, false, false} -- Номер переключателей Эфиры
+local buttonPagesEf = {true, false, false, false} -- Номер переключателей Эфиры
 local ToU32 = imgui.ColorConvertFloat4ToU32
 local sizeX, sizeY = getScreenResolution()
 
-local id_name = '##Rodina SMI Helper'
-local tag = '{008080}[SMI Helper]: {C0C0C0}'
+local id_name = '##Rodina News Helper'
+local tag = '{FFA500}[News Helper]: '
 local tmp = {['downKey'] = {}}
 
 local ul_rus = {[string.char(168)] = string.char(184)}
@@ -63,6 +63,7 @@ function main()
 	--------------------------------------------------
 
 	sampRegisterChatCommand('newshelp', openMenu)
+	sampRegisterChatCommand('testloc', testloc)
 	sampRegisterChatCommand('nh', openMenu)
 	RegisterCallback('menu', setup.keys.menu, openMenu)
 	RegisterCallback('helpMenu', setup.keys.helpMenu, function () rHelp[0] = not rHelp[0] end)
@@ -80,7 +81,10 @@ function main()
 		end
 	end)
 
-	sampAddChatMessage(tag .. u8:decode('/nh, /newshelp'), -1)
+	--sampAddChatMessage(tag .. u8:decode('/nh, /newshelp'), -1)
+	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Скрипт успешно загружен. Автор: {FFA500}Vitaliy_Kiselev.'), 0x1E90FF)
+	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Скрипт был создан для игроков сервера:  {FFA500}Rodina Role Play 06.'), 0x1E90FF)
+	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Открыть главное меню скрипта - {FFA500}/nh'), 0x1E90FF)
 
 	while true do
 		wait(10)
@@ -163,6 +167,7 @@ end
 function ev.onSendDialogResponse(id, button, list, input)
 	if button == 1 and list == 65535 and tAd[1] and input ~= '' then
 		adcfg[#adcfg + 1] = {['ad'] = tAd[2], ['text'] = u8:encode(input):gsub('%s+', ' '):gsub('\\', '/')}
+		--sampGetCurrentDialogEditboxText(adcfg)
 		saveFile('advertisement.cfg', adcfg)
 	end
 	tAd = {false, '', false}
@@ -181,23 +186,23 @@ imgui.OnFrame(function() return rMain[0] end,
 	function(player)
 		imgui.SetNextWindowPos(imgui.ImVec2(sizeX / 2, sizeY / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 		imgui.SetNextWindowSizeConstraints(imgui.ImVec2(700, 450), imgui.ImVec2(1240, 840))
-		imgui.Begin('SMI Helper Kiselev ##window_1', rMain, imgui.WindowFlags.NoCollapse + (not cheBoxSize[0] and imgui.WindowFlags.NoResize or 0) + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoScrollWithMouse) -- + imgui.WindowFlags.NoMove + imgui.WindowFlags.AlwaysAutoResize
+		imgui.Begin('News Helper by Kiselev ##window_1', rMain, imgui.WindowFlags.NoCollapse + (not cheBoxSize[0] and imgui.WindowFlags.NoResize or 0) + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoScrollWithMouse) -- + imgui.WindowFlags.NoMove + imgui.WindowFlags.AlwaysAutoResize
 		
 			imgui.SetCursorPos(imgui.ImVec2(3, 19))
 			imgui.BeginChild(id_name .. 'child_window_1', imgui.ImVec2(imgui.GetWindowWidth() - 6, 30), false)
 				imgui.Columns(3, id_name .. 'columns_1', false)
-				imgui.TextStart('SMI Helper by Kiselev')
+				imgui.TextStart('News Helper by Kiselev')
 				imgui.NextColumn()
-				imgui.TextCenter('v'..thisScript().version..' alpha')
+				imgui.TextCenter('v'..thisScript().version..' beta')
 				imgui.NextColumn()
-				imgui.TextEnd('promo: #kiselevfsb')
+				imgui.TextEnd('Promo: #kiselevfsb')
 				if imgui.IsItemClicked(1) then
 					lua_thread.create(function ()
 						wait(100)
 						thisScript():reload()
 					end)
 				end
-				imgui.Tooltip('Yuma')
+				imgui.Tooltip('RodinaRP | 06')
 			imgui.EndChild()
 
 			imgui.SetCursorPos(imgui.ImVec2(3, 48))
@@ -205,7 +210,7 @@ imgui.OnFrame(function() return rMain[0] end,
 				imgui.SetCursorPosX(22)
 				imgui.CustomMenu({
 					'Главная',
-					'Редакция',
+					--'Редакция',
 					'Собеседования',
 					'Эфиры',
 					'Настройки'
@@ -221,10 +226,10 @@ imgui.OnFrame(function() return rMain[0] end,
 			imgui.BeginChild(id_name .. 'child_window_3', imgui.ImVec2(imgui.GetWindowWidth() - 154, imgui.GetWindowHeight() - 47), true, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
 			
 				if mainPages[0] == 1 then imgui.WindowMain()
-				elseif mainPages[0] == 2 then imgui.LocalSettings()
-				elseif mainPages[0] == 3 then imgui.Text('Скоро..')
-				elseif mainPages[0] == 4 then imgui.LocalEsters()
-				elseif mainPages[0] == 5 then imgui.ScrSettings() end
+				--elseif mainPages[0] == 2 then imgui.LocalSettings()
+				elseif mainPages[0] == 2 then imgui.LocalSobes()
+				elseif mainPages[0] == 3 then imgui.LocalEsters()
+				elseif mainPages[0] == 4 then imgui.ScrSettings() end
 				
 			imgui.EndChild()
 
@@ -300,16 +305,17 @@ imgui.OnFrame(function() return rFastM[0] end,
 			imgui.BeginChild(id_name .. 'child_window_6', imgui.ImVec2((imgui.GetWindowWidth() - wPaddX*2) / 1.7, imgui.GetWindowHeight() - 2 - wPaddY*2), false)
 				imgui.SetCursorPosY(10)
 				if fastPages[0] == 1 then imgui.FmInterviews()
-				elseif fastPages[0] == 2 then 
-				elseif fastPages[0] == 3 then
-				elseif fastPages[0] == 4 then end
+				elseif fastPages[0] == 2 then imgui.proverkapro() 
+				elseif fastPages[0] == 3 then imgui.proverkappe() end
+				--elseif fastPages[0] == 4 then end
 				imgui.NewLine()
 			imgui.EndChild()
 			imgui.SameLine(0, 0)
 			
 			imgui.BeginChild(id_name .. 'child_window_7', imgui.ImVec2(imgui.GetWindowWidth() - ((imgui.GetWindowWidth() - wPaddX*2) / 1.7) - 2 - wPaddX, imgui.GetWindowHeight() - 2 - wPaddY*2), true)
 				imgui.TextCenter(tmp.rolePlay and '{CC0000}Ждём работает бинд' or ' ')
-				imgui.TextCenter('Имя: '..tmp.targetPlayer.nick)
+				imgui.TextCenter('ID: '..tmp.targetPlayer.id)
+				imgui.TextCenter('Никнейм: Недоступно') -- ..tmp.targetPlayer.nick
 				imgui.TextCenter('Игровой Уровень: '..tmp.targetPlayer.score)
 				imgui.NewLine()
 				
@@ -317,7 +323,7 @@ imgui.OnFrame(function() return rFastM[0] end,
 
 				imgui.NewLine()
 				imgui.SetCursorPosX(46)
-				imgui.CustomMenu({'Собеседование', 'Проверка ПРО',  'Проверка ППЭ', 'Лидерские действия'}, fastPages, imgui.ImVec2(120, 35), 0.08, true, 15)
+				imgui.CustomMenu({'Собеседование', 'Проверка ПРО',  'Проверка ППЭ'}, fastPages, imgui.ImVec2(120, 35), 0.08, true, 15)
 			imgui.EndChild()
 		imgui.End()
 		imgui.SetMouseCursor(-1)
@@ -325,12 +331,6 @@ imgui.OnFrame(function() return rFastM[0] end,
 )
 
 imgui.OnInitialize(function()
-	if doesFileExist(getWorkingDirectory()..'\\config\\News Helper\\emmet.lua') then
-		g_img = import('config\\News Helper\\emmet') else
-		local st, func = pcall(loadstring, [[return {chk=function (imgui)downloadUrlToFile('https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/emmet.lua',getWorkingDirectory()..'\\config\\News Helper\\emmet.lua', function (_, st)conErr = conErr or (st == 1 and true or nil)if st==58 and not conErr then local g_img = import('config\\News Helper\\emmet')img_emmet=imgui.CreateTextureFromFileInMemory(g_img.img_emmet,#g_img.img_emmet)end end)end}]])
-		if st then pcall(func().chk, imgui) end
-	end
-	img_emmet = imgui.CreateTextureFromFileInMemory(g_img.img_emmet, #g_img.img_emmet)
 	imgui.GetIO().MouseDrawCursor = true
 	imgui.GetStyle().MouseCursorScale = 1
 	local glyph_ranges = imgui.GetIO().Fonts:GetGlyphRangesCyrillic()
@@ -1191,33 +1191,29 @@ function imgui.AutoBindButton() -- раздел ред. Быстрые клав�
 end
 function imgui.LocalEsters() -- Подраздел Эфиры
 	imgui.SetCursorPosX(18)
-	if imgui.HeaderButton(buttonPagesEf[5], ' Настройки ') then
-		buttonPagesEf = {false, false, false, false, true}
-	end
-	imgui.SameLine()
 	imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 132)
 	if imgui.HeaderButton(buttonPagesEf[1], '  Мероприятия ') then
-		buttonPagesEf = {true, false, false, false, false}
+		buttonPagesEf = {true, false, false, false}
 	end
 	imgui.SameLine()
 	if imgui.HeaderButton(buttonPagesEf[2], ' Реклама ') then
-		buttonPagesEf = {false, true, false, false, false}
+		buttonPagesEf = {false, true, false, false}
 	end
 	imgui.SameLine()
 	if imgui.HeaderButton(buttonPagesEf[3], ' Интерьвью ') then
-		buttonPagesEf = {false, false, true, false, false}
+		buttonPagesEf = {false, false, true, false}
 	end
 	imgui.SameLine()
-	if imgui.HeaderButton(buttonPagesEf[4], ' Погода ') then
-		buttonPagesEf = {false, false, false, true, false}
+	imgui.SameLine()
+	if imgui.HeaderButton(buttonPagesEf[4], ' Настройки ') then
+		buttonPagesEf = {false, false, false, true}
 	end
 	imgui.SetCursorPosY(32)
 
 	if buttonPagesEf[1] then imgui.Events()
-	elseif buttonPagesEf[2] then imgui.Text('Скоро..')
-	elseif buttonPagesEf[3] then imgui.Text('Скоро..')
-	elseif buttonPagesEf[4] then imgui.Text('Скоро..')
-	elseif buttonPagesEf[5] then imgui.EventsSetting() end
+	elseif buttonPagesEf[2] then imgui.Adverts()
+	elseif buttonPagesEf[3] then imgui.Interwiev()
+	elseif buttonPagesEf[4] then imgui.EventsSetting() end
 end
 function imgui.EventsSetting() -- раздел эфир. Настройки
 	imgui.BeginChild(id_name..'child_window_13', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
@@ -1254,8 +1250,6 @@ function imgui.Events() -- Подраздел эфир. Мероприятия
 			imgui.SetCursorPosX(1)
 			imgui.CustomMenu({
 				'Описание',
-				'Собес РЦ',
-				'Собес Другие',
 				' Математика',
 				' Столицы',
 				' Прятки',
@@ -1263,18 +1257,9 @@ function imgui.Events() -- Подраздел эфир. Мероприятия
 				' Химические\n   элементы',
 				' Переводчики',
 				' Зеркало',
-				--' !Автор',
-				--'       !Угадай\n  знаменитость',
-				--'       !Знаток\n  автомобилей',
-				--' !Крокодил',
-				--' !О спорте',
-				--' !Меломан',
-				--'   !Правда\n или ложь?',
-				--' !Cтендап'
+				' Погода'
 			}, eventPages, imgui.ImVec2(88, 32), 0.08, true, 0, {
 				'',
-				'Собеседование в Новостное Агенство',
-				'Собеседование в другие организации',
 				'Математика - ведущий называет математический\nпример, а слушатели дают ответ. (Пример: 10+10-20)',
 				'Столицы - ведущий называет страну в любой точке\nмира, а граждане должны ответить её столицу.\n(Пример: США - Вашингтон)',
 				'Прятки - ведущий прячется в одной из точек\nштата, а задача слушателей найти его с\nпомощью указанных подсказок.',
@@ -1282,38 +1267,21 @@ function imgui.Events() -- Подраздел эфир. Мероприятия
 				'Химические элементы - ведущий называет\nкакой-либо хим. элемент из периодической\nтаблицы Д.И. Менделеева, а граждани дают\nответ. (Пример: Zn - цинк)', 
 				'Переводчик - ведущий называет слова на\nанглийском / японском / итальянском языках,\nа задача слушателей написать правильный\nперевод на русский в СМС - сообщении\nна номер радиостанции.',
 				'Зеркало - ведущий называет слово, а\nслушатели должны прислать ответ на\nномер радиостанции в виде\nСМС - сообщения с написанием этого\nслова задом наперёд.',
-				'Автор - ведущий называет книгу, участник\nдолжен отгадать кто её написал.\n(Пример: «Код да Винчи» - ответ Дэн Браун,\n«Истории о том о сём» - ответ Том Хэнкс.)',
-				'Угадай знаменитость - ведущий даёт описание\nкакой-нибудь знаменитой личности штата, а\nзадача слушателей назвать его/её имя и\nфамилию в СМС - сообщении на номер радиостанции.',
-				'Знаток автомобилей - ведущий описывает\nмодель автомобиля, его характеристики, а\nслушатели должны написать название авто\nв СМС - сообщении на номер радиостанции.', 
-				'Крокодил - Ведущий загадывает слово\nи описывает его, а участник должен\nугадать, что это за слово.', 
-				'О спорте - ведущий задаёт вопросы на\nспортивную тематику, а задача\nслушателей написать верный ответ\nв СМС-сообщении на вопрос или\nпозвонить на номер радиостанции.',
-				'Меломан - ведущий задаёт вопросы на тему\nмузыки, а задача слушателей написать верный\nответ в СМС - сообщении на вопрос или\nпозвонить на номер радиостанции.',
-				'Правда или ложь? - ведущий задаёт вопрос\nо верном или неверном утверждении, а\nслушатели должны написать\nСМС-сообщение / позвонить на номер\nрадиостанции, верно ли утверждение или же нет.', 
-				'Stand-Up - Подготовка небольших шуток,\nс трансляцией их в эфир.\nРазвлекать слушателей всеми силами,\nимпровизировать, принимать звонки\nи по-доброму подшучивать над\nдозвонившимися, рассказывая\nразличные истории.'
+				'Погода - Эфир о погоде в разных городах округа'
 			})
 		imgui.EndChild()
 		imgui.SameLine()
 		imgui.SetCursorPosX(100)
 		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
 			if eventPages[0] == 1 then imgui.EventDescription()
-				elseif eventPages[0] == 2 then imgui.SobesRC()
-				elseif eventPages[0] == 3 then imgui.SobesOth()
-				elseif eventPages[0] == 4 then imgui.Mathematics()
-				elseif eventPages[0] == 5 then imgui.Capitals()
-				elseif eventPages[0] == 6 then imgui.ToHide()
-				elseif eventPages[0] == 7 then imgui.Greetings()
-				elseif eventPages[0] == 8 then imgui.ChemicElements()
-				elseif eventPages[0] == 9 then imgui.Interpreter()
-				elseif eventPages[0] == 10 then imgui.Mirror()
-				elseif eventPages[0] == 11 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 12 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 13 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 14 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 15 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 16 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 17 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 18 then imgui.Text('Скоро..')
-				elseif eventPages[0] == 19 then imgui.Text('Скоро..') 
+				elseif eventPages[0] == 2 then imgui.Mathematics()
+				elseif eventPages[0] == 3 then imgui.Capitals()
+				elseif eventPages[0] == 4 then imgui.ToHide()
+				elseif eventPages[0] == 5 then imgui.Greetings()
+				elseif eventPages[0] == 6 then imgui.ChemicElements()
+				elseif eventPages[0] == 7 then imgui.Interpreter()
+				elseif eventPages[0] == 8 then imgui.Mirror()
+				elseif eventPages[0] == 9 then imgui.Weather()
 			end
 		imgui.EndChild()
 	imgui.EndChild()
@@ -1323,234 +1291,26 @@ function imgui.EventDescription() -- раздел мер. эфир. Описан
 	imgui.NewLine()
 	imgui.SetCursorPosX(20)
 	imgui.BeginChild(id_name..'child_window_23', imgui.ImVec2(imgui.GetWindowWidth() - 40, imgui.GetWindowHeight() - 38), false)
-		imgui.TextWrapped('Эфиры находятся в тестовом варианте, вы можете их использовать. Однака сначала проверяйте текст перед использованием его в эфире! На всех серверах разные правила и теги.')
+		imgui.TextWrapped('Эфиры находятся в тестовом варианте, вы можете их использовать. Однака сначала проверяйте текст перед использованием его в эфире!')
 		imgui.TextStart('{b5e530cb}Вы можете изменять текст эфиров! Теги вы тоже можете изменять!')
 		imgui.NewLine()
 		imgui.TextWrapped('Если вы столкнетесь с багами или вам будет не удобно использовать данный биндер, обязательно напиши, что именно тут не так!')
 		imgui.SetCursorPosY(imgui.GetWindowHeight() - 30)
-		imgui.TextWrapped('p.s. я не играю в самп и никогда не состоял в СМИ, так что не знаю, удобно вам или нет. Обязательно дайте обратную связь!')
-	imgui.EndChild()
-end
-function imgui.Sobesoth() -- раздел мер. эфир. Математика
-	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
-		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
-		local iptID = new.char[256]('')
-		imgui.StrCopy(iptID, iptTmp.iptID or '')
-		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
-			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
-		end
-		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
-
-		imgui.SameLine()
-
-		imgui.SetCursorPosX(imgui.GetWindowWidth() - 142)
-		imgui.Text('Награда')
-		imgui.Tooltip('Напишите сюда награду за эфир')
-		imgui.SameLine()
-		imgui.PushItemWidth(80)
-		local iptPrz = new.char[256]('')
-		imgui.StrCopy(iptPrz, iptTmp.iptPrz or '1 млн')
-		if imgui.InputText(id_name..'input_11', iptPrz, sizeof(iptPrz) - 1) then
-			iptTmp.iptPrz = str(iptPrz)
-		end
-
-		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
-		local iptScrId = new.char[256]('')
-		imgui.StrCopy(iptScrId, iptTmp.iptScrId or '')
-		if imgui.InputText(id_name..'input_10', iptScrId, sizeof(iptScrId) - 1, 16) then
-			iptTmp.iptScrId = str(iptScrId)
-		end
-		imgui.SameLine()
-		imgui.Text('Кол-во баллов')
-		imgui.Tooltip('Сколько у человека баллов?')
-
-		imgui.SameLine()
-
-		imgui.SetCursorPosX(imgui.GetWindowWidth() - 88)
-		imgui.Text('Раунды')
-		imgui.Tooltip('До скольки баллов будем играть?')
-		imgui.SameLine()
-		imgui.PushItemWidth(30)
-		local iptScr = new.char[256]('')
-		imgui.StrCopy(iptScr, iptTmp.iptScr or '5')
-		if imgui.InputText(id_name..'input_12', iptScr, sizeof(iptScr) - 1) then
-			iptTmp.iptScr = str(iptScr)
-		end
-
-		imgui.RenderButtonEf(esterscfg.events.mathem, {
-			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
-			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
-			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
-		})
-	imgui.EndChild()
-
-	imgui.SameLine()
-
-	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
-		imgui.TextCenter('Калькулятор')
-
-		imgui.SetCursorPos(imgui.ImVec2(8, imgui.GetCursorPosY() + 6))
-		imgui.PushItemWidth(imgui.GetWindowWidth() - 20 - 4 - 18)
-		local iptCal1 = new.char[256]('')
-		imgui.StrCopy(iptCal1, iptTmp.iptCal1 or '')
-		if imgui.InputTextWithHint(id_name..'input_13', '10+2^(10/2)*1.5', iptCal1, sizeof(iptCal1) - 1, imgui.InputTextFlags.CallbackAlways, callbacks.calc) then
-			iptTmp.iptCal1 = str(iptCal1):gsub('[^%d%+%-%^%/%(%)%*%s%.]+', '')
-			local calc = load('return '..iptTmp.iptCal1);
-			local resul = tostring(calc and calc() or 'Ошибка')
-			if resul == 'nan' or resul == 'inf' then resul = ' /0 = err' end
-			iptTmp.iptCal2 = (iptTmp.iptCal1 ~= '' and resul or '')
-		end
-		imgui.Tooltip('Введите математический\nпример, доступные символы:\n\n + прибавить\n - вычесть\n * умножить\n / разделить (наклон важен!)\n ^ возвести в степень\n () для первенства выражения')
-
-		imgui.SameLine(nil, 4)
-		if imgui.Button('Х'..id_name..'button_12', imgui.ImVec2(18,20)) then
-			iptTmp.iptCal1 = nil
-			iptTmp.iptCal2 = nil
-		end
-		imgui.Tooltip('Очистить')
-
-		imgui.SetCursorPosX(8)
-		imgui.Text('Результат')
-		imgui.SameLine()
-		imgui.PushItemWidth(imgui.GetWindowWidth() - 20 - 67)
-		local iptCal2 = new.char[256]('')
-		imgui.StrCopy(iptCal2, iptTmp.iptCal2 or '')
-		imgui.InputText(id_name..'input_14', iptCal2, sizeof(iptCal2) - 1, imgui.InputTextFlags.ReadOnly)
-
-		imgui.SetCursorPosY(imgui.GetCursorPosY() + 6)
-		imgui.Separator()
-		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
-
-		imgui.MeNotepad('mathem')
-	imgui.EndChild()
-end
-function imgui.SobesRC() -- раздел мер. эфир. Математика
-	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
-		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
-		local iptID = new.char[256]('')
-		imgui.StrCopy(iptID, iptTmp.iptID or '')
-		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
-			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
-		end
-		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
-
-		imgui.SameLine()
-
-		imgui.SetCursorPosX(imgui.GetWindowWidth() - 142)
-		imgui.Text('Награда')
-		imgui.Tooltip('Напишите сюда награду за эфир')
-		imgui.SameLine()
-		imgui.PushItemWidth(80)
-		local iptPrz = new.char[256]('')
-		imgui.StrCopy(iptPrz, iptTmp.iptPrz or '1 млн')
-		if imgui.InputText(id_name..'input_11', iptPrz, sizeof(iptPrz) - 1) then
-			iptTmp.iptPrz = str(iptPrz)
-		end
-
-		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
-		local iptScrId = new.char[256]('')
-		imgui.StrCopy(iptScrId, iptTmp.iptScrId or '')
-		if imgui.InputText(id_name..'input_10', iptScrId, sizeof(iptScrId) - 1, 16) then
-			iptTmp.iptScrId = str(iptScrId)
-		end
-		imgui.SameLine()
-		imgui.Text('Кол-во баллов')
-		imgui.Tooltip('Сколько у человека баллов?')
-
-		imgui.SameLine()
-
-		imgui.SetCursorPosX(imgui.GetWindowWidth() - 88)
-		imgui.Text('Раунды')
-		imgui.Tooltip('До скольки баллов будем играть?')
-		imgui.SameLine()
-		imgui.PushItemWidth(30)
-		local iptScr = new.char[256]('')
-		imgui.StrCopy(iptScr, iptTmp.iptScr or '5')
-		if imgui.InputText(id_name..'input_12', iptScr, sizeof(iptScr) - 1) then
-			iptTmp.iptScr = str(iptScr)
-		end
-
-		imgui.RenderButtonEf(esterscfg.events.mathem, {
-			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
-			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
-			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
-		})
-	imgui.EndChild()
-
-	imgui.SameLine()
-
-	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
-		imgui.TextCenter('Калькулятор')
-
-		imgui.SetCursorPos(imgui.ImVec2(8, imgui.GetCursorPosY() + 6))
-		imgui.PushItemWidth(imgui.GetWindowWidth() - 20 - 4 - 18)
-		local iptCal1 = new.char[256]('')
-		imgui.StrCopy(iptCal1, iptTmp.iptCal1 or '')
-		if imgui.InputTextWithHint(id_name..'input_13', '10+2^(10/2)*1.5', iptCal1, sizeof(iptCal1) - 1, imgui.InputTextFlags.CallbackAlways, callbacks.calc) then
-			iptTmp.iptCal1 = str(iptCal1):gsub('[^%d%+%-%^%/%(%)%*%s%.]+', '')
-			local calc = load('return '..iptTmp.iptCal1);
-			local resul = tostring(calc and calc() or 'Ошибка')
-			if resul == 'nan' or resul == 'inf' then resul = ' /0 = err' end
-			iptTmp.iptCal2 = (iptTmp.iptCal1 ~= '' and resul or '')
-		end
-		imgui.Tooltip('Введите математический\nпример, доступные символы:\n\n + прибавить\n - вычесть\n * умножить\n / разделить (наклон важен!)\n ^ возвести в степень\n () для первенства выражения')
-
-		imgui.SameLine(nil, 4)
-		if imgui.Button('Х'..id_name..'button_12', imgui.ImVec2(18,20)) then
-			iptTmp.iptCal1 = nil
-			iptTmp.iptCal2 = nil
-		end
-		imgui.Tooltip('Очистить')
-
-		imgui.SetCursorPosX(8)
-		imgui.Text('Результат')
-		imgui.SameLine()
-		imgui.PushItemWidth(imgui.GetWindowWidth() - 20 - 67)
-		local iptCal2 = new.char[256]('')
-		imgui.StrCopy(iptCal2, iptTmp.iptCal2 or '')
-		imgui.InputText(id_name..'input_14', iptCal2, sizeof(iptCal2) - 1, imgui.InputTextFlags.ReadOnly)
-
-		imgui.SetCursorPosY(imgui.GetCursorPosY() + 6)
-		imgui.Separator()
-		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
-
-		imgui.MeNotepad('mathem')
 	imgui.EndChild()
 end
 function imgui.Mathematics() -- раздел мер. эфир. Математика
 	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(65)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -1593,7 +1353,7 @@ function imgui.Mathematics() -- раздел мер. эфир. Математи�
 			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
 			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
 			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
 		})
 	imgui.EndChild()
 
@@ -1640,19 +1400,16 @@ end
 function imgui.ChemicElements() -- раздел мер. эфир. Химические элементы
 	imgui.BeginChild(id_name..'child_window_17', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(65)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -1695,7 +1452,7 @@ function imgui.ChemicElements() -- раздел мер. эфир. Химичес
 			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
 			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
 			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
 		})
 	imgui.EndChild()
 
@@ -1730,19 +1487,16 @@ end
 function imgui.Greetings() -- раздел мер. эфир. Приветы
 	imgui.BeginChild(id_name..'child_window_19', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(80)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID передает')
-		imgui.Tooltip('ID человека, который передает привет')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -1758,24 +1512,21 @@ function imgui.Greetings() -- раздел мер. эфир. Приветы
 		end
 
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(80)
 		local iptToId = new.char[256]('')
 		imgui.StrCopy(iptToId, iptTmp.iptToId or '')
 		if imgui.InputText(id_name..'input_10', iptToId, sizeof(iptToId) - 1, 16) then
 			iptTmp.iptToId = str(iptToId)
-			tmp.evNick2 = nil
-			if tonumber(str(iptToId)) and sampIsPlayerConnected(str(iptToId)) then
-				tmp.evNick2 = sampGetPlayerNickname(str(iptToId)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick2 = str(iptToId)
 		end
 		imgui.SameLine()
-		imgui.Text('ID получает')
-		imgui.Tooltip('ID человека, который получает привет')
+		imgui.Text('Кому передают')
+		imgui.Tooltip('Ник человека, который получает привет')
 
 		imgui.RenderButtonEf(esterscfg.events.greet, {
 			{'time', iptTmp.iptTime or '15', '30', 'У вас не указанно сколько {fead00}времени{C0C0C0} будет этот эфир!', 'Время длительности эфира'},
-			{'toID', tmp.evNick2, 'Sharky Flint', 'У вас не указанно {fead00}ID кому{C0C0C0} передают привет!', 'Имя КОМУ передают привет'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID кто{C0C0C0} передает привет!', 'Имя КТО передает привет'}
+			{'toplayer', tmp.evNick2, 'Sharky Flint', 'У вас не указанно {fead00}ID кому{C0C0C0} передают привет!', 'Имя КОМУ передают привет'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID кто{C0C0C0} передает привет!', 'Имя КТО передает привет'}
 		}, {
 			{'Передать привет', true, function (txt, tCon)
 				for i, lTags in ipairs(tCon) do
@@ -1804,19 +1555,16 @@ end
 function imgui.ToHide() -- раздел мер. эфир. Прятки
 	imgui.BeginChild(id_name..'child_window_19', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(65)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -1859,7 +1607,7 @@ function imgui.ToHide() -- раздел мер. эфир. Прятки
 			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указана {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
 			{'time', iptTmp.iptTime or '50', '40', 'У вас не указанно сколько {fead00}времени{C0C0C0} будет этот эфир!', 'Длительность эфира'},
 			{'phrase', iptTmp.iptPhrase, 'Вкусная клубника', 'У вас не указана {fead00}фраза{C0C0C0} которую нужно сказать!', 'Фраза которую нужно озвучить'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
 		})
 	imgui.EndChild()
 
@@ -1872,19 +1620,16 @@ end
 function imgui.Capitals() -- раздел мер. эфир. Столицы
 	imgui.BeginChild(id_name..'child_window_27', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(65)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -1927,7 +1672,7 @@ function imgui.Capitals() -- раздел мер. эфир. Столицы
 			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
 			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
 			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
 		})
 	imgui.EndChild()
 
@@ -1968,19 +1713,16 @@ end
 function imgui.Interpreter() -- раздел мер. эфир. Переводчик
 	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(65)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -2028,7 +1770,7 @@ function imgui.Interpreter() -- раздел мер. эфир. Переводч�
 			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
 			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
 			{'language', languageList[ComboLanguage[0]+1]:match('(.+)....'), 'Английск', 'У вас не указан {fead00}Язык{C0C0C0} данного эфира!', 'Язык на котором будут слова\nОбратите внимание, что нет окончания!'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
 		})
 	imgui.EndChild()
 
@@ -2109,19 +1851,16 @@ end
 function imgui.Mirror() -- раздел мер. эфир. Зеркало
 	imgui.BeginChild(id_name..'child_window_27', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
-		imgui.PushItemWidth(30)
+		imgui.PushItemWidth(65)
 		local iptID = new.char[256]('')
 		imgui.StrCopy(iptID, iptTmp.iptID or '')
 		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
 			iptTmp.iptID = str(iptID)
-			tmp.evNick = nil
-			if tonumber(str(iptID)) and sampIsPlayerConnected(str(iptID)) then
-				tmp.evNick = sampGetPlayerNickname(str(iptID)):gsub('_', ' '):gsub('^%[%d%d?%]', '')
-			end
+			tmp.evNick = str(iptID)
 		end
 		imgui.SameLine()
-		imgui.Text('ID игрока')
-		imgui.Tooltip('ID для взаимодействия с человеком')
+		imgui.Text('Игрок')
+		imgui.Tooltip('Ник для взаимодействия с человеком')
 
 		imgui.SameLine()
 
@@ -2164,7 +1903,7 @@ function imgui.Mirror() -- раздел мер. эфир. Зеркало
 			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
 			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
 			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'ID', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
 		})
 	imgui.EndChild()
 
@@ -2210,6 +1949,70 @@ function imgui.Mirror() -- раздел мер. эфир. Зеркало
 		imgui.MeNotepad('mirror')
 	imgui.EndChild()
 end
+
+function testloc ()
+	--local arzweath_data = '123'
+	local arzweath_data = '123'
+	--adcfg[#adcfg + 1] = {['ad'] = str(arzweath), ['text'] = str(litweath)}
+	--sampGetCurrentDialogEditboxText(adcfg)
+	--saveFile('advertisement.cfg', adcfg)
+	sampAddChatMessage("Данные о погоде (археологическая зона): " .. arzweath_data, -1)
+   -- sampAddChatMessage("Данные о погоде (литейная зона): " .. litweath_data, -1)
+end
+
+function imgui.Weather() -- раздел мер. эфир. Погода
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(40)
+		local arzweath = new.char[256]('')
+		imgui.StrCopy(arzweath, iptTmp.arzweath or '')
+		if imgui.InputText(id_name..'input_9', arzweath, sizeof(arzweath) - 1, 16) then
+			iptTmp.arzweath = str(arzweath)
+		end
+		imgui.SameLine()
+		imgui.Text('Градусы Арзамас')
+		imgui.Tooltip('Градусы Арзамас')
+
+		--testloc()
+		--imgui.SameLine()
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(40)
+		local litweath = new.char[256]('')
+		imgui.StrCopy(litweath, iptTmp.litweath or '')
+		if imgui.InputText(id_name..'input_11', litweath, sizeof(litweath) - 1, 16) then
+			iptTmp.litweath = str(litweath)
+			tmp.evNick = str(litweath)
+		end
+		imgui.SameLine()
+		imgui.Text('Градусы Лыткарино')
+		imgui.Tooltip('Градусы Лыткарино')
+		
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(40)
+		local alpweath = new.char[256]('')
+		imgui.StrCopy(alpweath, iptTmp.alpweath or '')
+		if imgui.InputText(id_name..'input_12', alpweath, sizeof(alpweath) - 1, 16) then
+			iptTmp.alpweath = str(alpweath)
+			tmp.evNick = str(alpweath)
+		end
+		imgui.SameLine()
+		imgui.Text('Градусы Альпийск')
+		imgui.Tooltip('Градусы Альпийск')
+
+		imgui.RenderButtonEf(esterscfg.events.weather, {
+			{'arzweath', iptTmp.arzweath or '+1', '+1', 'У вас не указанна погода Г.{fead00}Арзамас{C0C0C0}', 'Погода Арзамас'},
+			{'litweath', iptTmp.litweath or '-5', '+3', 'У вас не указанна погода Г.{fead00}Лыткарино{C0C0C0}', 'Погода Лыткарино'},
+			{'alpweath', iptTmp.alpweath, '+20', 'У вас не указанна погода Г.{fead00}Альпийск{C0C0C0}', 'Погода Альпийск'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('weather')
+	imgui.EndChild()
+end
 function imgui.ScrSettings() -- Настройки
 	if imgui.Checkbox('Изменить размер окна'..id_name..'checkbox_1', cheBoxSize) then
 		setup.cheBoxSize = cheBoxSize[0]
@@ -2249,41 +2052,31 @@ function imgui.FmInterviews()
 		{'Назад', function ()
 			tmp.fmRef = nil
 		end},
-		{'Законка', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но Вы незаконопослушный гражданин. Приходите когда исправитесь.'))
-			wait(1000)
-			sampSendChat(u8:decode('/b Чтобы работать в гос. структуре, нужно иметь минимум 35+ законки'))
-		end},
 		{'Варн', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но Вы находитесь в ЧС штата, поэтому не можете у нас работать.'))
+			sampSendChat(u8:decode('Извините, но Вы находитесь в ЧС Округа, поэтому не можете у нас работать.'))
 			wait(1000)
 			sampSendChat(u8:decode('/b У Вас есть WARN на аккаунте.'))
 		end},
 		{'НРП ник', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но у Вас в паспорте опечатка. Исправьте и приходите.'))
+			sampSendChat(u8:decode('Извините, но у Вас в паспорте опечатка. Исправьте и приходите.'))
 			wait(1000)
-			sampSendChat(u8:decode('/b У Вас нонРП ник. Его можно исправить в /mm - 1 - 12'))
-		end},
-		{'Другая ОРГ', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но Вы работаете в другой организации.'))
-			wait(1000)
-			sampSendChat(u8:decode('Чтобы устроиться к нам, увольтесь и приходите вновь.'))
+			sampSendChat(u8:decode('/b У Вас нонРП ник.'))
 		end},
 		{'Нет 3 ур', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините но чтобы работать в гос. организации нужно иметь 3-х летнюю прописку в штате.'))
+			sampSendChat(u8:decode('Извините но чтобы работать в гос. организации нужно иметь 3-х летнюю прописку в округе.'))
 			wait(1000)
 			sampSendChat(u8:decode('/b Вам нужно 3+ уровень персонажа.'))
 		end},
 		{'В ЧС', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но Вы находитесь в черном списке нашей организации.'))
+			sampSendChat(u8:decode('Извините, но Вы находитесь в черном списке нашей организации.'))
 		end},
 		{'Нарко', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но Вы нам не подходите. Вы наркозависимы.'))
+			sampSendChat(u8:decode('Извините, но Вы нам не подходите. Вы наркозависимы.'))
 		end},
 		{'Мед.карта', function ()
-			sampSendChat(u8:decode(tmp.targetPlayer.nick:gsub('_', ' ')..', извините, но для того чтобы устроить к нам нужно обновить мед. карту.'))
+			sampSendChat(u8:decode('Извините,но для того чтобы устроить к нам нужно обновить мед. карту.'))
 			wait(1000)
-			sampSendChat(u8:decode('Обновить её можно в любой больницы штата.'))
+			sampSendChat(u8:decode('Обновить её можно в любой больнице округа.'))
 		end}
 	}
 	local buttons = {
@@ -2297,98 +2090,8 @@ function imgui.FmInterviews()
 			sampSendChat(u8:decode(string.format('/b /showpass %s | /showlic %s | /showmc %s', myId, myId, myId)))
 		end},
 		{'Проверка документов', function ()
-			if sampIsDialogActive() then 
-				if tmp.lastDialog.title == '{BFBBBA}Мед. карта' then
-					sampSendChat(u8:decode('/me взял у человека напротив мед. карту, затем внимательно изучил её'))
-					wait(1000)
-					if tmp.lastDialog.text:match('{FFFFFF}Имя: '..tmp.targetPlayer.nick) then
-						local narko = tonumber(tmp.lastDialog.text:match('{CEAD2A}Наркозависимость: ([%d%.]+){FFFFFF}'))
-						if narko <= 3 then -- 3 Заменить на переменную настройки
-							sampSendChat(u8:decode('/do Мед. карту человека впорядке.'))
-							wait(1000)
-							sampSendChat(u8:decode('/me вернул мед. карту человеку напротив'))
-						else
-							for f=1, #refusals do
-								if refusals[f][1] == 'Нарко' then refusals[f][2]() break end
-							end
-						end
-					else
-						sampAddChatMessage(u8:decode(tag..'Мед. книжка другова человека!'), -1)
-					end		
-				elseif tmp.lastDialog.title == '{BFBBBA}Паспорт' then
-					sampSendChat(u8:decode('/me взял у человека напротив паспорт, затем внимательно изучил его'))
-					wait(1000)
-					if tmp.lastDialog.text:match('{FFFFFF}{FFFFFF}Имя: {FFD700}'..tmp.targetPlayer.nick) then
-						if tmp.targetPlayer.score >= 3 then
-							if tmp.lastDialog.text:match('{FF6200}Лечился в Психиатрической больнице: %d+ .- %(Необходимо обновить мед%. карту%)') then
-								for f=1, #refusals do
-									if refusals[f][1] == 'Мед.карта' then refusals[f][2]() break end
-								end
-							else
-								if tonumber(tmp.lastDialog.text:match('{FFFFFF}Законопослушность: {FFD700}(%d+)/100')) < 35 then
-									for f=1, #refusals do
-										if refusals[f][1] == 'Законка' then refusals[f][2]() break end
-									end
-								else
-									sampSendChat(u8:decode('/do В паспорте нет опечаток.'))
-									wait(1000)
-									sampSendChat(u8:decode('/me вернул человеку напротив паспорт'))
-								end
-							end
-						else
-							for f=1, #refusals do
-								if refusals[f][1] == 'Нет 3 ур' then refusals[f][2]() break end
-							end
-						end
-					else
-						sampAddChatMessage(u8:decode(tag..'Паспорт принадлежит другому человеку!'), -1)
-					end
-				elseif tmp.lastDialog.title == '{BFBBBA}Лицензии' then
-					sampSendChat(u8:decode('/me взял у человека напротив лицензии, затем внимательно изучил их'))
-					wait(1000)
-					if tmp.lastDialog.text:match('{FFFFFF}Лицензия на авто: 		{FF6347}Нет {cccccc}%(.-%)') then
-						sampSendChat(u8:decode('/do Необходимой лицензии у человека нет.'))
-						wait(1000)
-						sampSendChat(u8:decode('Вам необходимо получить лицензию на вождение транспортом. Это можно сделать в Центре Лицензирования г. Сан-Фиерро.'))
-					else
-						sampSendChat(u8:decode('/do Необходимая лицензия имеется.'))
-						wait(1000)
-						sampSendChat(u8:decode('/me вернул человеку напротив лицензии'))
-					end
-				elseif tmp.lastDialog.title == '{BFBBBA}{73B461}Активные предложения' and tmp.lastDialog.style == 5 then
-					local numLine = -1
-					for line in tmp.lastDialog.text:gmatch('[^\n]+') do
-						if line:match('{ffffff} Предлагает посмотреть .-%.%.\t'..tmp.targetPlayer.nick) then
-							tmp.fmActi = true; sampSendDialogResponse(tmp.lastDialog.id, 1, numLine, nil); break
-						end
-						numLine = numLine + 1
-					end
-					if not tmp.fmActi then
-						sampAddChatMessage(u8:decode(tag..'Данный человек не предлогал свои документы!'), -1)
-					end
-				end
-			else
-				tmp.fmActi, tmp.fmActiT = true, os.clock()
-				sampSendChat(u8:decode('/offer'))
-				while tmp.fmActi and (os.clock() - tmp.fmActiT < 3) do
-					if tmp.lastDialog and tmp.lastDialog.title == '{BFBBBA}{73B461}Активные предложения' and tmp.lastDialog.style == 5 then
-						local numLine = -1
-						for line in tmp.lastDialog.text:gmatch('[^\n]+') do
-							if line:match('{ffffff} Предлагает посмотреть .-%.%.\t'..tmp.targetPlayer.nick) then
-								tmp.fmActi = true; sampSendDialogResponse(tmp.lastDialog.id, 1, numLine, nil); break
-							end
-							numLine = numLine + 1
-						end
-						if not tmp.fmActi then
-							sampSendDialogResponse(tmp.lastDialog.id, 0, nil, nil)
-							sampAddChatMessage(u8:decode(tag..'Данный человек не предлогал свои документы!'), -1)
-						end
-						break
-					end
-					wait(100)
-				end
-			end
-		end, 'Автоматическая проверка документов'},
+			sampSendChat(u8:decode('/me взял переданный документ, изучил его, затем вернул обратно человеку напротив'))
+		end, 'Отыгровка проверки документов.'},
 		{'Вопрос №1', function ()
 			sampSendChat(u8:decode('Хорошо... Что находится у меня над головой?'))
 		end, 'В чат: Хорошо... Что находится у меня над головой?'},
@@ -2396,14 +2099,89 @@ function imgui.FmInterviews()
 			sampSendChat(u8:decode('Прекрасно, расскажите что-нибудь о себе?'))
 		end, 'В чат: Прекрасно, расскажите что-нибудь о себе?'},
 		{'Вопрос №3', function ()
-			sampSendChat(u8:decode('Почему вы выбрали именно наш радиоцентр?'))
-		end, 'В чат: Почему вы выбрали именно наш радиоцентр?'},
+			sampSendChat(u8:decode('Почему вы выбрали именно нас?'))
+		end, 'В чат: Почему вы выбрали именно нас?'},
 		{'Вы подходите', function ()
-			sampSendChat(u8:decode('Поздравляю! Вы нам подходите! Раздевалка находится на 2 этаже.'))
+			sampSendChat(u8:decode('Поздравляю! Вы нам подходите!'))
 			wait(1000)
 			sampSendChat(u8:decode('/invite '..tmp.targetPlayer.id))
-		end, 'В чат: Поздравляю! Вы нам подходите!\nРаздевалка находится на 2 этаже.'},
+		end, 'В чат: Поздравляю! Вы нам подходите!.'},
 		{'Отказ', function ()
+			tmp.fmRef = true
+		end}
+	}
+	local menu = not tmp.fmRef and buttons or refusals 
+	for i=1, #menu do
+		if imgui.Button(menu[i][1]..id_name..'button_FM_'..i, imgui.ImVec2(270, 27)) then
+			if tmp.rolePlay then return end tmp.rolePlay = true
+			lua_thread.create(function ()
+				if tmp.fmRef then tmp.fmRef= nil end
+				menu[i][2]()
+				tmp.rolePlay = false
+			end)
+		end
+		if menu[i][3] then imgui.Tooltip(menu[i][3]) end
+	end
+end
+
+-- Разделы в проверке ПРО
+function imgui.proverkapro()
+	local refusals = {
+		{'Назад', function ()
+			tmp.fmRef = nil
+		end},
+		{'Не сдал', function ()
+			sampSendChat(u8:decode('Увы, но вы не сдали экзамен!'))
+		end},
+		{'Сдал', function ()
+			sampSendChat(u8:decode('Вы сдали экзамен!'))
+		end}
+	}
+	local buttons = {
+		{'Приветствие', function ()
+			sampSendChat(u8:decode('Сейчас я проведу вам экзамен по ПРО, вы готовы?'))
+		end},
+		{'Вопрос №1', function ()
+			sampSendChat(u8:decode('Можно ли редактировать обьявления о аренде авто?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Нет'), 0x1E90FF)
+		end},
+		{'Вопрос №2', function ()
+			sampSendChat(u8:decode('Как вы отредактируете обьявление: Куплю дом 1кк'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Куплю дом в любой точке области. Бюджет: 1 млн рублей'), 0x1E90FF)
+		end},
+		{'Вопрос №3', function ()
+			sampSendChat(u8:decode('Как вы отредактируете обьявление: Продам бизнес'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Отказ П.Р.О'), 0x1E90FF)
+		end},
+		{'Вопрос №4', function ()
+			sampSendChat(u8:decode('Как вы отредактируете обьявление: Обменяю дом на машину'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Отказ П.Р.О'), 0x1E90FF)
+		end},
+		{'Вопрос №5', function ()
+			sampSendChat(u8:decode('Разрешено ли публиковать обьявления не по правилам редактирования обьвлений?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Запрещено'), 0x1E90FF)
+		end},
+		{'Вопрос №6', function ()
+			sampSendChat(u8:decode('Как вы отредактируете обьявление: Куплю проститутку'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Отказ П.Р.О'), 0x1E90FF)
+		end},
+		{'Вопрос №7', function ()
+			sampSendChat(u8:decode('Как вы отредактируете обьявление: Куплю дом в гетто'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Куплю дом в Г.Люберцы. Бюджет: Свободный'), 0x1E90FF)
+		end},
+		{'Вопрос №8', function ()
+			sampSendChat(u8:decode('Разрешено ли отклонять обьявления изза личной неприязни к человеку?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Запрещено'), 0x1E90FF)
+		end},
+		{'Вопрос №9', function ()
+			sampSendChat(u8:decode('Можно изменять текст обьявления в своих целях?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Нет'), 0x1E90FF)
+		end},
+		{'Вопрос №10', function ()
+			sampSendChat(u8:decode('Как вы отредактируете обьявление: Куплю машину'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Куплю а/м любой марки. Бюджет: Свободный'), 0x1E90FF)
+		end},
+		{'Сдал/Нет', function ()
 			tmp.fmRef = true
 		end}
 	}
@@ -2419,6 +2197,506 @@ function imgui.FmInterviews()
 		end
 		if menu[i][3] then imgui.Tooltip(menu[i][3]) end
 	end
+end
+
+function imgui.proverkappe()
+	local refusals = {
+		{'Назад', function ()
+			tmp.fmRef = nil
+		end},
+		{'Не сдал', function ()
+			sampSendChat(u8:decode('Увы, но вы не сдали экзамен!'))
+		end},
+		{'Сдал', function ()
+			sampSendChat(u8:decode('Вы сдали экзамен!'))
+		end}
+	}
+	local buttons = {
+		{'Приветствие', function ()
+			sampSendChat(u8:decode('Сейчас я проведу вам экзамен по ППЭ, вы готовы?'))
+		end},
+		{'Вопрос №1', function ()
+			sampSendChat(u8:decode('Можно ли проводить эфиры с сбором денег?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Нет'), 0x1E90FF)
+		end},
+		{'Вопрос №2', function ()
+			sampSendChat(u8:decode('Назовите музыкальную заставку'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}…::: Музыкальная заставка Радиостанции "Дождь" :::…'), 0x1E90FF)
+		end},
+		{'Вопрос №3', function ()
+			sampSendChat(u8:decode('Можно ли матерится в эфире?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Запрещено'), 0x1E90FF)
+		end},
+		{'Вопрос №4', function ()
+			sampSendChat(u8:decode('За сколько времени до проведения эфира, вы должны предупредить в рацию?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}минимум 10, максимум 30'), 0x1E90FF)
+		end},
+		{'Вопрос №5', function ()
+			sampSendChat(u8:decode('Минимальное количество неотредактированных обьявлений перед началом эфира?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}5'), 0x1E90FF)
+		end},
+		{'Вопрос №6', function ()
+			sampSendChat(u8:decode('Что вы должны сделать после музыкальной заставки?'))
+			sampAddChatMessage(tag .. u8:decode('{FFFFFF}Ответ: {FFA500}Представится и рассказать тему эфира.'), 0x1E90FF)
+		end},
+		{'Сдал/Нет', function ()
+			tmp.fmRef = true
+		end}
+	}
+	local menu = not tmp.fmRef and buttons or refusals
+	for i=1, #menu do
+		if imgui.Button(menu[i][1]..id_name..'button_FM_'..i, imgui.ImVec2(270, 27)) then
+			if tmp.rolePlay then return end tmp.rolePlay = true
+			lua_thread.create(function ()
+				if tmp.fmRef then tmp.fmRef= nil end
+				menu[i][2]()
+				tmp.rolePlay = false
+			end)
+		end
+		if menu[i][3] then imgui.Tooltip(menu[i][3]) end
+	end
+end
+
+
+
+function imgui.Adverts() -- Подраздел эфир. Реклама
+	imgui.BeginChild(id_name..'child_window_8', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
+		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
+			imgui.SetCursorPosX(1)
+			imgui.CustomMenu({
+				'Описание',
+				' Пра-во',
+				' РЦ',
+				' Армия',
+				' ФСБ',
+				' ГУВД',
+				' ГИБДД',
+				' МЗ-А',
+				' МЗ-Э',
+				' МРЭО',
+				' ФСИН',
+				' Другое',
+				' Гос.В',
+			}, advertspages, imgui.ImVec2(88, 32), 0.08, true, 0, {
+				'',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+				'Реклама организации',
+			})
+		imgui.EndChild()
+		imgui.SameLine()
+		imgui.SetCursorPosX(100)
+		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
+			if advertspages[0] == 1 then imgui.EventDescription()
+				elseif advertspages[0] == 2 then imgui.Government()
+				elseif advertspages[0] == 3 then imgui.RadioCenter()
+				elseif advertspages[0] == 4 then imgui.Army()
+				elseif advertspages[0] == 5 then imgui.fsb()
+				elseif advertspages[0] == 6 then imgui.guvd()
+				elseif advertspages[0] == 7 then imgui.gibdd()
+				elseif advertspages[0] == 8 then imgui.mza()
+				elseif advertspages[0] == 9 then imgui.mze()
+				elseif advertspages[0] == 10 then imgui.mreo()
+				elseif advertspages[0] == 11 then imgui.fsin()
+				elseif advertspages[0] == 12 then imgui.drugoe()
+				elseif advertspages[0] == 13 then imgui.gov()
+			end
+		imgui.EndChild()
+	imgui.EndChild()
+
+end
+
+function imgui.Government() -- раздел мер. эфир. Пра-во
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.government, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('government')
+	imgui.EndChild()
+end
+
+function imgui.RadioCenter() -- раздел мер. эфир. РЦ
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.radiocenter, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('radiocenter')
+	imgui.EndChild()
+end
+
+function imgui.gov() -- раздел мер. эфир. GOV
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.gov, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('gov')
+	imgui.EndChild()
+end
+
+
+function imgui.Army() -- раздел мер. эфир. Армия
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.army, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('army')
+	imgui.EndChild()
+end
+
+function imgui.fsb() -- раздел мер. эфир. ФСБ
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.fsb, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('fsb')
+	imgui.EndChild()
+end
+
+function imgui.guvd() -- раздел мер. эфир. ГУВД
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.guvd, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('guvd')
+	imgui.EndChild()
+end
+
+
+function imgui.gibdd() -- раздел мер. эфир. ГИБДД
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.gibdd, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('gibdd')
+	imgui.EndChild()
+end
+
+function imgui.mza() -- раздел мер. эфир. МЗ-А
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.mza, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('mza')
+	imgui.EndChild()
+end
+
+function imgui.mze() -- раздел мер. эфир. МЗ-Э
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.fsb, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('mze')
+	imgui.EndChild()
+end
+
+function imgui.mreo() -- раздел мер. эфир. МРЭО
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.mreo, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('mreo')
+	imgui.EndChild()
+end
+
+function imgui.fsin() -- раздел мер. эфир. ФСИН
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.fsin, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('fsin')
+	imgui.EndChild()
+end
+
+function imgui.drugoe() -- раздел мер. эфир. Другое
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.drugoe, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('drugoe')
+	imgui.EndChild()
+end
+
+function imgui.LocalSobes() -- Подраздел Собседование
+	imgui.SetCursorPosX(18)
+	imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 132)
+	if imgui.HeaderButton(buttonPagesEf[1], '  Назначение ') then
+		buttonPagesEf = {true, false, false, false}
+	end
+	imgui.SameLine()
+	if imgui.HeaderButton(buttonPagesEf[4], ' Настройки ') then
+		buttonPagesEf = {false, false, false, true}
+	end
+	imgui.SetCursorPosY(32)
+
+	if buttonPagesEf[1] then imgui.Events()
+	elseif buttonPagesEf[2] then imgui.EventsSetting() end
+end
+function imgui.EventsSetting() -- раздел эфир. Настройки
+	imgui.BeginChild(id_name..'child_window_13', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
+		for i, tag in ipairs({{'name','Имя и фамилия'},{'duty','Должность (с маленькой буквы)'},{'number','Номер Телефона'},{'tagCNN','Тег в "/d" (без "[]")'},{'city','Город в котом СМИ'},{'server','Имя штата (сервер)'},{'music','Музыкальная заставка в эфире'}}) do
+			imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 160)
+			imgui.PushItemWidth(180)
+			imgui.StrCopy(inputEvSet, esterscfg.settings[tag[1]])
+			imgui.InputText(id_name..'input_Es1_'..i, inputEvSet, sizeof(inputEvSet) - 1)
+			if not imgui.IsItemActive() and esterscfg.settings[tag[1]] ~= str(inputEvSet) then
+				esterscfg.settings[tag[1]] = str(inputEvSet)
+				saveFile('estersBind.cfg', esterscfg)
+			end
+			if imgui.CalcTextSize(inputEvSet).x > 176 then
+				imgui.Tooltip(str(inputEvSet))
+			end
+			imgui.SameLine()
+			imgui.Text(tag[2])
+		end
+		imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 160)
+		imgui.SliderInt(' Задержка для отправки сообщений'..id_name..'slider_1', msgDelay, 1, 12, '%d sec')
+		if not imgui.IsItemActive() and esterscfg.settings.delay ~= msgDelay[0] then
+			if msgDelay[0] < 1 or msgDelay[0] > 12 then
+				msgDelay[0] = esterscfg.settings.delay
+				return
+			end
+			esterscfg.settings.delay = msgDelay[0]
+			saveFile('estersBind.cfg', esterscfg)
+		end
+	imgui.EndChild()
+end
+function imgui.Events() -- Подраздел эфир. Назначение
+	imgui.BeginChild(id_name..'child_window_8', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
+		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
+			imgui.SetCursorPosX(1)
+			imgui.CustomMenu({
+				'Описание',
+				' Собес'
+			}, eventPages, imgui.ImVec2(88, 32), 0.08, true, 0, {
+				'',
+				'Назначить собеседование на указанное время.'
+			})
+		imgui.EndChild()
+		imgui.SameLine()
+		imgui.SetCursorPosX(100)
+		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
+			if eventPages[0] == 1 then imgui.EventDescription()
+				elseif eventPages[0] == 2 then imgui.Mathematics()
+			end
+		imgui.EndChild()
+	imgui.EndChild()
+
+end
+
+
+function imgui.Interwiev() -- Подраздел эфир. Интервью
+	imgui.BeginChild(id_name..'child_window_8', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
+		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
+			imgui.SetCursorPosX(1)
+			imgui.CustomMenu({
+				'Описание',
+				' с 1 игроком',
+			}, interwpages, imgui.ImVec2(88, 32), 0.08, true, 0, {
+				'',
+				'Провести интервью с 1 игроком',
+			})
+		imgui.EndChild()
+		imgui.SameLine()
+		imgui.SetCursorPosX(100)
+		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
+			if interwpages[0] == 1 then imgui.EventDescription()
+				elseif interwpages[0] == 2 then imgui.interw1()
+			end
+		imgui.EndChild()
+	imgui.EndChild()
+
+end
+
+function imgui.interw1() -- раздел мер. эфир. Математика
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(30)
+		local iptID = new.char[256]('')
+		imgui.StrCopy(iptID, iptTmp.iptID or '')
+		if imgui.InputText(id_name..'input_9', iptID, sizeof(iptID) - 1, 16) then
+			iptTmp.iptID = str(iptID)
+			tmp.evNick = str(iptID)
+		end
+		imgui.SameLine()
+		imgui.Text('ID Игрока')
+		imgui.Tooltip('ID для взаимодействия с человеком')
+
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(100)
+		local iptScrnick = new.char[256]('')
+		imgui.StrCopy(iptScrnick, iptTmp.iptScrnick or '')
+		if imgui.InputText(id_name..'input_10', iptScrnick, sizeof(iptScrnick) - 1, 16) then
+			iptTmp.iptScrnick = str(iptScrnick)
+		end
+		imgui.SameLine()
+		imgui.Text('Ник игрока')
+		imgui.Tooltip('Введите ник игрока')
+
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(100)
+		local iptScrdolz = new.char[256]('')
+		imgui.StrCopy(iptScrdolz, iptTmp.iptScrdolz or '')
+		if imgui.InputText(id_name..'input_11', iptScrdolz, sizeof(iptScrdolz) - 1, 16) then
+			iptTmp.iptScrdolz = str(iptScrdolz)
+		end
+		imgui.SameLine()
+		imgui.Text('Должность')
+		imgui.Tooltip('Введите должность игрока')
+
+		imgui.RenderButtonEf(esterscfg.events.interw1, {
+			{'dolzh', iptTmp.iptScrdolz, 'Директор ФСБ', 'У вас не указана {fead00}Должность{C0C0C0} человека!', 'Должность человека'},
+			{'playernick', iptTmp.iptScrnick, 'Vitaliy_KIselev', 'У вас не указан {fead00}Ник{C0C0C0} человека!', 'Ник человека'},
+			{'ID', tmp.evNick, '123', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('interw1')
+	imgui.EndChild()
 end
 
 -- +++++++++++++++++++++++ Рабочие функции ++++++++++++++++++++++++++++ --
@@ -2900,52 +3178,53 @@ function Style()
     local clr = imgui.Col
     local ImVec4 = imgui.ImVec4
   
-    style.WindowRounding = 5
-    style.FrameRounding = 3
-    style.ScrollbarRounding = 3
-    style.GrabRounding = 1
+    style.WindowRounding = 15.0
+    style.FrameRounding = 6.0
+    style.ScrollbarRounding = 15.0
+    style.GrabRounding = 7.0
 
     style.WindowTitleAlign = imgui.ImVec2(0.5, 0.5)
     style.WindowBorderSize = 1
 	style.FrameBorderSize = 1
-    style.ScrollbarSize = 17
+    style.ScrollbarSize = 15.0
 
-    colors[clr.Text] = ImVec4(0.86, 0.93, 0.89, 0.78)
-    colors[clr.TextDisabled] = ImVec4(0.36, 0.42, 0.47, 1)
-    colors[clr.WindowBg] =  ImVec4(0.11, 0.15, 0.17, 1)
-    colors[clr.PopupBg] = ImVec4(0.08, 0.08, 0.08, 0.94)
-    colors[clr.FrameBg] = ImVec4(0.20, 0.25, 0.29, 1)
-    colors[clr.FrameBgHovered] = ImVec4(0.12, 0.20, 0.28, 1)
-    colors[clr.FrameBgActive] = ImVec4(0.09, 0.12, 0.14, 1)
+	colors[clr.Text] = ImVec4(0.86, 0.93, 0.89, 0.78)
+    colors[clr.TextDisabled] = ImVec4(0.36, 0.42, 0.47, 1.00)
+	colors[clr.WindowBg] = ImVec4(0.11, 0.15, 0.17, 1.00)
+	colors[clr.PopupBg] = ImVec4(0.08, 0.08, 0.08, 0.94)
+    colors[clr.FrameBg] = ImVec4(0.20, 0.25, 0.29, 1.00)
+    colors[clr.FrameBgHovered] = ImVec4(0.12, 0.20, 0.28, 1.00)
+    colors[clr.FrameBgActive] = ImVec4(0.09, 0.12, 0.14, 1.00)
 	colors[clr.Tab] = ImVec4(0.26, 0.98, 0.85, 0.30)
 	colors[clr.TabHovered] = ImVec4(0.26, 0.98, 0.85, 0.50)
 	colors[clr.TabActive] = ImVec4(0.26, 0.98, 0.85, 0.50)
-    colors[clr.TitleBg] = ImVec4(0.11, 0.15, 0.17, 1)
+    colors[clr.TitleBg] = ImVec4(0.09, 0.12, 0.14, 0.65)
     colors[clr.TitleBgCollapsed] = ImVec4(0.00, 0.00, 0.00, 0.51)
-    colors[clr.TitleBgActive] = ImVec4(0.11, 0.15, 0.17, 1)
-    colors[clr.MenuBarBg] = ImVec4(0.15, 0.18, 0.22, 1)
+    colors[clr.TitleBgActive] = ImVec4(0.08, 0.10, 0.12, 1.00)
+    colors[clr.MenuBarBg] = ImVec4(0.15, 0.18, 0.22, 1.00)
     colors[clr.ScrollbarBg] = ImVec4(0.02, 0.02, 0.02, 0.39)
-    colors[clr.ScrollbarGrab] = ImVec4(0.26, 0.98, 0.85, 0.30)
-    colors[clr.ScrollbarGrabHovered] = ImVec4(0.18, 0.22, 0.25, 1)
-    colors[clr.ScrollbarGrabActive] = ImVec4(0.26, 0.98, 0.85, 0.50)
-    colors[clr.CheckMark] = ImVec4(0.26, 0.98, 0.85, 1)
-    colors[clr.SliderGrab] = ImVec4(0.23, 0.98, 0.84, 0.3)
-    colors[clr.SliderGrabActive] = ImVec4(0.23, 0.98, 0.84, 0.7)
-    colors[clr.Button] = ImVec4(0.26, 0.98, 0.85, 0.30)
-    colors[clr.ButtonHovered] = ImVec4(0.26, 0.98, 0.85, 0.50)
-    colors[clr.ButtonActive] = ImVec4(0.06, 0.98, 0.82, 0.50)
-    colors[clr.Header] = ImVec4(0.26, 0.98, 0.85, 0.31)
-    colors[clr.HeaderHovered] = ImVec4(0.26, 0.98, 0.85, 0.30)
-    colors[clr.HeaderActive] = ImVec4(0.26, 0.98, 0.85, 0.60)
+    colors[clr.ScrollbarGrab] = ImVec4(0.20, 0.25, 0.29, 1.00)
+    colors[clr.ScrollbarGrabHovered] = ImVec4(0.18, 0.22, 0.25, 1.00)
+    colors[clr.ScrollbarGrabActive] = ImVec4(0.09, 0.21, 0.31, 1.00)
+    colors[clr.CheckMark] = ImVec4(0.28, 0.56, 1.00, 1.00)
+    colors[clr.SliderGrab] = ImVec4(0.28, 0.56, 1.00, 1.00)
+    colors[clr.SliderGrabActive] = ImVec4(0.37, 0.61, 1.00, 1.00)
+    colors[clr.Button] = ImVec4(0.20, 0.25, 0.29, 1.00)
+    colors[clr.ButtonHovered] = ImVec4(0.28, 0.56, 1.00, 1.00)
+    colors[clr.ButtonActive] = ImVec4(0.06, 0.53, 0.98, 1.00)
+    colors[clr.Header] = ImVec4(0.20, 0.25, 0.29, 0.55)
+    colors[clr.HeaderHovered] = ImVec4(0.26, 0.59, 0.98, 0.80)
+    colors[clr.HeaderActive] = ImVec4(0.26, 0.59, 0.98, 1.00)
     colors[clr.ResizeGrip] = ImVec4(0.26, 0.59, 0.98, 0.25)
     colors[clr.ResizeGripHovered] = ImVec4(0.26, 0.59, 0.98, 0.67)
-    colors[clr.ResizeGripActive] = ImVec4(0.06, 0.05, 0.07, 1)
-    colors[clr.PlotLines] = ImVec4(0.61, 0.61, 0.61, 1)
-    colors[clr.PlotLinesHovered] = ImVec4(1, 0.43, 0.35, 1)
-    colors[clr.PlotHistogram] =  ImVec4(0.90, 0.70, 0.00, 1)
-    colors[clr.PlotHistogramHovered] = ImVec4(1, 0.60, 0.00, 1)
-    colors[clr.TextSelectedBg] = ImVec4(0.25, 1, 0.00, 0.43)
-	colors[clr.Border] = ImVec4(0.30, 0.35, 0.39, 1)
+    colors[clr.ResizeGripActive] = ImVec4(0.06, 0.05, 0.07, 1.00)
+    colors[clr.PlotLines] = ImVec4(0.61, 0.61, 0.61, 1.00)
+    colors[clr.PlotLinesHovered] = ImVec4(1.00, 0.43, 0.35, 1.00)
+    colors[clr.PlotHistogram] = ImVec4(0.90, 0.70, 0.00, 1.00)
+    colors[clr.PlotHistogramHovered] = ImVec4(1.00, 0.60, 0.00, 1.00)
+    colors[clr.TextSelectedBg] = ImVec4(0.25, 1.00, 0.00, 0.43)
+	colors[clr.Border] = ImVec4(0.43, 0.43, 0.50, 0.50)
+
 end
 
 
@@ -2956,8 +3235,25 @@ function loadVar()
 		['tr'] = false,
 		['inf'] = '',
 		{
-			{['version'] = '0.2 alpha', {
-				' - Испправлен баг, быстрые клавиши не сохранялись после редактирования'
+			{['version'] = '26.03.2024 | 0.5 beta', {
+				' - Скрипт перешёл в BETA',
+				' - Изменён дизайн скрипта.',
+				' - Исправлено большинство багов, и недочётов.'
+				}
+			},
+			{['version'] = '25.03.2024 | 0.4 alpha', {
+				' - Добавлена гос.волна',
+				' - В быстром меню исправлено собеседование.',
+				' - В быстром меню добавлена проверка ПРО и ППЭ.'
+				}
+			},
+			{['version'] = '24.03.2024 | 0.3 alpha', {
+				' - Добавлен эфир "Погода"',
+				' - Добавлена вкладка "Реклама"'
+				}
+			},
+			{['version'] = '23.03.2024 | 0.2 alpha', {
+				' - Добавлены новые кнопки в меню редакции обьявлений'
 				}
 			}
 		}
@@ -2988,6 +3284,7 @@ function loadVar()
 			{'Куплю дом в Г.Лыткарино + П', 'Куплю дом в Г.Лыткарино с подвалом. Бюджет: '},
 			{'Куплю дом в Г.Эдово + П', 'Куплю дом в Г.Эдово с подвалом. Бюджет: '},
 			{'Куплю дом в Л.Точке.Обл.', 'Куплю дом в любой точке области. Бюджет:* '},
+			{'Куплю дом в Л.Точке.Обл. + П', 'Куплю дом в любой точке области с подвалом. Бюджет:* '},
 			{'Куплю дом №', 'Куплю дом №*. Бюджет: '}
 		},
 		{'Продажа домов',
@@ -3015,6 +3312,7 @@ function loadVar()
 			{'Куплю квартиру в Г.Лыткарино + П', 'Куплю квартиру в Г.Лыткарино с подвалом. Бюджет: '},
 			{'Куплю квартиру в Г.Эдово + П', 'Куплю квартиру в Г.Эдово с подвалом. Бюджет: '},
 			{'Куплю квартиру в Л.Точке.Обл.', 'Куплю квартиру в любой точке области. Бюджет:* '},
+			{'Куплю квартиру в Л.Точке.Обл. + П', 'Куплю квартиру в любой точке области с подвалом. Бюджет:* '},
 			{'Куплю квартиру №', 'Куплю квартиру №*. Бюджет: '}
 		},{'Продажа Квартир',
 			{'Продам квартиру в Г.Арзамас', 'Продам квартиру в Г.Арзамас. Цена: '},
@@ -3161,13 +3459,13 @@ function loadVar()
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Первым был',
-					'/news Первым был {ID}! И у него уже {scoreID} правильных ответов!'
+					'/news Первым был {player}! И у него уже {scoreID} правильных ответов!'
 				}, {'Назвать победителя',
 					'/news И у нас есть победитель!',
 					'/news И это...',
-					'/news {ID}! Так как именно Вы набрали {scores} правильных ответов!',
-					'/news {ID}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
-					'/news {ID}, я прошу Вас приехать к нам...',
+					'/news {player}! Так как именно Вы набрали {scores} правильных ответов!',
+					'/news {player}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
+					'/news {player}, я прошу Вас приехать к нам...',
 					'/news В Новостное Агенство Г.Арзамас за получением своей награды.'
 				}, {'Закончить эфир',
 					'/news Ну что ж, дорогие слушатели!',
@@ -3209,13 +3507,13 @@ function loadVar()
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Первым был',
-					'/news Первым был {ID}! И у него уже {scoreID} правильных ответов!'
+					'/news Первым был {player}! И у него уже {scoreID} правильных ответов!'
 				}, {'Назвать победителя',
 					'/news И у нас есть победитель!',
 					'/news И это...',
-					'/news {ID}! Так как именно Вы набрали {scores} правильных ответов!',
-					'/news {ID}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
-					'/news {ID}, я прошу Вас приехать к нам...',
+					'/news {player}! Так как именно Вы набрали {scores} правильных ответов!',
+					'/news {player}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
+					'/news {player}, я прошу Вас приехать к нам...',
 					'/news В Новостное Агенство Г.Арзамас за получением своей награды.'
 				}, {'Закончить эфир',
 					'/news Ну что ж, дорогие слушатели!',
@@ -3248,7 +3546,7 @@ function loadVar()
 					'/news ...передать приветы всем желающим.',
 					'/news И так, давайте начнем. Жду ваши сообщения!'
 				}, {'Передать привет',
-					'/news {ID} передаёт привет {toID}!'
+					'/news {player} передаёт привет {toplayer}!'
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Закончить эфир',
@@ -3289,7 +3587,7 @@ function loadVar()
 					'/news Игра объявляется начатой!',
 				}, {'Назвать победителя',
 					'/news Стоп игра, господа, у нас есть победитель «Пряток»!',
-					'/news Первым был {ID}! Поздравляю вас, ваш выйграшь {prize}.'
+					'/news Первым был {player}! Поздравляю вас, ваш выйграшь {prize}.'
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Закончить эфир',
@@ -3332,14 +3630,14 @@ function loadVar()
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Первым был',
-					'/news Первым был {ID}! И у него уже {scoreID} правильных ответов!'
+					'/news Первым был {player}! И у него уже {scoreID} правильных ответов!'
 				}, {'Назвать победителя',
 					'/news И у нас есть победитель!',
-					'/news И это {ID}',
-					'/news {ID}! Так как именно Вы набрали {scores} правильных ответов!',
+					'/news И это {player}',
+					'/news {player}! Так как именно Вы набрали {scores} правильных ответов!',
 					'/news Вы набрали нужное кол-во баллов.',
-					'/news {ID}, я вас поздравляю! Ваш выигрыш {prize}$!',
-					'/news {ID}, я прошу Вас приехать к нам...',
+					'/news {player}, я вас поздравляю! Ваш выигрыш {prize}$!',
+					'/news {player}, я прошу Вас приехать к нам...',
 					'/news В Новостное Агенство Г.Арзамас за получением своей награды.'
 				}, {'Закончить эфир',
 					'/news Ну что ж, дорогие слушатели!',
@@ -3380,13 +3678,13 @@ function loadVar()
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Первым был',
-					'/news Первым был {ID}! И у него уже {scoreID} правильных ответов!'
+					'/news Первым был {player}! И у него уже {scoreID} правильных ответов!'
 				}, {'Назвать победителя',
 					'/news И у нас есть победитель!',
 					'/news И это...',
-					'/news {ID}! Так как именно Вы набрали {scores} правильных ответов!',
-					'/news {ID}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
-					'/news {ID}, я прошу Вас приехать к нам...',
+					'/news {player}! Так как именно Вы набрали {scores} правильных ответов!',
+					'/news {player}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
+					'/news {player}, я прошу Вас приехать к нам...',
 					'/news В Новостное Агенство Г.Арзамас за получением своей награды.'
 				}, {'Закончить эфир',
 					'/news Ну что ж, дорогие слушатели!',
@@ -3425,13 +3723,13 @@ function loadVar()
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
 				}, {'Первым был',
-					'/news Первым был {ID}! И у него уже {scoreID} правильных ответов!'
+					'/news Первым был {player}! И у него уже {scoreID} правильных ответов!'
 				}, {'Назвать победителя',
 					'/news И у нас есть победитель!',
 					'/news И это...',
-					'/news {ID}! Так как именно Вы набрали {scores} правильных ответов!',
-					'/news {ID}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
-					'/news {ID}, я прошу Вас приехать к нам...',
+					'/news {player}! Так как именно Вы набрали {scores} правильных ответов!',
+					'/news {player}, я вас поздравляю! Ваш выиграшь {prize} рублей!',
+					'/news {player}, я прошу Вас приехать к нам...',
 					'/news В Новостное Агенство Г.Арзамас за получением своей награды.'
 				}, {'Закончить эфир',
 					'/news Ну что ж, дорогие слушатели!',
@@ -3444,7 +3742,295 @@ function loadVar()
 					'/news {music}',
 					'/r [{duty}]: Освобождаю волну эфира!'
 				}, ['name'] = 'interpreter', ['tag'] = '[Переводчики]: '
-			}
+			},
+			['weather'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Сейчас пройдет прямой эфир на тему "Погода".',
+					'/news В городе Арзамас сейчас {arzweath} Градуса',
+					'/news В городе Лыткарино сейчас {litweath} Градуса',
+					'/news В городе Альпийск сейчас {alpweath} Градуса',
+					'/news Ну а на этом наш прогноз погоды подходит к концу.',
+					'/news С вами был я {duty} {name}',
+					'/news До встречи в эфире!!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!',
+				}, ['name'] = 'weather', ['tag'] = '[Математика]: '
+			},
+			['government'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в правительстве открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в правительстве!',
+					'/news Ждём вас в правительстве!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'government', ['tag'] = '[1]: '
+			},
+			['gov'] = {
+				{'Начать эфир',
+					'/d [РЦ]-[Всем]: Занимаю гос.волну!',
+					'/gov [РЦ] Уважаемые жители приморского округа!',
+					'/gov [РЦ] На оффициальном портале округа, проходит собеседование в новостное агенство!',
+					'/gov [РЦ] Сразу на 3 должность, Спасибо за внимание!',
+					'/d [РЦ]-[Всем]: Освобождаю гос.волну!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'gov', ['tag'] = '[1]: '
+			},
+			['radiocenter'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в новостном агенстве открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в Новостном Агенстве!',
+					'/news Ждём вас в Новостном Агенстве!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'radiocenter', ['tag'] = '[1]: '
+			},
+			['army'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в Армии открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в Армии!',
+					'/news Ждём вас в Армии!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'army', ['tag'] = '[1]: '
+			},
+			['fsb'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в ФСБ открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в ФСБ!',
+					'/news Ждём вас в ФСБ!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'fsb', ['tag'] = '[1]: '
+			},
+			['guvd'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в ГУВД открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в ГУВД!',
+					'/news Ждём вас в ГУВД!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'guvd', ['tag'] = '[1]: '
+			},
+			['gibdd'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в ГИБДД открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в ГИБДД!',
+					'/news Ждём вас в ГИБДД!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'gibdd', ['tag'] = '[1]: '
+			},
+			['mza'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в Городской Больнице открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в Городской Больнице!',
+					'/news Ждём вас в Городской Больнице!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'mza', ['tag'] = '[1]: '
+			},
+			['mze'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в Окружной Больнице открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в Окружной Больнице!',
+					'/news Ждём вас в Окружной Больнице!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'mze', ['tag'] = '[1]: '
+			},
+			['mreo'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в МРЭО открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в МРЭО!',
+					'/news Ждём вас в МРЭО!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'mreo', ['tag'] = '[1]: '
+			},
+			['fsin'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'/news Приветствую вас, дорогие радиослушатели!',
+					'/news У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'/news {name}!',
+					'/news Хотели сообщить вам!',
+					'/news Что в ФСИН открыты двери для всех!',
+					'/news Трудоустроиться туда можно по заявлению на офф.портале',
+					'/news Или по собеседованию...',
+					'/news Хороший коллектив, высокие зарплаты, и большие премии!',
+					'/news Всё это вы можете найти только в ФСИН!',
+					'/news Ждём вас в ФСИН!',
+					'/news Ну а с вами был я, {duty} {name}!',
+					'/news До встречи в эфире!',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'fsin', ['tag'] = '[1]: '
+			},
+			['drugoe'] = {
+				{'Начать эфир',
+					'/r [{duty}]: Занимаю волну эфира!',
+					'/news {music}',
+					'ЗАМЕНИТЕ',
+					'/news {music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, {'Тех. неполадки!',
+					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, ['name'] = 'drugoe', ['tag'] = '[1]: '
+			},
+			['interw1'] = {
+				{'Начать интервью',
+					'/r [{duty}]: Занимаю волну интервью!',
+					'/live {ID}',
+					'{music}',
+					'Приветствую вас, дорогие радиослушатели!',
+					'У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'{name}!',
+					'Сейчас пройдет интрервью с {dolzh} {playernick}!',
+					'Поздоровайтесь'
+				},
+				{'Следующий Вопрос',
+					'Следующий вопрос...'
+				}, {'Тех. неполадки!',
+					'Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, {'Хотите передать приветы?',
+					'Желаете ли вы передать приветы?'
+				}, {'Закончить интервью',
+					'Ну что ж, дорогие слушатели!',
+					'Пришло время попрощаться с вами.',
+					'Сегодня с нами был {playernick}!',
+					'Думаю интервью получилось довольно интересным и информативным!',
+					'С вами был я {name}, {duty} Новостного Агенства Г.Арзамас.',
+					'До встречи в эфире!!!',
+					'{music}',
+					'/endlive {ID}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, ['name'] = 'interw1', ['tag'] = '[1]: '
+			},
 		}
 	}
 	langArr = {
