@@ -1,9 +1,9 @@
 {
     "version": "0.6",
-    "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.luac",
+    "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.lua",
     "telemetry": "https://vk.com/val1kdobriy",
     "description": {
-        "heading": "Новые доработки скрипта.",
-        "line": " - Скрипт перешёл в BETA"
+        "heading": "Небольшие дороботки и справления",
+        "line": " - Новое Обновление Скрипта!"
     }
 }
