@@ -1,5 +1,5 @@
 script_name('Rodina News Helper')
-script_version('0.5')
+script_version('0.6')
 script_description('')
 script_author('V.Kiselev')
 
@@ -8,6 +8,7 @@ local bit = require 'bit'
 local ev =  require 'samp.events'
 local vk = require 'vkeys'
 local imgui = require 'mimgui'
+local requests = require('requests')
 local ffi = require 'ffi'
 local new, str, sizeof = imgui.new, ffi.string, ffi.sizeof
 local encoding = require 'encoding'
@@ -34,12 +35,35 @@ local id_name = '##Rodina News Helper'
 local tag = '{FFA500}[News Helper]: '
 local tmp = {['downKey'] = {}}
 
+local main_color = 0xFF0000
+local main_color_text = "{FFFF00}"
+
 local ul_rus = {[string.char(168)] = string.char(184)}
 local un_rus = {[string.char(184)] = string.char(168)}
 for i = 192, 223 do local A, a = string.char(i), string.char(i + 32); ul_rus[A] = a; un_rus[a] = A end
 
 local tAd = {false, '', false} -- Темп для сохранения объявок | мб переделать
 local winSet = {0, {}} -- Тип окна для сохранения
+
+function getserial()
+    local ffi = require("ffi")
+    ffi.cdef[[
+    int __stdcall GetVolumeInformationA(
+    const char* lpRootPathName,
+    char* lpVolumeNameBuffer,
+    uint32_t nVolumeNameSize,
+    uint32_t* lpVolumeSerialNumber,
+    uint32_t* lpMaximumComponentLength,
+    uint32_t* lpFileSystemFlags,
+    char* lpFileSystemNameBuffer,
+    uint32_t nFileSystemNameSize
+    );
+    ]]
+    local serial = ffi.new("unsigned long[1]", 0)
+    ffi.C.GetVolumeInformationA(nil, nil, 0, serial, nil, nil, nil, 0)
+    return serial[0]
+end
+
 
 function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
@@ -48,9 +72,27 @@ function main()
 	while not isSampAvailable() do wait(100) end
 	if not doesDirectoryExist('moonloader\\config\\News Helper') then createDirectory('moonloader\\config\\News Helper') end
 	
+	-- -- Проверка имени игрока
+	-- _, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
+	-- nick = sampGetPlayerNickname(id)
+
+	-- nick = 'Vitaliy_Kiselev'
+
+	-- -- sampAddChatMessage("{FFFF00}" .. id .."  " .. nick)
+    -- local accessGranted = nick == "Vitaliy_Kiselev" or nick == "Ilya_Kiselev"
+    -- if accessGranted then
+    --     sampAddChatMessage(tag .. u8:decode("Доступ открыт"), 0x00FF00) -- Вывод сообщения о разрешении доступа
+    -- else
+    --     sampAddChatMessage(tag .. u8:decode("Доступ закрыт"), 0xFF0000) -- Вывод сообщения о запрете доступа
+    --     --os.exit() -- Крашнуть скрипт
+    -- end
+
+	checkKey()
+
 	--------------------------------------------------
 	adcfg = loadFile('advertisement.cfg', {})
 	helbincfg = loadFile('helpBind.cfg', newsHelpBind)
+	helbincfg1 = loadFile('helpBind1.cfg', newsHelpBind1)
 	autbincfg = loadFile('autoBind.cfg', newsAutoBind)
 	keybincfg = loadFile('keyBind.cfg', newsKeyBind)
 	setup = updateFile('settings.cfg', settingsSCR)
@@ -65,6 +107,7 @@ function main()
 	sampRegisterChatCommand('newshelp', openMenu)
 	sampRegisterChatCommand('testloc', testloc)
 	sampRegisterChatCommand('nh', openMenu)
+
 	RegisterCallback('menu', setup.keys.menu, openMenu)
 	RegisterCallback('helpMenu', setup.keys.helpMenu, function () rHelp[0] = not rHelp[0] end)
 	RegisterCallback('catchAd', setup.keys.catchAd)
@@ -81,7 +124,11 @@ function main()
 		end
 	end)
 
+
+
+
 	--sampAddChatMessage(tag .. u8:decode('/nh, /newshelp'), -1)
+	wait(20)
 	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Скрипт успешно загружен. Автор: {FFA500}Vitaliy_Kiselev.'), 0x1E90FF)
 	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Скрипт был создан для игроков сервера:  {FFA500}Rodina Role Play 06.'), 0x1E90FF)
 	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Открыть главное меню скрипта - {FFA500}/nh'), 0x1E90FF)
@@ -138,6 +185,28 @@ function main()
 				end
 			end
 		end
+	end
+end
+
+function checkKey()
+	response = requests.get('http://wh15840.web2.maze-host.ru/auth.php?code='..getserial())
+	if not response.text:match("<body>(.*)</body>"):find("-1") then -- Если ключ есть в бд
+		if not response.text:match("<body>(.*)</body>"):find("The duration of the key has expired.") then -- Если сервер не ответил что ключ истек.
+			sampAddChatMessage(tag .. u8:decode("Лицензия активирована.")) --  Выводим кол-во дней до конца лицензии
+			return true
+		else
+			sampAddChatMessage(response.text:match("Срок действия лицензии истёк."), -1)
+		end
+	else
+		sampAddChatMessage(tag .. u8:decode("Ключ не активирован."), -1)
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}------------------------------------------------"), -1)
+		sampAddChatMessage(tag .. u8:decode("{CC0000}Для актвации обратитесь к администратору скрипта"), -1)
+		sampAddChatMessage(tag .. u8:decode("{CC6600}Вконтакте: vk.com/val1kdobriy"), -1)
+		sampAddChatMessage(tag .. u8:decode("{CC6600}Telegram: @val1kdobriy"), -1)
+		sampAddChatMessage(tag .. u8:decode("{CC0000}Без активации скрипт не продолжит работу"), -1)
+		sampAddChatMessage(tag .. u8:decode("{CC0000}Ваш серийный номер: {FFFFFF}") ..getserial())
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}------------------------------------------------"), -1)
+		thisScript():unload()
 	end
 end
 
@@ -212,6 +281,7 @@ imgui.OnFrame(function() return rMain[0] end,
 					'Главная',
 					--'Редакция',
 					'Собеседования',
+					'Лекции',
 					'Эфиры',
 					'Настройки'
 				}, mainPages, imgui.ImVec2(107, 32), 0.08, true, 9, {
@@ -228,8 +298,9 @@ imgui.OnFrame(function() return rMain[0] end,
 				if mainPages[0] == 1 then imgui.WindowMain()
 				--elseif mainPages[0] == 2 then imgui.LocalSettings()
 				elseif mainPages[0] == 2 then imgui.LocalSobes()
-				elseif mainPages[0] == 3 then imgui.LocalEsters()
-				elseif mainPages[0] == 4 then imgui.ScrSettings() end
+				elseif mainPages[0] == 3 then imgui.LocalLect()
+				elseif mainPages[0] == 4 then imgui.LocalEsters()
+				elseif mainPages[0] == 5 then imgui.ScrSettings() end
 				
 			imgui.EndChild()
 
@@ -271,6 +342,7 @@ imgui.OnFrame(function() return rHelp[0] end,
 	end
 )
 
+
 imgui.OnFrame(function() return rSW[0] end,
 	function(player)
 		if winSet[1] == 1 then
@@ -306,8 +378,8 @@ imgui.OnFrame(function() return rFastM[0] end,
 				imgui.SetCursorPosY(10)
 				if fastPages[0] == 1 then imgui.FmInterviews()
 				elseif fastPages[0] == 2 then imgui.proverkapro() 
-				elseif fastPages[0] == 3 then imgui.proverkappe() end
-				--elseif fastPages[0] == 4 then end
+				elseif fastPages[0] == 3 then imgui.proverkappe()
+				elseif fastPages[0] == 4 then imgui.panellidera() end
 				imgui.NewLine()
 			imgui.EndChild()
 			imgui.SameLine(0, 0)
@@ -315,7 +387,7 @@ imgui.OnFrame(function() return rFastM[0] end,
 			imgui.BeginChild(id_name .. 'child_window_7', imgui.ImVec2(imgui.GetWindowWidth() - ((imgui.GetWindowWidth() - wPaddX*2) / 1.7) - 2 - wPaddX, imgui.GetWindowHeight() - 2 - wPaddY*2), true)
 				imgui.TextCenter(tmp.rolePlay and '{CC0000}Ждём работает бинд' or ' ')
 				imgui.TextCenter('ID: '..tmp.targetPlayer.id)
-				imgui.TextCenter('Никнейм: Недоступно') -- ..tmp.targetPlayer.nick
+				imgui.TextCenter('Никнейм:'..tmp.targetPlayer.nick) -- ..tmp.targetPlayer.nick
 				imgui.TextCenter('Игровой Уровень: '..tmp.targetPlayer.score)
 				imgui.NewLine()
 				
@@ -323,7 +395,7 @@ imgui.OnFrame(function() return rFastM[0] end,
 
 				imgui.NewLine()
 				imgui.SetCursorPosX(46)
-				imgui.CustomMenu({'Собеседование', 'Проверка ПРО',  'Проверка ППЭ'}, fastPages, imgui.ImVec2(120, 35), 0.08, true, 15)
+				imgui.CustomMenu({'Собеседование', 'Проверка ПРО',  'Проверка ППЭ','Управление'}, fastPages, imgui.ImVec2(120, 35), 0.08, true, 15)
 			imgui.EndChild()
 		imgui.End()
 		imgui.SetMouseCursor(-1)
@@ -1466,7 +1538,7 @@ function imgui.ChemicElements() -- раздел мер. эфир. Химичес
 		}
 		imgui.BeginChild(id_name..'child_window_24', imgui.ImVec2(imgui.GetWindowWidth(), imgui.GetWindowHeight() / 2 - 10), false)
 			for i, element in ipairs(chemicElem) do
-				local txtChat = '/news '..esterscfg.events.chemic.tag..element:sub(1, element:find(' ')-1)..' = ?'
+				local txtChat = '/news '..element:sub(1, element:find(' ')-1)..' = ?'
 				if imgui.Selectable(id_name..'selec_table_HIM_'..i, nil) then
 					sampSetChatInputEnabled(true)
 					sampSetChatInputText(u8:decode(txtChat))
@@ -1691,7 +1763,7 @@ function imgui.Capitals() -- раздел мер. эфир. Столицы
 		}
 		imgui.BeginChild(id_name..'child_window_24', imgui.ImVec2(imgui.GetWindowWidth(), imgui.GetWindowHeight() / 2 - 10), false)
 			for i, capital in ipairs(capitalsCities) do
-				local txtChat = '/news '..esterscfg.events.capitals.tag..capital:sub(1, capital:find(' ')-1)..' = ?'
+				local txtChat = '/news '..capital:sub(1, capital:find(' ')-1)..' = ?'
 				if imgui.Selectable(id_name..'selec_table_HIM_'..i, nil) then
 					sampSetChatInputEnabled(true)
 					sampSetChatInputText(u8:decode(txtChat))
@@ -1826,7 +1898,7 @@ function imgui.Interpreter() -- раздел мер. эфир. Переводч�
 				imgui.BeginChild(id_name..'child_window_24', imgui.ImVec2(imgui.GetWindowWidth(), imgui.GetWindowHeight() / 2 - 10), false)
 					for i, word in ipairs(langArr.ru) do
 						local foreignW = langArr[langArr.tags[ComboLanguage[0]+2]][i]
-						local txtChat = '/news '..esterscfg.events.interpreter.tag..foreignW..' = ?'
+						local txtChat = '/news '..foreignW..' = ?'
 						if imgui.Selectable(id_name..'selec_table_W_'..i, nil) then
 							sampSetChatInputEnabled(true)
 							sampSetChatInputText(u8:decode(txtChat))
@@ -1934,7 +2006,7 @@ function imgui.Mirror() -- раздел мер. эфир. Зеркало
 		end
 		imgui.Tooltip('Очистить')
 
-		local txtChat = '/news '..esterscfg.events.mirror.tag..(tmp.iptMir2 and tmp.iptMir2..' = ?' or 'Тевирп = ?')
+		local txtChat = '/news '..(tmp.iptMir2 and tmp.iptMir2..' = ?' or 'Тевирп = ?')
 		imgui.SetCursorPos(imgui.ImVec2(8, imgui.GetCursorPosY() + 3))
 		if imgui.Button(tmp.iptMir2 or 'Тевирп'..id_name..'button_16', imgui.ImVec2(imgui.GetWindowWidth() - 20, 20)) then
 			sampSetChatInputEnabled(true)
@@ -2108,6 +2180,50 @@ function imgui.FmInterviews()
 		end, 'В чат: Поздравляю! Вы нам подходите!.'},
 		{'Отказ', function ()
 			tmp.fmRef = true
+		end}
+	}
+	local menu = not tmp.fmRef and buttons or refusals 
+	for i=1, #menu do
+		if imgui.Button(menu[i][1]..id_name..'button_FM_'..i, imgui.ImVec2(270, 27)) then
+			if tmp.rolePlay then return end tmp.rolePlay = true
+			lua_thread.create(function ()
+				if tmp.fmRef then tmp.fmRef= nil end
+				menu[i][2]()
+				tmp.rolePlay = false
+			end)
+		end
+		if menu[i][3] then imgui.Tooltip(menu[i][3]) end
+	end
+end
+
+function imgui.panellidera()
+	local buttons = {
+		{'Выговор', function ()
+			sampSendChat(u8:decode('/me достал планшет КПК'))
+			wait(3000)
+			sampSendChat(u8:decode('/me добавил выговор в личное дело сотрудника'))
+			wait(3000)
+			sampSendChat(u8:decode('/do Выговор добавлен.'))
+			wait(3000)
+			sampSendChat(u8:decode('/fwarn ' ..tmp.targetPlayer.id.. ' Н.У'))
+		end},
+		{'Снять Выговор', function ()
+			sampSendChat(u8:decode('/me достал планшет КПК'))
+			wait(3000)
+			sampSendChat(u8:decode('/me вынес выговор из личного дела сотрудника'))
+			wait(3000)
+			sampSendChat(u8:decode('/do Выговор вынесен.'))
+			wait(3000)
+			sampSendChat(u8:decode('/unfwarn ' ..tmp.targetPlayer.id))
+		end},
+		{'Уволить', function ()
+			sampSendChat(u8:decode('/me достал планшет КПК'))
+			wait(3000)
+			sampSendChat(u8:decode('/me вынес сотрудника из базы данных'))
+			wait(3000)
+			sampSendChat(u8:decode('/do Сотрудник вынесен.'))
+			wait(3000)
+			sampSendChat(u8:decode('/uninvite ' ..tmp.targetPlayer.id.. ' Н.У'))
 		end}
 	}
 	local menu = not tmp.fmRef and buttons or refusals 
@@ -2358,12 +2474,18 @@ end
 function imgui.gov() -- раздел мер. эфир. GOV
 	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(40)
+		local time = new.char[256]('')
+		imgui.StrCopy(time, iptTmp.time or '')
+		if imgui.InputText(id_name..'input_9', time, sizeof(time) - 1, 16) then
+			iptTmp.time = str(time)
+		end
+		imgui.SameLine()
+		imgui.Text('Время')
+		imgui.Tooltip('Время забития гос.волны')
 
 		imgui.RenderButtonEf(esterscfg.events.gov, {
-			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
-			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
-			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
-			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+			{'time', iptTmp.time or '', '', 'У вас не указано {fead00}Время забития{C0C0C0} Гос.Волны', 'Время Забития гос.волны'}
 		})
 	imgui.EndChild()
 
@@ -2569,8 +2691,19 @@ function imgui.LocalSobes() -- Подраздел Собседование
 	end
 	imgui.SetCursorPosY(32)
 
-	if buttonPagesEf[1] then imgui.Events()
+	if buttonPagesEf[1] then imgui.Events1()
 	elseif buttonPagesEf[2] then imgui.EventsSetting() end
+end
+
+function imgui.LocalLect() -- Подраздел Собседование
+	imgui.SetCursorPosX(18)
+	imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 132)
+	if imgui.HeaderButton(buttonPagesEf[1], '  Лекции ') then
+		buttonPagesEf = {true, false, false, false}
+	end
+	imgui.SetCursorPosY(32)
+
+	if buttonPagesEf[1] then imgui.Lections() end
 end
 function imgui.EventsSetting() -- раздел эфир. Настройки
 	imgui.BeginChild(id_name..'child_window_13', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
@@ -2601,7 +2734,7 @@ function imgui.EventsSetting() -- раздел эфир. Настройки
 		end
 	imgui.EndChild()
 end
-function imgui.Events() -- Подраздел эфир. Назначение
+function imgui.Events1() -- Подраздел эфир. Назначение
 	imgui.BeginChild(id_name..'child_window_8', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
 		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
 			imgui.SetCursorPosX(1)
@@ -2623,6 +2756,142 @@ function imgui.Events() -- Подраздел эфир. Назначение
 	imgui.EndChild()
 
 end
+
+
+function imgui.Lections() -- Подраздел эфир. Назначение
+	imgui.BeginChild(id_name..'child_window_8', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
+		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
+			imgui.SetCursorPosX(1)
+			imgui.CustomMenu({
+				'Описание',
+				'Лекция 1',
+				'Лекция 2',
+				'Лекция 3',
+				'Лекция 4',
+				'Другое',
+
+			}, eventPages, imgui.ImVec2(88, 32), 0.08, true, 0, {
+				'',
+				'Лекция 1 - Правила Рации',
+				'Лекция 2 - Суббординация',
+				'Лекция 3 - Транспортные Средства',
+				'Лекция 4 - Рабочий день',
+				'Лекция 5 - Другое'
+			})
+		imgui.EndChild()
+		imgui.SameLine()
+		imgui.SetCursorPosX(100)
+		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
+			if eventPages[0] == 1 then imgui.EventDescription()
+				elseif eventPages[0] == 2 then imgui.lect1()
+				elseif eventPages[0] == 3 then imgui.lect2()
+				elseif eventPages[0] == 4 then imgui.lect3()
+				elseif eventPages[0] == 5 then imgui.lect4()
+				elseif eventPages[0] == 6 then imgui.lect5()
+			end
+		imgui.EndChild()
+	imgui.EndChild()
+
+end
+
+
+function imgui.lect1() -- раздел лекции. Лекция 1
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.lect1, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.MeNotepad('lect1')
+	imgui.EndChild()
+end
+
+function imgui.lect2() -- раздел лекции. Лекция 2
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.lect2, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.MeNotepad('lect2')
+	imgui.EndChild()
+end
+
+
+function imgui.lect3() -- раздел лекции. Лекция 3
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.lect3, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.MeNotepad('lect3')
+	imgui.EndChild()
+end
+
+
+function imgui.lect4() -- раздел лекции. Лекция 4
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.lect4, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.MeNotepad('lect4')
+	imgui.EndChild()
+end
+
+function imgui.lect5() -- раздел лекции. Лекция 5
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+
+		imgui.RenderButtonEf(esterscfg.events.lect5, {
+			{'prize', iptTmp.iptPrz or '1 млн', '1 млн', 'У вас не указанна {fead00}награда{C0C0C0} за данный эфир!', 'Награда за эфир'},
+			{'scores', iptTmp.iptScr or '5', '3', 'У вас не указанно сколько {fead00}раундов{C0C0C0} будет в эфире!', 'Количество раундов'},
+			{'scoreID', iptTmp.iptScrId, '2', 'У вас не указанно сколько {fead00}баллов{C0C0C0} у человека!', 'Количество баллов у человека'},
+			{'player', tmp.evNick, 'Rudius Greyrat', 'У вас не указан {fead00}ID{C0C0C0} человека!', 'Имя человека'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.MeNotepad('lect5')
+	imgui.EndChild()
+end
+
 
 
 function imgui.Interwiev() -- Подраздел эфир. Интервью
@@ -3092,6 +3361,13 @@ function openMenu()
 		rSW[0] = false
 	end
 end
+
+function uninvitefunction()
+	sampSendChat('/me достал КПК с кармана')
+	wait(5)
+	sampSendChat('/do КПК в руках.')
+end
+
 function resetIO()
     for i = 0, 511 do
         imgui.GetIO().KeysDown[i] = false
@@ -3397,6 +3673,23 @@ function loadVar()
 			{'Продам ларцы', 'Продам ларцы "". Цена: '}
 		}
 	}
+	newsHelpBind1 = {
+		{'Покупка домов',
+			{'Куплю дом в Г.Арзамас', 'Куплю дом в Г.Арзамас. Бюджет: '},
+			{'Куплю дом в Г.Батырево', 'Куплю дом в Г.Батырево. Бюджет: '},
+			{'Куплю дом в Г.Люберцы', 'Куплю дом в Г.Люберцы. Бюджет: '},
+			{'Куплю дом в Г.Лыткарино', 'Куплю дом в Г.Лыткарино. Бюджет: '},
+			{'Куплю дом в Г.Эдово', 'Куплю дом в Г.Эдово. Бюджет: '},
+			{'Куплю дом в Г.Арзамас + П', 'Куплю дом в Г.Арзамас с подвалом. Бюджет: '},
+			{'Куплю дом в Г.Батырево + П', 'Куплю дом в Г.Батырево с подвалом. Бюджет: '},
+			{'Куплю дом в Г.Люберцы + П', 'Куплю дом в Г.Люберцы с подвалом. Бюджет: '},
+			{'Куплю дом в Г.Лыткарино + П', 'Куплю дом в Г.Лыткарино с подвалом. Бюджет: '},
+			{'Куплю дом в Г.Эдово + П', 'Куплю дом в Г.Эдово с подвалом. Бюджет: '},
+			{'Куплю дом в Л.Точке.Обл.', 'Куплю дом в любой точке области. Бюджет:* '},
+			{'Куплю дом в Л.Точке.Обл. + П', 'Куплю дом в любой точке области с подвалом. Бюджет:* '},
+			{'Куплю дом №', 'Куплю дом №*. Бюджет: '}
+		}
+	}
 	nHelpEsterSet = {
 		{'name','duty','tagCNN','city','server','number','music'},
 		{'имя и фамилия', 'должность', 'тег в департамент', 'город', 'имя штата', 'номер телефона', 'Музыкальная заставка'},
@@ -3496,9 +3789,8 @@ function loadVar()
 					'/news Он или она забирает денежный приз.',
 					'/news Приз на сегодня составляет {prize} рублей.',
 					'/news Деньги небольшие, но пригодятся каждому.',
-					'/news Напоминаю, что писать сообщения нужно в радиоцентр...',
-					'/news Доставайте свои телефоны, выбирайте контакт «Написать в СМИ»...',
-					'/news ...выбирайте радиостанцию г. {city} и отправляете ответ.',
+					'/news Напоминаю, что писать сообщения нужно на номер {number}.',
+					'/news Ну что ж, давайте начинать!',
 					'/news Сейчас я посмотрю интересные элементы и мы начнем!'
 				}, {'Следующий элемент',
 					'/news Следующий элемент...'
@@ -3537,11 +3829,10 @@ function loadVar()
 					'/news Просьба отложить все дела и поучаствовать...',
 					'/news Объясняю правила мероприятия...',
 					'/news Слушателям необходимо отправлять сообщения с приветами и...',
-					'/news ...поздравлениями в наше СМИ.',
-					'/news А ведущий будет зачитывать их на весь штат {server}.',
-					'/news Напоминаю, что писать сообщения нужно в радиоцентр...',
-					'/news Доставайте свои телефоны и выбирайте контакт «Написать в СМИ»...',
-					'/news ...выбирайте радиостанцию г. {city} и отправляете ответ.',
+					'/news ...поздравлениями на номер {number}.',
+					'/news А ведущий будет зачитывать их на Округ.',
+					'/news Напоминаю, что писать сообщения нужно на номер {number}.',
+					'/news Ну что ж, давайте начинать!',
 					'/news Мероприятие будет длится около {time} минут, и я постараюсь...',
 					'/news ...передать приветы всем желающим.',
 					'/news И так, давайте начнем. Жду ваши сообщения!'
@@ -3571,7 +3862,7 @@ function loadVar()
 					'/news Сейчас пройдет прямой эфир на тему «Прятки».',
 					'/news Просьба отложить все дела и поучаствовать...',
 					'/news Объясняю правила мероприятия...',
-					'/news Я нахожусь на определенном месте на территории штата {server}...',
+					'/news Я нахожусь на определенном месте на территории округа',
 					'/news ... и описываю свою местоположение.',
 					'/news Ваша задача — найти меня.',
 					'/news Звучит чертовски просто, но это не так...',
@@ -3620,8 +3911,8 @@ function loadVar()
 					'/news Приз на сегодня составляет {prize} рублей.',
 					'/news Деньги небольшие, но пригодятся каждому.',
 					'/news Напоминаю, что писать сообщения нужно в радиоцентр…',
-					'/news Доставайте свои телефоны, открывайте контакты и «Написать в СМИ»...',
-					'/news ... выбирайте радиостанцию г. {city} и отправляете ответ.',
+					'/news Напоминаю, что писать сообщения нужно на номер {number}.',
+					'/news Ну что ж, давайте начинать!',
 					'/news И так... мы начинаем!!!'
 				}, {'Следующий пример',
 					'/news Следующий вопрос...'
@@ -3648,7 +3939,7 @@ function loadVar()
 					'/news Будьте грамотными и берегите своих близких!',
 					'/news До встречи в эфире!!!',
 					'/news {music}',
-					'/d [{tagCNN}]-[СМИ] Освободил развлекательную волну 114.6 FM, до связи!'
+					'/r [{duty}]: Освобождаю волну эфира!'
 				}, ['name'] = 'capitals', ['tag'] = '[Столицы]: '
 			},
 			['mirror'] = {
@@ -3696,7 +3987,7 @@ function loadVar()
 					'/news Будьте грамотными и всего хорошего Вам и вашим близким!',
 					'/news До встречи в эфире!!!',
 					'/news {music}',
-					'/d [{tagCNN}]-[СМИ] Освободил развлекательную волну 114.6 FM, до связи!'
+					'/r [{duty}]: Освобождаю волну!'
 				}, ['name'] = 'mirror', ['tag'] = '[Зеркало]: ',
 				['notepad'] = 'Анишам = Машина\nАгинк = Книга\nЛотс = Стол\nАкчур = Ручка\nЬтаворк = Кровать\nАклобтуф = Футболка\nСуболг = Глобус\nАнитрак = Картина\nЛутс = Стул\nЕинетсар = Растение\nАде = Еда\nАдогоп = Погода\nРетюьпмок = Компьютер\nАклерат = Тарелка\nАнетс = Стена\nТок = Кот\nЬдевдем = Медведь\nАбыр = Рыба\nЕьлесев = Веселье\nНизагам = Магазин\n'
 			},
@@ -3792,6 +4083,15 @@ function loadVar()
 					'/d [РЦ]-[Всем]: Освобождаю гос.волну!'
 				}, {'Тех. неполадки!',
 					'/news Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				},
+				{'Занята ли гос.волна?',
+					'/d [РЦ]-[Всем]: Занята ли гос.волна на {time}?'
+				},
+				{'Занимаю гос.волну',
+					'/d [РЦ]-[Всем]: Занимаю гос.волну на {time}!'
+				},
+				{'Напоминаю',
+					'/d [РЦ]-[Всем]: Напоминаю о занятой гос.волне на {time}!'
 				}, ['name'] = 'gov', ['tag'] = '[1]: '
 			},
 			['radiocenter'] = {
@@ -4030,6 +4330,56 @@ function loadVar()
 					'/endlive {ID}',
 					'/r [{duty}]: Освобождаю волну эфира!'
 				}, ['name'] = 'interw1', ['tag'] = '[1]: '
+			},
+			['lect1'] = {
+				{'Провести лекцию',	
+					'Коллеги, сейчас я проведу вам лекцию на тему "Правила Рации"',
+					'В рацию запрещено торговать домами, автомобилями, бизнесами и т.п.',
+					'Также в рацию нельзя материться и выяснять отношения между собой.',
+					'Вы обязательно должны соблюдать тэги в рацию, и не использовать её в личных целях!',
+					'За данные нарушения Вам будет выдан выговор. При повторном нарушении Вы будете уволены',
+					'На этом лекция завершена, всем спасибо за внимание!'
+				}, ['name'] = 'lect1', ['tag'] = '[1]: '
+			},
+			['lect2'] = {
+				{'Провести лекцию',	
+					'Уважаемые сотрудники, сейчас я проведу вам лекцию на тему "Субординация"',
+					'В общении с сотрудниками радиостанции, старшими Вас по должности сотрудниками и',
+					'Гостями центра, необходимо соблюдать субординацию',
+					'Вежливое обращение с другими — залог эффективной работы.',
+					'В случае возникновения конфликтов, необходимо обратиться к Руководству.',
+					'За нарушение субординации или отказ от выполнения требований старшего состава',
+					'Виновник понесёт наказание.',
+					'На этом лекция завершена, всем спасибо за внимание!'
+				}, ['name'] = 'lect2', ['tag'] = '[1]: '
+			},
+			['lect3'] = {
+				{'Провести лекцию',	
+					'Уважаемые сотрудники. Напоминаю вам, что транспорт Радиостанции',
+					'Запрещено брать для своих личных целей, а также без разрешения старшего руководства.',
+					' Правила, предписывающие доступ к тем или иным транспортным средствам, описаны в уставе центра.',
+					'За нарушения данных правил Вы будете наказаны.',
+					'На этом лекция завершена, всем спасибо за внимание!'
+				}, ['name'] = 'lect3', ['tag'] = '[1]: '
+			},
+			['lect4'] = {
+				{'Провести лекцию',	
+					'Уважаемые сотрудники. Минуточку внимания.',
+					'Напоминаю вам о режиме рабочего дня, действующем в нашем центре.',
+					'Рабочий день начинается в 10 часов утра. Заканчивается в 20 часов в будние дни ',
+					'в выходные дни начинается в 11 часов утра, и закачнивается в 19 часов. ',
+					'В данное время сотрудники обязаны присутствовать на своих рабочих',
+					'Местах и выполнять работу, согласно текущей должности.',
+					'В рабочее время запрещено заниматься личными делами, распивать',
+					'спиртные напитки и находиться за территорией центра. ',
+					'Ожидайте перерыва для решения личных вопросов.',
+					'На этом лекция завершена, всем спасибо за внимание!'
+				}, ['name'] = 'lect4', ['tag'] = '[1]: '
+			},
+			['lect5'] = {
+				{'Провести лекцию',	
+					'ЗАМЕНИТЕ'
+				}, ['name'] = 'lect5', ['tag'] = '[1]: '
 			},
 		}
 	}
