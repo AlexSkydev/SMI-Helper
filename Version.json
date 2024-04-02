@@ -1,9 +1,9 @@
 {
-    "version": "0.5.1",
+    "version": "0.6",
     "updateurl": "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/SMI-Helper.luaс",
     "telemetry": "https://vk.com/val1kdobriy",
     "description": {
-        "heading": "Небольшие дороботки и справления",
-        "line": " - Новое Обновление Скрипта!"
+        "heading": "Пофикшено много недоработок",
+        "line": " - Скрипт готовится к ОБТ!"
     }
 }
