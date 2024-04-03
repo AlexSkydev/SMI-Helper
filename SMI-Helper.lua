@@ -297,8 +297,8 @@ imgui.OnFrame(function() return rMain[0] end,
 			
 				if mainPages[0] == 1 then imgui.WindowMain()
 				--elseif mainPages[0] == 2 then imgui.LocalSettings()
-				elseif mainPages[0] == 2 then imgui.LocalSobes()
-				elseif mainPages[0] == 3 then imgui.LocalLect()
+				elseif mainPages[0] == 2 then imgui.Sobes()
+				elseif mainPages[0] == 3 then imgui.Lections()
 				elseif mainPages[0] == 4 then imgui.LocalEsters()
 				elseif mainPages[0] == 5 then imgui.ScrSettings() end
 				
@@ -941,7 +941,9 @@ end
 
 -- Разделы в основном меню
 function imgui.WindowMain() -- Основное окно
-	--imgui.Image(img_emmet, imgui.ImVec2(175, 175)) imgui.SameLine()
+	-- local img = "https://imgur.com/a/ZsI9Xfw.png"
+	-- imgui.Image(img, imgui.ImVec2(175, 175))
+	-- imgui.SameLine()
 	imgui.BeginChild(id_name..'child_7', imgui.ImVec2(imgui.GetWindowWidth() - 195, 180), false, 0)
 		imgui.TextWrapped('Скрипт помощник для работников Новостного Агенства. Сделан по многочисленным просьбам, для семьи Kiselev. Скрипт нацелен именно на помощь, а не автоматизацию. Функции "Бота" тут отсутствуют, скрипт стремится к легализации.\nНа данный момент скрипт находится в альфа версии - все кнопки, интерфейс, система могут или будут переделаны, сейчас скрипт распространяется для сбора критических ошибок и предложений по улучшению скрипта.')
 	imgui.EndChild()
@@ -976,7 +978,7 @@ function imgui.WindowMain() -- Основное окно
 		imgui.SetCursorPosX(imgui.GetWindowWidth() - 150)
 		--if imgui.Button('Написать разработчику'..id_name..'button_4', imgui.ImVec2(150, 22)) then
 		imgui.Link('https://vk.com/val1kdobriy', 'Написать Разработчику', imgui.ImVec2(150, 22))
-		imgui.Tooltip('*Некоторые провайдеры из Украины*\n *не пропускают данные сообщения*')
+		--imgui.Tooltip('*Некоторые провайдеры из Украины*\n *не пропускают данные сообщения*')
 		if setup.thUpdDesc ~= nil then
 			local siz = 1
 			for f in string.gmatch(setup.thUpdDesc[1].line, '\n') do siz = siz + 1 end
@@ -2392,10 +2394,9 @@ function imgui.Adverts() -- Подраздел эфир. Реклама
 				' МРЭО',
 				' ФСИН',
 				' Другое',
-				' Гос.В',
+
 			}, advertspages, imgui.ImVec2(88, 32), 0.08, true, 0, {
 				'',
-				'Реклама организации',
 				'Реклама организации',
 				'Реклама организации',
 				'Реклама организации',
@@ -2424,7 +2425,7 @@ function imgui.Adverts() -- Подраздел эфир. Реклама
 				elseif advertspages[0] == 10 then imgui.mreo()
 				elseif advertspages[0] == 11 then imgui.fsin()
 				elseif advertspages[0] == 12 then imgui.drugoe()
-				elseif advertspages[0] == 13 then imgui.gov()
+				--elseif advertspages[0] == 13 then imgui.gov()
 			end
 		imgui.EndChild()
 	imgui.EndChild()
@@ -2734,16 +2735,18 @@ function imgui.EventsSetting() -- раздел эфир. Настройки
 		end
 	imgui.EndChild()
 end
-function imgui.Events1() -- Подраздел эфир. Назначение
+function imgui.Sobes() -- Подраздел эфир. Назначение
 	imgui.BeginChild(id_name..'child_window_8', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
 		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
 			imgui.SetCursorPosX(1)
 			imgui.CustomMenu({
 				'Описание',
-				' Собес'
+				' Собес',
+				' Гос.В',
 			}, eventPages, imgui.ImVec2(88, 32), 0.08, true, 0, {
 				'',
-				'Назначить собеседование на указанное время.'
+				'Назначить собеседование на указанное время.',
+				'Назначить и подать гос.волну на указанное время.'
 			})
 		imgui.EndChild()
 		imgui.SameLine()
@@ -2751,6 +2754,7 @@ function imgui.Events1() -- Подраздел эфир. Назначение
 		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
 			if eventPages[0] == 1 then imgui.EventDescription()
 				elseif eventPages[0] == 2 then imgui.Mathematics()
+				elseif eventPages[0] == 3 then imgui.gov()
 			end
 		imgui.EndChild()
 	imgui.EndChild()
