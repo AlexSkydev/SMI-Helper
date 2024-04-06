@@ -1,5 +1,5 @@
 script_name('Rodina News Helper')
-script_version('1.0')
+script_version('1.1')
 script_description('')
 script_author('V.Kiselev')
 
@@ -89,7 +89,7 @@ function main()
 	
 	checkKey()
 
-	
+
 	if autoupdate_loaded and enable_autoupdate and Update then
         pcall(Update.check, Update.json_url, Update.prefix, Update.url)
     end
