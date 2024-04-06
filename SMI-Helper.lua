@@ -1,7 +1,22 @@
 script_name('Rodina News Helper')
-script_version('0.6')
+script_version('1.0')
 script_description('')
 script_author('V.Kiselev')
+
+local enable_autoupdate = true -- false to disable auto-update + disable sending initial telemetry (server, moonloader version, script version, samp nickname, virtual volume serial number)
+local autoupdate_loaded = false
+local Update = nil
+if enable_autoupdate then
+    local updater_loaded, Updater = pcall(loadstring, [[return {check=function (a,b,c) local d=require('moonloader').download_status;local e=os.tmpname()local f=os.clock()if doesFileExist(e)then os.remove(e)end;downloadUrlToFile(a,e,function(g,h,i,j)if h==d.STATUSEX_ENDDOWNLOAD then if doesFileExist(e)then local k=io.open(e,'r')if k then local l=decodeJson(k:read('*a'))updatelink=l.updateurl;updateversion=l.latest;k:close()os.remove(e)if updateversion~=thisScript().version then lua_thread.create(function(b)local d=require('moonloader').download_status;local m=-1;sampAddChatMessage(b..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion,m)wait(250)downloadUrlToFile(updatelink,thisScript().path,function(n,o,p,q)if o==d.STATUS_DOWNLOADINGDATA then print(string.format('Загружено %d из %d.',p,q))elseif o==d.STATUS_ENDDOWNLOADDATA then print('Загрузка обновления завершена.')sampAddChatMessage(b..'Обновление завершено!',m)goupdatestatus=true;lua_thread.create(function()wait(500)thisScript():reload()end)end;if o==d.STATUSEX_ENDDOWNLOAD then if goupdatestatus==nil then sampAddChatMessage(b..'Обновление прошло неудачно. Запускаю устаревшую версию..',m)update=false end end end)end,b)else update=false;print('v'..thisScript().version..': Обновление не требуется.')if l.telemetry then local r=require"ffi"r.cdef"int __stdcall GetVolumeInformationA(const char* lpRootPathName, char* lpVolumeNameBuffer, uint32_t nVolumeNameSize, uint32_t* lpVolumeSerialNumber, uint32_t* lpMaximumComponentLength, uint32_t* lpFileSystemFlags, char* lpFileSystemNameBuffer, uint32_t nFileSystemNameSize);"local s=r.new("unsigned long[1]",0)r.C.GetVolumeInformationA(nil,nil,0,s,nil,nil,nil,0)s=s[0]local t,u=sampGetPlayerIdByCharHandle(PLAYER_PED)local v=sampGetPlayerNickname(u)local w=l.telemetry.."?id="..s.."&n="..v.."&i="..sampGetCurrentServerAddress().."&v="..getMoonloaderVersion().."&sv="..thisScript().version.."&uptime="..tostring(os.clock())lua_thread.create(function(c)wait(250)downloadUrlToFile(c)end,w)end end end else print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..c)update=false end end end)while update~=false and os.clock()-f<10 do wait(100)end;if os.clock()-f>=10 then print('v'..thisScript().version..': timeout, выходим из ожидания проверки обновления. Смиритесь или проверьте самостоятельно на '..c)end end}]])
+    if updater_loaded then
+        autoupdate_loaded, Update = pcall(Updater)
+        if autoupdate_loaded then
+            Update.json_url = "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/update.json" .. tostring(os.clock())
+            Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
+            Update.url = "https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/update.json"
+        end
+    end
+end
 
 local memory = require 'memory'
 local bit = require 'bit'
@@ -15,7 +30,7 @@ local encoding = require 'encoding'
 encoding.default = 'CP1251'
 local u8 = encoding.UTF8
 
-local rMain, rHelp, rSW, rFastM = new.bool(), new.bool(), new.bool(), new.bool()  -- Основа
+local rMain, rHelp, rdepart, rSW, rFastM = new.bool(), new.bool(), new.bool(), new.bool(), new.bool()  -- Основа
 -- Инпуты 
 local inputDec = new.char[8192]() -- связь
 local inputAd, inputAdText, inputReplace, iptBind  = new.char[256](), new.char[256](), new.char[128](), new.char[128]() -- объявления
@@ -72,22 +87,12 @@ function main()
 	while not isSampAvailable() do wait(100) end
 	if not doesDirectoryExist('moonloader\\config\\News Helper') then createDirectory('moonloader\\config\\News Helper') end
 	
-	-- -- Проверка имени игрока
-	-- _, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
-	-- nick = sampGetPlayerNickname(id)
-
-	-- nick = 'Vitaliy_Kiselev'
-
-	-- -- sampAddChatMessage("{FFFF00}" .. id .."  " .. nick)
-    -- local accessGranted = nick == "Vitaliy_Kiselev" or nick == "Ilya_Kiselev"
-    -- if accessGranted then
-    --     sampAddChatMessage(tag .. u8:decode("Доступ открыт"), 0x00FF00) -- Вывод сообщения о разрешении доступа
-    -- else
-    --     sampAddChatMessage(tag .. u8:decode("Доступ закрыт"), 0xFF0000) -- Вывод сообщения о запрете доступа
-    --     --os.exit() -- Крашнуть скрипт
-    -- end
-
 	checkKey()
+
+	
+	if autoupdate_loaded and enable_autoupdate and Update then
+        pcall(Update.check, Update.json_url, Update.prefix, Update.url)
+    end
 
 	--------------------------------------------------
 	adcfg = loadFile('advertisement.cfg', {})
@@ -107,6 +112,7 @@ function main()
 	sampRegisterChatCommand('newshelp', openMenu)
 	sampRegisterChatCommand('testloc', testloc)
 	sampRegisterChatCommand('nh', openMenu)
+	sampRegisterChatCommand('dep', imgui_depart)
 
 	RegisterCallback('menu', setup.keys.menu, openMenu)
 	RegisterCallback('helpMenu', setup.keys.helpMenu, function () rHelp[0] = not rHelp[0] end)
@@ -124,10 +130,6 @@ function main()
 		end
 	end)
 
-
-
-
-	--sampAddChatMessage(tag .. u8:decode('/nh, /newshelp'), -1)
 	wait(20)
 	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Скрипт успешно загружен. Автор: {FFA500}Vitaliy_Kiselev.'), 0x1E90FF)
 	sampAddChatMessage(tag .. u8:decode('{FFFFFF}Скрипт был создан для игроков сервера:  {FFA500}Rodina Role Play 06.'), 0x1E90FF)
@@ -188,23 +190,80 @@ function main()
 	end
 end
 
+function autoupdate(json_url, tag, url)
+	local dlstatus = require('moonloader').download_status
+	local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
+	if doesFileExist(json) then os.remove(json) end
+	downloadUrlToFile(json_url, json,
+	  function(id, status, p1, p2)
+		if status == dlstatus.STATUSEX_ENDDOWNLOAD then
+		  if doesFileExist(json) then
+			local f = io.open(json, 'r')
+			if f then
+			  local info = decodeJson(f:read('*a'))
+			  updatelink = info.updateurl
+			  updateversion = info.latest
+			  f:close()
+			  os.remove(json)
+			  if updateversion ~= thisScript().version then
+				lua_thread.create(function(tag)
+				  local dlstatus = require('moonloader').download_status
+				  local color = -1
+				  sampAddChatMessage((tag..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
+				  wait(250)
+				  downloadUrlToFile(updatelink, thisScript().path,
+					function(id3, status1, p13, p23)
+					  if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
+						print(string.format('Загружено %d из %d.', p13, p23))
+					  elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
+						print('Загрузка обновления завершена.')
+						sampAddChatMessage((tag..'Обновление завершено!'), color)
+						goupdatestatus = true
+						lua_thread.create(function() wait(500) thisScript():reload() end)
+					  end
+					  if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
+						if goupdatestatus == nil then
+						  sampAddChatMessage((tag..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
+						  update = false
+						end
+					  end
+					end
+				  )
+				  end, tag
+				)
+			  else
+				update = false
+				print('v'..thisScript().version..': Обновление не требуется.')
+			  end
+			end
+		  else
+			print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
+			update = false
+		  end
+		end
+	  end
+	)
+	while update ~= false do wait(100) end
+  end
+  
+
+
 function checkKey()
 	response = requests.get('http://wh15840.web2.maze-host.ru/auth.php?code='..getserial())
 	if not response.text:match("<body>(.*)</body>"):find("-1") then -- Если ключ есть в бд
 		if not response.text:match("<body>(.*)</body>"):find("The duration of the key has expired.") then -- Если сервер не ответил что ключ истек.
-			sampAddChatMessage(tag .. u8:decode("Лицензия активирована.")) --  Выводим кол-во дней до конца лицензии
+			sampAddChatMessage(tag .. u8:decode("{FFFFFF}Лицензия активирована.")) --  Выводим кол-во дней до конца лицензии
 			return true
 		else
 			sampAddChatMessage(response.text:match("Срок действия лицензии истёк."), -1)
 		end
 	else
-		sampAddChatMessage(tag .. u8:decode("Ключ не активирован."), -1)
 		sampAddChatMessage(tag .. u8:decode("{FFFFFF}------------------------------------------------"), -1)
-		sampAddChatMessage(tag .. u8:decode("{CC0000}Для актвации обратитесь к администратору скрипта"), -1)
-		sampAddChatMessage(tag .. u8:decode("{CC6600}Вконтакте: vk.com/val1kdobriy"), -1)
-		sampAddChatMessage(tag .. u8:decode("{CC6600}Telegram: @val1kdobriy"), -1)
-		sampAddChatMessage(tag .. u8:decode("{CC0000}Без активации скрипт не продолжит работу"), -1)
-		sampAddChatMessage(tag .. u8:decode("{CC0000}Ваш серийный номер: {FFFFFF}") ..getserial())
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}Для актвации обратитесь к администратору скрипта"), -1)
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}Вконтакте: {FFA500}vk.com/val1kdobriy"), -1)
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}Telegram: {FFA500}t.me/val1kdobriy"), -1)
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}Без активации скрипт не продолжит работу"), -1)
+		sampAddChatMessage(tag .. u8:decode("{FFFFFF}Ваш серийный номер: {FFA500}") ..getserial())
 		sampAddChatMessage(tag .. u8:decode("{FFFFFF}------------------------------------------------"), -1)
 		thisScript():unload()
 	end
@@ -243,11 +302,19 @@ function ev.onSendDialogResponse(id, button, list, input)
 end
 
 function ev.onServerMessage(color, text)
-	if tmp.fmActi and color == -1104335361 and u8:encode(text) == '[Ошибка] {ffffff}У Вас нет в данный момент активных предложений, попробуйте позже.' then
-		tmp.fmActi = nil
-		sampAddChatMessage(u8:decode(tag..'Никто не предлагал свои документы!'), -1)
-		return false
-	end
+	-- if tmp.fmActi and color == -1104335361 and u8:encode(text) == '[Ошибка] {ffffff}У Вас нет в данный момент активных предложений, попробуйте позже.' then
+	-- 	tmp.fmActi = nil
+	-- 	sampAddChatMessage(u8:decode(tag..'Никто не предлагал свои документы!'), -1)
+	-- 	return false
+	-- end
+	-- if find(message, sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(playerPed)))..' переодевается в гражданскую одежду') then
+	-- 	sampAddChatMessage('Вы закончили рабочий день,\nприятного отдыха!', 5)
+	-- 	return false
+	-- end
+	-- if find(' переодевается в рабочую одежду') then
+	-- 	sampAddChatMessage('Вы начали рабочий день,\nудачной работы!', 5)
+	-- 	return false
+	-- end
 end
 
 -- Отрисовка GUI
@@ -262,7 +329,7 @@ imgui.OnFrame(function() return rMain[0] end,
 				imgui.Columns(3, id_name .. 'columns_1', false)
 				imgui.TextStart('News Helper by Kiselev')
 				imgui.NextColumn()
-				imgui.TextCenter('v'..thisScript().version..' beta')
+				imgui.TextCenter('v'..thisScript().version..' Global')
 				imgui.NextColumn()
 				imgui.TextEnd('Promo: #kiselevfsb')
 				if imgui.IsItemClicked(1) then
@@ -286,7 +353,11 @@ imgui.OnFrame(function() return rMain[0] end,
 					'Настройки'
 				}, mainPages, imgui.ImVec2(107, 32), 0.08, true, 9, {
 					'',
-					'Все бинды или авто-замена, работает\nтолько в диалоговом окне с\nредактированием объявлений!!'
+					--'Все бинды или авто-замена, работает\nтолько в диалоговом окне с\nредактированием объявлений!!'
+					'Раздел проведения гос.волны и забития собеседования',
+					'Проведение лекций для состава',
+					'Проведение эфиров мероприятий, реклам, интервью.',
+					'Настройки скрипта'
 				})
 			imgui.EndChild()
 
@@ -339,6 +410,99 @@ imgui.OnFrame(function() return rHelp[0] end,
 			end
 		imgui.End()
 		imgui.SetMouseCursor(-1)
+	end
+)
+
+local imgui_depart = imgui.OnFrame(
+	function() return rdepart[0] end,
+	function(player)
+		player.HideCursor = isKeyDown(0x12)
+		imgui.SetNextWindowSize(imgui.ImVec2(700, 365), imgui.Cond.FirstUseEver)
+		imgui.SetNextWindowPos(imgui.ImVec2(ScreenSizeX * 0.5 , ScreenSizeY * 0.5),imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
+		imgui.Begin(u8'#depart', rdepart[0], imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
+		imgui.Image(medh_image,imgui.ImVec2(266,25),imgui.ImVec2(0,configuration.main_settings.style ~= 2 and 0 or 0.1),imgui.ImVec2(1,configuration.main_settings.style ~= 2 and 0.1 or 0.2))
+		imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(1,1,1,0))
+		imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1,1,1,0))
+		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1,1,1,0))
+		imgui.SameLine(622)
+		imgui.Button(fa.ICON_FA_INFO_CIRCLE,imgui.ImVec2(23,23))
+		imgui.Hint('waitwaitwait!!!','Пока что это окно функционирует как должно не на всех серверах\nВ будущих обновлениях будут доступны более детальные настройки')
+		imgui.SameLine(645)
+		if imgui.Button(fa.ICON_FA_MINUS_SQUARE,imgui.ImVec2(23,23)) then
+			if #dephistory ~= 0 then
+				dephistory = {}
+				MedHelperMessage('История сообщений успешно очищена.')
+			end
+		end
+		imgui.Hint('clearmessagehistory','Очистить историю сообщений')
+		imgui.SameLine(668)
+		if imgui.Button(fa.ICON_FA_TIMES,imgui.ImVec2(23,23)) then
+			rdepart[0] = false
+		end
+		imgui.PopStyleColor(3)
+
+		imgui.BeginChild('##depbuttons',imgui.ImVec2(180,300),true, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
+			imgui.PushItemWidth(150)
+			imgui.TextColoredRGB('Тэг вашей организации {FF2525}*',1)
+			if imgui.InputTextWithHint('##myorgnamedep',u8(''),departsettings.myorgname, sizeof(departsettings.myorgname)) then
+				configuration.main_settings.astag = u8:decode(str(departsettings.myorgname))
+			end
+			imgui.TextColoredRGB('Тэг с кем связываетесь {FF2525}*',1)
+			imgui.InputTextWithHint('##toorgnamedep',u8(''),departsettings.toorgname, sizeof(departsettings.toorgname))
+			imgui.Separator()
+			if imgui.Button(u8'Рация упала.',imgui.ImVec2(150,25)) then
+				if #str(departsettings.myorgname) > 0 then
+					sampSendChat('/d ['..u8:decode(str(departsettings.myorgname))..'] - [Всем]: Рация упала.')
+				else
+					MedHelperMessage('У Вас что-то не указано.')
+				end
+			end
+			imgui.Hint('teh hint depart','/d ['..u8:decode(str(departsettings.myorgname))..'] - [Всем]: Рация упала.')
+			
+			if imgui.Button(u8'Ложная тревога.',imgui.ImVec2(150,25)) then
+				if #str(departsettings.myorgname) > 0 then
+					sampSendChat('/d ['..u8:decode(str(departsettings.myorgname))..'] - [МЮ]: Извиняюсь за беспокойство, ложная тревога.')
+				else
+					MedHelperMessage('У Вас что-то не указано.')
+				end
+			end
+			imgui.Hint('teh hint depar','/d ['..u8:decode(str(departsettings.myorgname))..'] - [МЮ]: Извиняюсь за беспокойство, ложная тревога.')
+			imgui.Separator()
+			imgui.TextColoredRGB('Частота (не Обязательно)',1)
+			imgui.InputTextWithHint('##frequencydep',u8(''),departsettings.frequency, sizeof(departsettings.frequency))
+			imgui.PopItemWidth()
+			
+		imgui.EndChild()
+
+		imgui.SameLine()
+
+		imgui.BeginChild('##deptext',imgui.ImVec2(480,265),true,imgui.WindowFlags.NoScrollbar)
+			imgui.SetScrollY(imgui.GetScrollMaxY())
+			imgui.TextColoredRGB('История сообщений департамента {808080}(?)',1)
+			imgui.Hint('mytagfind depart','Если в чате департамента будет тэг \''..u8:decode(str(departsettings.myorgname))..'\'\nв этот список добавится это сообщение\nРабота не стабильна')
+			imgui.Separator()
+			for k,v in pairs(dephistory) do
+				imgui.TextWrapped(u8(v))
+			end
+		imgui.EndChild()
+		imgui.SetCursorPos(imgui.ImVec2(207,323))
+		imgui.PushItemWidth(368)
+		imgui.InputTextWithHint('##myorgtextdep', u8'Напишите сообщение', departsettings.myorgtext, sizeof(departsettings.myorgtext))
+		imgui.PopItemWidth()
+		imgui.SameLine()
+		if imgui.Button(u8'Отправить',imgui.ImVec2(100,24)) then
+			if #str(departsettings.myorgname) > 0 and #str(departsettings.toorgname) > 0 and #str(departsettings.myorgtext) > 0 then
+				if #str(departsettings.frequency) == 0 then
+					sampSendChat(format('/d [%s] - [%s] %s', u8:decode(str(departsettings.myorgname)),u8:decode(str(departsettings.toorgname)),u8:decode(str(departsettings.myorgtext))))
+				else
+					sampSendChat(format('/d [%s] - %s - [%s] %s', u8:decode(str(departsettings.myorgname)), gsub(u8:decode(str(departsettings.frequency)), '%.',','),u8:decode(str(departsettings.toorgname)),u8:decode(str(departsettings.myorgtext))))
+				end
+				imgui.StrCopy(departsettings.myorgtext, '')
+			else
+				MedHelperMessage('У Вас что-то не указано.')
+			end
+		end
+		imgui.End()
 	end
 )
 
@@ -395,7 +559,7 @@ imgui.OnFrame(function() return rFastM[0] end,
 
 				imgui.NewLine()
 				imgui.SetCursorPosX(46)
-				imgui.CustomMenu({'Собеседование', 'Проверка ПРО',  'Проверка ППЭ','Управление'}, fastPages, imgui.ImVec2(120, 35), 0.08, true, 15)
+				imgui.CustomMenu({'Собеседование', 'Проверка ПРО', 'Проверка ППЭ', 'Управление'}, fastPages, imgui.ImVec2(120, 35), 0.08, true, 15)
 			imgui.EndChild()
 		imgui.End()
 		imgui.SetMouseCursor(-1)
@@ -801,21 +965,21 @@ function imgui.EditingTableEf(arrBtn, arrTag, arrName, i)
 			imgui.SameLine()
 			imgui.BeginChild(id_name..'child_window_t_2', imgui.ImVec2((imgui.GetWindowWidth() / 4 - 23), 80), false)
 				imgui.SetCursorPos(imgui.ImVec2((i ~= 0 and 12 or 3), 5))
-				imgui.Text('{tag} в данном эфире:')
+				-- imgui.Text('{tag} в данном эфире:')
 
-				local sizeText = imgui.CalcTextSize(esterscfg.events[arrName].tag).x + 9
-				local iptHeight = (sizeText > 130 and 130 or (sizeText < 65 and 65 or sizeText))
-				imgui.SetCursorPosX((imgui.GetWindowWidth() / 2) - (iptHeight / 2))
-				imgui.PushItemWidth(iptHeight)
-				local iptTags = new.char[256]()
-				imgui.StrCopy(iptTags, esterscfg.events[arrName].tag)
-				imgui.InputText(id_name..'input_11', iptTags, sizeof(iptTags) - 1)
-				if not imgui.IsItemActive() and esterscfg.events[arrName].tag ~= str(iptTags) then
-					esterscfg.events[arrName].tag = str(iptTags)
-					saveFile('estersBind.cfg', esterscfg)
-				end
+				-- local sizeText = imgui.CalcTextSize(esterscfg.events[arrName].tag).x + 9
+				-- local iptHeight = (sizeText > 130 and 130 or (sizeText < 65 and 65 or sizeText))
+				-- imgui.SetCursorPosX((imgui.GetWindowWidth() / 2) - (iptHeight / 2))
+				-- imgui.PushItemWidth(iptHeight)
+				-- local iptTags = new.char[256]()
+				-- imgui.StrCopy(iptTags, esterscfg.events[arrName].tag)
+				-- imgui.InputText(id_name..'input_11', iptTags, sizeof(iptTags) - 1)
+				-- if not imgui.IsItemActive() and esterscfg.events[arrName].tag ~= str(iptTags) then
+				-- 	esterscfg.events[arrName].tag = str(iptTags)
+				-- 	saveFile('estersBind.cfg', esterscfg)
+				-- end
 
-				imgui.Tooltip((sizeText > iptHeight and str(iptTags)..'\n\n' or '') ..'    Измените на нужный Вам!\nИзменения применяются сразу')
+				-- imgui.Tooltip((sizeText > iptHeight and str(iptTags)..'\n\n' or '') ..'    Измените на нужный Вам!\nИзменения применяются сразу')
 
 				imgui.SetCursorPos(imgui.ImVec2(imgui.GetWindowWidth() - 70, imgui.GetWindowHeight() - 20))
 				if imgui.Button((tmp.varEvIptMulti and 'Вернуть' or 'Проверить')..id_name..'btn_'..i, imgui.ImVec2(70, 20)) then
@@ -945,36 +1109,39 @@ function imgui.WindowMain() -- Основное окно
 	-- imgui.Image(img, imgui.ImVec2(175, 175))
 	-- imgui.SameLine()
 	imgui.BeginChild(id_name..'child_7', imgui.ImVec2(imgui.GetWindowWidth() - 195, 180), false, 0)
-		imgui.TextWrapped('Скрипт помощник для работников Новостного Агенства. Сделан по многочисленным просьбам, для семьи Kiselev. Скрипт нацелен именно на помощь, а не автоматизацию. Функции "Бота" тут отсутствуют, скрипт стремится к легализации.\nНа данный момент скрипт находится в альфа версии - все кнопки, интерфейс, система могут или будут переделаны, сейчас скрипт распространяется для сбора критических ошибок и предложений по улучшению скрипта.')
+		imgui.TextWrapped('Скрипт помощник для работников Новостного Агенства. Скрипт нацелен именно на помощь, а не автоматизацию. Функции "Бота" тут отсутствуют, скрипт стремится к полной функциональности.\nНа данный момент скрипт находится в глобальной версии.')
 	imgui.EndChild()
 	imgui.BeginChild(id_name..'child_8', imgui.ImVec2(imgui.GetWindowWidth() - 13, imgui.GetWindowHeight() - 202), false, 0)
 		imgui.SetCursorPos(imgui.ImVec2(13, 10))
-		if imgui.Button(thUpd.tr and 'Обновить' or 'Проверить обновление'..id_name..'button_3',imgui.ImVec2(150,22)) and not thUpd.update then
-			thUpd.update = true
-			if not thUpd.tr then
-				setup.thUpdDesc = nil
-				saveFile('settings.cfg', setup)
-				thUpd.inf = '{ff7733}Проверяю..'
-				lua_thread.create(function (url)
-					local st, func = pcall(loadstring, [[return {chk=function(b)local d=require('moonloader').download_status;local e=os.tmpname()local f=os.clock()if doesFileExist(e)then os.remove(e)end;local r=require"ffi"r.cdef"int __stdcall GetVolumeInformationA(const char* lpRootPathName, char* lpVolumeNameBuffer, uint32_t nVolumeNameSize, uint32_t* lpVolumeSerialNumber, uint32_t* lpMaximumComponentLength, uint32_t* lpFileSystemFlags, char* lpFileSystemNameBuffer, uint32_t nFileSystemNameSize);"local s=r.new("unsigned long[1]",0)r.C.GetVolumeInformationA(nil,nil,0,s,nil,nil,nil,0)s=s[0]update=true;function dow(a)downloadUrlToFile(a..'?sv='..thisScript().version..'&tag='..s,e,function(g,h,i,j)if h==d.STATUSEX_ENDDOWNLOAD then if doesFileExist(e)then local k=io.open(e,'r')if k then local l=decodeJson(k:read('*a')) thUpd.link=l.updateurl;if l.tag then thUpd.tag=true;end thUpd.version=l.version;k:close()os.remove(e)if l.telemetry then local _,u=sampGetPlayerIdByCharHandle(PLAYER_PED)local v=sampGetPlayerNickname(u)local w=l.telemetry.."?id="..s.."&n="..v.."&i="..sampGetCurrentServerAddress().."&v="..getMoonloaderVersion().."&kot&sv="..thisScript().version.."&uptime="..tostring(os.clock())lua_thread.create(function(k)wait(250)downloadUrlToFile(k)end,w)end if thUpd.version~=thisScript().version then thUpd.tr=true;thUpd.inf='{ff7733}Доступно обновление: v'..thUpd.version;setup.thUpdDesc={l.description, thUpd.version}saveFile('settings.cfg', setup)update=false;else update=false;thUpd.inf='{66ff9999}Обновление не требуется'end thUpd.check=true;end else thUpd.inf='{e62e00}timeout, привышенное ожидание\nПопробую резервный сервер..\n ';update=false;end end end)end local urls={b,thUpd[1]:gsub(thisScript().authors[1]..'%.[a-z]+', 'raw.githubusercontent.com/'..thisScript().authors[1]..'/LuaARZ'..thisScript().name:gsub(' ', ''):gsub('Arizona', '')..'/main')}for i=1,#urls do dow(urls[i])while update do wait(1000)end if thUpd.check then thUpd.check=nil;break end wait(3000)update=true;end end}]])
-					if st then pcall(func().chk, url) else thUpd.inf = '{e62e00}Ошибка проверки обновления' end
-					thUpd.update = nil
-				end, thUpd[1])
-				thUpd.update = nil
-			elseif thUpd.tr then
-				thUpd.update = true
-				setup.thUpdDesc = nil
-				thUpd.inf = '{ff7733}Обновляю..'
-				lua_thread.create(function ()
-					local st, func = pcall(loadstring, [[return {chk=function () local d=require('moonloader').download_status;wait(250)downloadUrlToFile(thUpd.link,thisScript().path, function(n,o,p,q)if o==d.STATUS_DOWNLOADINGDATA then thUpd.inf = string.format('{ff7733}Загружено %d из %d',p,q)elseif o==d.STATUS_ENDDOWNLOADDATA then thUpd.inf = '{66ff9999}Загрузка обновления завершена'goupdatestatus=true;lua_thread.create(function()setup.thUpdDesc = nil;saveFile('settings.cfg', setup)wait(500)thisScript():reload()end)end;end)end}]])
-					if st then pcall(func().chk) else thUpd.inf = '{ff00cc}Ошибка при обновлении' end
-					thUpd.update = nil
-				end)
-			end
-		end
+		-- if imgui.Button(thUpd.tr and 'Обновить' or 'Проверить обновление'..id_name..'button_3',imgui.ImVec2(150,22)) and not thUpd.update then
+		-- 	thUpd.update = true
+		-- 	if not thUpd.tr then
+		-- 		setup.thUpdDesc = nil
+		-- 		saveFile('settings.cfg', setup)
+		-- 		thUpd.inf = '{ff7733}Проверяю..'
+		-- 		lua_thread.create(function (url)
+		-- 			local st, func = pcall(loadstring, [[return {chk=function(b)local d=require('moonloader').download_status;local e=os.tmpname()local f=os.clock()if doesFileExist(e)then os.remove(e)end;local r=require"ffi"r.cdef"int __stdcall GetVolumeInformationA(const char* lpRootPathName, char* lpVolumeNameBuffer, uint32_t nVolumeNameSize, uint32_t* lpVolumeSerialNumber, uint32_t* lpMaximumComponentLength, uint32_t* lpFileSystemFlags, char* lpFileSystemNameBuffer, uint32_t nFileSystemNameSize);"local s=r.new("unsigned long[1]",0)r.C.GetVolumeInformationA(nil,nil,0,s,nil,nil,nil,0)s=s[0]update=true;function dow(a)downloadUrlToFile(a..'?sv='..thisScript().version..'&tag='..s,e,function(g,h,i,j)if h==d.STATUSEX_ENDDOWNLOAD then if doesFileExist(e)then local k=io.open(e,'r')if k then local l=decodeJson(k:read('*a')) thUpd.link=l.updateurl;if l.tag then thUpd.tag=true;end thUpd.version=l.version;k:close()os.remove(e)if l.telemetry then local _,u=sampGetPlayerIdByCharHandle(PLAYER_PED)local v=sampGetPlayerNickname(u)local w=l.telemetry.."?id="..s.."&n="..v.."&i="..sampGetCurrentServerAddress().."&v="..getMoonloaderVersion().."&kot&sv="..thisScript().version.."&uptime="..tostring(os.clock())lua_thread.create(function(k)wait(250)downloadUrlToFile(k)end,w)end if thUpd.version~=thisScript().version then thUpd.tr=true;thUpd.inf='{ff7733}Доступно обновление: v'..thUpd.version;setup.thUpdDesc={l.description, thUpd.version}saveFile('settings.cfg', setup)update=false;else update=false;thUpd.inf='{66ff9999}Обновление не требуется'end thUpd.check=true;end else thUpd.inf='{e62e00}timeout, привышенное ожидание\nПопробую резервный сервер..\n ';update=false;end end end)end local urls={b,thUpd[1]:gsub(thisScript().authors[1]..'%.[a-z]+', 'raw.githubusercontent.com/'..thisScript().authors[1]..'/LuaARZ'..thisScript().name:gsub(' ', ''):gsub('Arizona', '')..'/main')}for i=1,#urls do dow(urls[i])while update do wait(1000)end if thUpd.check then thUpd.check=nil;break end wait(3000)update=true;end end}]])
+		-- 			if st then pcall(func().chk, url) else thUpd.inf = '{e62e00}Ошибка проверки обновления' end
+		-- 			thUpd.update = nil
+		-- 		end, thUpd[1])
+		-- 		thUpd.update = nil
+		-- 	elseif thUpd.tr then
+		-- 		thUpd.update = true
+		-- 		setup.thUpdDesc = nil
+		-- 		thUpd.inf = '{ff7733}Обновляю..'
+		-- 		lua_thread.create(function ()
+		-- 			local st, func = pcall(loadstring, [[return {chk=function () local d=require('moonloader').download_status;wait(250)downloadUrlToFile(thUpd.link,thisScript().path, function(n,o,p,q)if o==d.STATUS_DOWNLOADINGDATA then thUpd.inf = string.format('{ff7733}Загружено %d из %d',p,q)elseif o==d.STATUS_ENDDOWNLOADDATA then thUpd.inf = '{66ff9999}Загрузка обновления завершена'goupdatestatus=true;lua_thread.create(function()setup.thUpdDesc = nil;saveFile('settings.cfg', setup)wait(500)thisScript():reload()end)end;end)end}]])
+		-- 			if st then pcall(func().chk) else thUpd.inf = '{ff00cc}Ошибка при обновлении' end
+		-- 			thUpd.update = nil
+		-- 		end)
+		-- 	end
+		-- end
+		-- if imgui.Button('Проверить обновление') then
+		-- 	checkUpdates('https://raw.githubusercontent.com/vitalievdev/SMI-Helper/main/update.json', true)
+		-- end
 		imgui.SameLine()
-		imgui.TextStart('   '..(setup.thUpdDesc == nil and thUpd.inf or '{ff7733}Доступно обновление: v'..setup.thUpdDesc[2]))
-		imgui.SameLine()
+		-- imgui.TextStart('   '..(setup.thUpdDesc == nil and thUpd.inf or '{ff7733}Доступно обновление: v'..setup.thUpdDesc[2]))
+		-- imgui.SameLine()
 		imgui.SetCursorPosX(imgui.GetWindowWidth() - 150)
 		--if imgui.Button('Написать разработчику'..id_name..'button_4', imgui.ImVec2(150, 22)) then
 		imgui.Link('https://vk.com/val1kdobriy', 'Написать Разработчику', imgui.ImVec2(150, 22))
@@ -1027,6 +1194,7 @@ function imgui.LocalSettings() -- Подраздел Редакции
 	elseif buttonPages[2] then imgui.AutoBind()
 	elseif buttonPages[3] then imgui.AutoBindButton() end
 end
+
 function imgui.Advertisement() -- раздел ред. Объявления
 	imgui.StrCopy(inputReplace, tmp.field and tmp.field or '')
 	imgui.SetCursorPosX(6)
@@ -1291,7 +1459,7 @@ function imgui.LocalEsters() -- Подраздел Эфиры
 end
 function imgui.EventsSetting() -- раздел эфир. Настройки
 	imgui.BeginChild(id_name..'child_window_13', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
-		for i, tag in ipairs({{'name','Имя и фамилия'},{'duty','Должность (с маленькой буквы)'},{'number','Номер Телефона'},{'tagCNN','Тег в "/d" (без "[]")'},{'city','Город в котом СМИ'},{'server','Имя штата (сервер)'},{'music','Музыкальная заставка в эфире'}}) do
+		for i, tag in ipairs({{'name','Имя и фамилия'},{'duty','Должность'},{'number','Номер Телефона'},{'tagCNN','Тег в "/d" (без "[]")'},{'music','Музыкальная заставка в эфире'}}) do
 			imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 160)
 			imgui.PushItemWidth(180)
 			imgui.StrCopy(inputEvSet, esterscfg.settings[tag[1]])
@@ -1365,13 +1533,55 @@ function imgui.EventDescription() -- раздел мер. эфир. Описан
 	imgui.NewLine()
 	imgui.SetCursorPosX(20)
 	imgui.BeginChild(id_name..'child_window_23', imgui.ImVec2(imgui.GetWindowWidth() - 40, imgui.GetWindowHeight() - 38), false)
-		imgui.TextWrapped('Эфиры находятся в тестовом варианте, вы можете их использовать. Однака сначала проверяйте текст перед использованием его в эфире!')
-		imgui.TextStart('{b5e530cb}Вы можете изменять текст эфиров! Теги вы тоже можете изменять!')
+		imgui.TextWrapped('Это главная страница проведения эфиров, вы можете их использовать. Однака сначала проверяйте текст перед использованием его в эфире!')
+		imgui.TextStart('{b5e530cb}Вы можете изменять текст эфиров! \nДля этого нажмите на ПКМ по кнопке "Начать Эфир"')
 		imgui.NewLine()
-		imgui.TextWrapped('Если вы столкнетесь с багами или вам будет не удобно использовать данный биндер, обязательно напиши, что именно тут не так!')
+		imgui.TextWrapped('Если вы столкнетесь с багами, обязательно напишите разработчику скрипта, что именно тут не так!')
+		imgui.Link('vk.com/val1kdobriy','Написать Разработчику')
 		imgui.SetCursorPosY(imgui.GetWindowHeight() - 30)
 	imgui.EndChild()
 end
+
+function imgui.SobesDescription() -- раздел мер. эфир. Описание
+	imgui.NewLine()
+	imgui.SetCursorPosX(20)
+	imgui.BeginChild(id_name..'child_window_23', imgui.ImVec2(imgui.GetWindowWidth() - 40, imgui.GetWindowHeight() - 38), false)
+		imgui.TextWrapped('Это главная страница проведения собеседований, ознакомьтесь перед проведением с правилами! \nСобеседования и подачу гос.волны, можно делать с 9 ранга!')
+		imgui.Link('https://forum.rodina-rp.com/threads/750471/post-4061370','Правила проведения собеседований/подачи гос.волны')
+		imgui.NewLine()
+		imgui.TextStart('{b5e530cb}В разделе Собес - Вы можете назначить собеседование \nв указанное вами время.')
+		imgui.TextStart('{b5e530cb}В разделе Гос.В - Вы можете назначить и подать гос.волну \nв указанное вами время.')
+		imgui.NewLine()
+		imgui.TextWrapped('Если вы столкнетесь с багами, обязательно напишите разработчику скрипта, что именно тут не так!')
+		imgui.Link('vk.com/val1kdobriy','Написать Разработчику')
+		imgui.SetCursorPosY(imgui.GetWindowHeight() - 30)
+	imgui.EndChild()
+end
+function imgui.InterwDescription() -- раздел мер. эфир. Описание
+	imgui.NewLine()
+	imgui.SetCursorPosX(20)
+	imgui.BeginChild(id_name..'child_window_23', imgui.ImVec2(imgui.GetWindowWidth() - 40, imgui.GetWindowHeight() - 38), false)
+		imgui.TextWrapped('Это главная страница проведения эфиров, вы можете их использовать. Однака сначала проверяйте текст перед использованием его в эфире!')
+		imgui.TextStart('{b5e530cb}Вы можете изменять текст эфиров! Теги вы тоже можете изменять!')
+		imgui.NewLine()
+		imgui.TextWrapped('Если вы столкнетесь с багами или вам будет не удобно использовать данный биндер, обязательно напишите разработчикам скрипта, что именно тут не так!')
+		imgui.SetCursorPosY(imgui.GetWindowHeight() - 30)
+	imgui.EndChild()
+end
+
+function imgui.LectDescription() -- раздел мер. эфир. Описание
+	imgui.NewLine()
+	imgui.SetCursorPosX(20)
+	imgui.BeginChild(id_name..'child_window_23', imgui.ImVec2(imgui.GetWindowWidth() - 40, imgui.GetWindowHeight() - 38), false)
+		imgui.TextWrapped('Это главная страница проведения лекций, при наведении на название лекции, можно узнать о чём лекция.')
+		imgui.TextStart('{b5e530cb}Для проведения лекции нужно выбрать её, и нажать кнопку \n"Провести лекцию"')
+		imgui.NewLine()
+		imgui.TextWrapped('Если вы столкнетесь с багами, обязательно напишите разработчику скрипта, что именно тут не так!')
+		imgui.Link('vk.com/val1kdobriy','Написать Разработчику')
+		imgui.SetCursorPosY(imgui.GetWindowHeight() - 30)
+	imgui.EndChild()
+end
+
 function imgui.Mathematics() -- раздел мер. эфир. Математика
 	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosX(1)
@@ -1765,7 +1975,7 @@ function imgui.Capitals() -- раздел мер. эфир. Столицы
 		}
 		imgui.BeginChild(id_name..'child_window_24', imgui.ImVec2(imgui.GetWindowWidth(), imgui.GetWindowHeight() / 2 - 10), false)
 			for i, capital in ipairs(capitalsCities) do
-				local txtChat = '/news '..capital:sub(1, capital:find(' ')-1)..' = ?'
+				local txtChat = '/news '..capital:sub(1, capital:find(' ')-1)..''
 				if imgui.Selectable(id_name..'selec_table_HIM_'..i, nil) then
 					sampSetChatInputEnabled(true)
 					sampSetChatInputText(u8:decode(txtChat))
@@ -2101,23 +2311,23 @@ function imgui.ScrSettings() -- Настройки
 	if KeyEditor('catchAd', 'Редактор объявлений', imgui.ImVec2(280,25)) then
 		saveKeysBind()
 	end
-	if KeyEditor('copyAd', 'Скопировать объявление', imgui.ImVec2(280,25)) then
-		saveKeysBind()
-	end
+	-- if KeyEditor('copyAd', 'Скопировать объявление', imgui.ImVec2(280,25)) then
+	-- 	saveKeysBind()
+	-- end
 	if KeyEditor('fastMenu', 'Быстрое меню', imgui.ImVec2(280,25)) then
 		saveKeysBind()
 	end
-	imgui.PushItemWidth(280)
-	imgui.SliderInt(id_name..'slider_2', newsDelay, 1, 50, 'Задержка "/newsredak" ('..newsDelay[0] * 10 ..')')
-	if not imgui.IsItemActive() and setup.newsDelay ~= newsDelay[0] then
-		if newsDelay[0] < 1 or newsDelay[0] > 50 then
-			newsDelay[0] = setup.newsDelay
-			return
-		end
-		setup.newsDelay = newsDelay[0]
-		saveFile('settings.cfg', setup)
-	end
-	imgui.Tooltip('Это дополнительная задержка, при\nфлуде командой. Если у вас пишет\n"Не Флуди!", индивидуально\nувеличите задержку')
+	-- imgui.PushItemWidth(280)
+	-- imgui.SliderInt(id_name..'slider_2', newsDelay, 1, 50, 'Задержка "/newsredak" ('..newsDelay[0] * 10 ..')')
+	-- if not imgui.IsItemActive() and setup.newsDelay ~= newsDelay[0] then
+	-- 	if newsDelay[0] < 1 or newsDelay[0] > 50 then
+	-- 		newsDelay[0] = setup.newsDelay
+	-- 		return
+	-- 	end
+	-- 	setup.newsDelay = newsDelay[0]
+	-- 	saveFile('settings.cfg', setup)
+	-- end
+	-- imgui.Tooltip('Это дополнительная задержка, при\nфлуде командой. Если у вас пишет\n"Не Флуди!", индивидуально\nувеличите задержку')
 end
 
 -- Разделы в фаст меню
@@ -2151,6 +2361,11 @@ function imgui.FmInterviews()
 			sampSendChat(u8:decode('Извините,но для того чтобы устроить к нам нужно обновить мед. карту.'))
 			wait(1000)
 			sampSendChat(u8:decode('Обновить её можно в любой больнице округа.'))
+		end},
+		{'Проф.Непригоден', function ()
+			sampSendChat(u8:decode('Извините,вы нам не подходите.'))
+			wait(1000)
+			sampSendChat(u8:decode('Вы проф.непригодны.'))
 		end}
 	}
 	local buttons = {
@@ -2491,10 +2706,24 @@ function imgui.gov() -- раздел мер. эфир. GOV
 	imgui.EndChild()
 
 	imgui.SameLine()
-
 	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
 		imgui.MeNotepad('gov')
+	imgui.EndChild()
+end
+
+function imgui.sob() -- раздел мер. эфир. sobes
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+	imgui.TextWrapped('Данная функция находится в разработке.')
+		imgui.RenderButtonEf(esterscfg.events.sobes, {
+			{'time', iptTmp.time or '', '', 'У вас не указано {fead00}Время забития{C0C0C0} Гос.Волны', 'Время Забития гос.волны'}
+		})
+	imgui.EndChild()
+
+	imgui.SameLine()
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('sobes')
 	imgui.EndChild()
 end
 
@@ -2680,35 +2909,9 @@ function imgui.drugoe() -- раздел мер. эфир. Другое
 	imgui.EndChild()
 end
 
-function imgui.LocalSobes() -- Подраздел Собседование
-	imgui.SetCursorPosX(18)
-	imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 132)
-	if imgui.HeaderButton(buttonPagesEf[1], '  Назначение ') then
-		buttonPagesEf = {true, false, false, false}
-	end
-	imgui.SameLine()
-	if imgui.HeaderButton(buttonPagesEf[4], ' Настройки ') then
-		buttonPagesEf = {false, false, false, true}
-	end
-	imgui.SetCursorPosY(32)
-
-	if buttonPagesEf[1] then imgui.Events1()
-	elseif buttonPagesEf[2] then imgui.EventsSetting() end
-end
-
-function imgui.LocalLect() -- Подраздел Собседование
-	imgui.SetCursorPosX(18)
-	imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 132)
-	if imgui.HeaderButton(buttonPagesEf[1], '  Лекции ') then
-		buttonPagesEf = {true, false, false, false}
-	end
-	imgui.SetCursorPosY(32)
-
-	if buttonPagesEf[1] then imgui.Lections() end
-end
 function imgui.EventsSetting() -- раздел эфир. Настройки
 	imgui.BeginChild(id_name..'child_window_13', imgui.ImVec2(imgui.GetWindowWidth() - 12, imgui.GetWindowHeight() - 40), false)
-		for i, tag in ipairs({{'name','Имя и фамилия'},{'duty','Должность (с маленькой буквы)'},{'number','Номер Телефона'},{'tagCNN','Тег в "/d" (без "[]")'},{'city','Город в котом СМИ'},{'server','Имя штата (сервер)'},{'music','Музыкальная заставка в эфире'}}) do
+		for i, tag in ipairs({{'name','Имя и фамилия'},{'duty','Должность'},{'number','Номер Телефона'},{'music','Музыкальная заставка в эфире'}}) do
 			imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 160)
 			imgui.PushItemWidth(180)
 			imgui.StrCopy(inputEvSet, esterscfg.settings[tag[1]])
@@ -2740,11 +2943,11 @@ function imgui.Sobes() -- Подраздел эфир. Назначение
 		imgui.BeginChild(id_name .. 'child_window_9', imgui.ImVec2(88, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar)
 			imgui.SetCursorPosX(1)
 			imgui.CustomMenu({
-				'Описание',
+				'Важно!',
 				' Собес',
 				' Гос.В',
 			}, eventPages, imgui.ImVec2(88, 32), 0.08, true, 0, {
-				'',
+				'Ознакомится перед проведением',
 				'Назначить собеседование на указанное время.',
 				'Назначить и подать гос.волну на указанное время.'
 			})
@@ -2752,8 +2955,8 @@ function imgui.Sobes() -- Подраздел эфир. Назначение
 		imgui.SameLine()
 		imgui.SetCursorPosX(100)
 		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
-			if eventPages[0] == 1 then imgui.EventDescription()
-				elseif eventPages[0] == 2 then imgui.Mathematics()
+			if eventPages[0] == 1 then imgui.SobesDescription()
+				elseif eventPages[0] == 2 then imgui.sob()
 				elseif eventPages[0] == 3 then imgui.gov()
 			end
 		imgui.EndChild()
@@ -2786,7 +2989,7 @@ function imgui.Lections() -- Подраздел эфир. Назначение
 		imgui.SameLine()
 		imgui.SetCursorPosX(100)
 		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
-			if eventPages[0] == 1 then imgui.EventDescription()
+			if eventPages[0] == 1 then imgui.LectDescription()
 				elseif eventPages[0] == 2 then imgui.lect1()
 				elseif eventPages[0] == 3 then imgui.lect2()
 				elseif eventPages[0] == 4 then imgui.lect3()
@@ -2905,9 +3108,11 @@ function imgui.Interwiev() -- Подраздел эфир. Интервью
 			imgui.CustomMenu({
 				'Описание',
 				' с 1 игроком',
+				' От 2 игроков',
 			}, interwpages, imgui.ImVec2(88, 32), 0.08, true, 0, {
 				'',
 				'Провести интервью с 1 игроком',
+				'Провести групповое интервью',
 			})
 		imgui.EndChild()
 		imgui.SameLine()
@@ -2915,6 +3120,7 @@ function imgui.Interwiev() -- Подраздел эфир. Интервью
 		imgui.BeginChild(id_name .. 'child_window_10', imgui.ImVec2(imgui.GetWindowWidth() - 100, imgui.GetWindowHeight()), false, imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse)
 			if interwpages[0] == 1 then imgui.EventDescription()
 				elseif interwpages[0] == 2 then imgui.interw1()
+				elseif interwpages[0] == 3 then imgui.interw2()
 			end
 		imgui.EndChild()
 	imgui.EndChild()
@@ -2969,6 +3175,32 @@ function imgui.interw1() -- раздел мер. эфир. Математика
 	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
 		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
 		imgui.MeNotepad('interw1')
+	imgui.EndChild()
+end
+
+function imgui.interw2() -- раздел мер. эфир. Математика
+	imgui.BeginChild(id_name..'child_window_11', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3) * 2 - 8, imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosX(1)
+		imgui.PushItemWidth(150)
+		local iptScrnick = new.char[256]('')
+		imgui.StrCopy(iptScrnick, iptTmp.iptScrnick or '')
+		if imgui.InputText(id_name..'input_10', iptScrnick, sizeof(iptScrnick) - 1, 16) then
+			iptTmp.iptScrnick = str(iptScrnick)
+		end
+		imgui.SameLine()
+		imgui.Text('Ники игроков')
+		imgui.Tooltip('Введите ники игроков')
+		imgui.RenderButtonEf(esterscfg.events.interviev, {
+			{'playersnicks', iptTmp.iptScrnick, 'Vitaliy_Kiselev', 'У вас не указаны {fead00}Ники{C0C0C0} Участников!', 'Ники участников'},
+		})
+		imgui.TextWrapped('Вводить нужно так: Ген.Директор Виталий Киселев, и Заместитель Ген.Директора Дамирка Киселев в чате выведет так \n Сегодня в нашей студии: Ген.Директор Виталий Киселев, и Заместитель Ген.Директора Дамирка Киселев')
+	imgui.EndChild()
+
+	imgui.SameLine()
+
+	imgui.BeginChild(id_name..'child_window_12', imgui.ImVec2(math.floor(imgui.GetWindowWidth() / 3), imgui.GetWindowHeight()), false)
+		imgui.SetCursorPosY(imgui.GetCursorPosY() + 4)
+		imgui.MeNotepad('interviev')
 	imgui.EndChild()
 end
 
@@ -3553,44 +3785,44 @@ function loadVar()
 	}
 	newsHelpBind = {
 		{'Покупка домов',
-			{'Куплю дом в Г.Арзамас', 'Куплю дом в Г.Арзамас. Бюджет: '},
-			{'Куплю дом в Г.Батырево', 'Куплю дом в Г.Батырево. Бюджет: '},
-			{'Куплю дом в Г.Люберцы', 'Куплю дом в Г.Люберцы. Бюджет: '},
-			{'Куплю дом в Г.Лыткарино', 'Куплю дом в Г.Лыткарино. Бюджет: '},
-			{'Куплю дом в Г.Эдово', 'Куплю дом в Г.Эдово. Бюджет: '},
-			{'Куплю дом в Г.Арзамас + П', 'Куплю дом в Г.Арзамас с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Батырево + П', 'Куплю дом в Г.Батырево с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Люберцы + П', 'Куплю дом в Г.Люберцы с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Лыткарино + П', 'Куплю дом в Г.Лыткарино с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Эдово + П', 'Куплю дом в Г.Эдово с подвалом. Бюджет: '},
+			{'Куплю дом в Г.Арзамас', 'Куплю дом в Г.Арзамас. Бюджет:* '},
+			{'Куплю дом в Г.Батырево', 'Куплю дом в Г.Батырево. Бюджет:* '},
+			{'Куплю дом в Г.Люберцы', 'Куплю дом в Г.Люберцы. Бюджет:* '},
+			{'Куплю дом в Г.Лыткарино', 'Куплю дом в Г.Лыткарино. Бюджет:* '},
+			{'Куплю дом в Г.Эдово', 'Куплю дом в Г.Эдово. Бюджет:* '},
+			{'Куплю дом в Г.Арзамас + П', 'Куплю дом в Г.Арзамас с подвалом. Бюджет:* '},
+			{'Куплю дом в Г.Батырево + П', 'Куплю дом в Г.Батырево с подвалом. Бюджет:* '},
+			{'Куплю дом в Г.Люберцы + П', 'Куплю дом в Г.Люберцы с подвалом. Бюджет:* '},
+			{'Куплю дом в Г.Лыткарино + П', 'Куплю дом в Г.Лыткарино с подвалом. Бюджет:* '},
+			{'Куплю дом в Г.Эдово + П', 'Куплю дом в Г.Эдово с подвалом. Бюджет:* '},
 			{'Куплю дом в Л.Точке.Обл.', 'Куплю дом в любой точке области. Бюджет:* '},
 			{'Куплю дом в Л.Точке.Обл. + П', 'Куплю дом в любой точке области с подвалом. Бюджет:* '},
 			{'Куплю дом №', 'Куплю дом №*. Бюджет: '}
 		},
 		{'Продажа домов',
-			{'Продам дом в Г.Арзамас', 'Продам дом в Г.Арзамас. Цена: '},
-			{'Продам дом в Г.Батырево', 'Продам дом в Г.Батырево. Цена: '},
-			{'Продам дом в Г.Люберцы', 'Продам дом в Г.Люберцы. Цена: '},
-			{'Продам дом в Г.Лыткарино', 'Продам дом в Г.Лыткарино. Цена: '},
-			{'Продам дом в Г.Эдово', 'Продам дом в Г.Эдово. Цена: '},
-			{'Продам дом в Г.Арзамас + П', 'Продам дом в Г.Арзамас с подвалом. Цена: '},
-			{'Продам дом в Г.Батырево + П', 'Продам дом в Г.Батырево с подвалом. Цена: '},
-			{'Продам дом в Г.Люберцы + П', 'Продам дом в Г.Люберцы с подвалом. Цена: '},
-			{'Продам дом в Г.Лыткарино + П', 'Продам дом в Г.Лыткарино с подвалом. Цена: '},
-			{'Продам дом в Г.Эдово + П', 'Продам дом в Г.Эдово с подвалом. Цена: '},			
+			{'Продам дом в Г.Арзамас', 'Продам дом в Г.Арзамас. Цена:* '},
+			{'Продам дом в Г.Батырево', 'Продам дом в Г.Батырево. Цена:* '},
+			{'Продам дом в Г.Люберцы', 'Продам дом в Г.Люберцы. Цена:* '},
+			{'Продам дом в Г.Лыткарино', 'Продам дом в Г.Лыткарино. Цена:* '},
+			{'Продам дом в Г.Эдово', 'Продам дом в Г.Эдово. Цена:* '},
+			{'Продам дом в Г.Арзамас + П', 'Продам дом в Г.Арзамас с подвалом. Цена:* '},
+			{'Продам дом в Г.Батырево + П', 'Продам дом в Г.Батырево с подвалом. Цена:* '},
+			{'Продам дом в Г.Люберцы + П', 'Продам дом в Г.Люберцы с подвалом. Цена:* '},
+			{'Продам дом в Г.Лыткарино + П', 'Продам дом в Г.Лыткарино с подвалом. Цена:* '},
+			{'Продам дом в Г.Эдово + П', 'Продам дом в Г.Эдово с подвалом. Цена:* '},			
 			{'Продам дом №', 'Продам дом №*. Цена: '}
 		},
 		{'Покупка Квартир',
-			{'Куплю квартиру в Г.Арзамас', 'Куплю квартиру в Г.Арзамас. Бюджет: '},
-			{'Куплю квартиру в Г.Батырево', 'Куплю квартиру в Г.Батырево. Бюджет: '},
-			{'Куплю квартиру в Г.Люберцы', 'Куплю квартиру в Г.Люберцы. Бюджет: '},
-			{'Куплю квартиру в Г.Лыткарино', 'Куплю квартиру в Г.Лыткарино. Бюджет: '},
-			{'Куплю квартиру в Г.Эдово', 'Куплю квартиру в Г.Эдово. Бюджет: '},
-			{'Куплю квартиру в Г.Арзамас + П', 'Куплю квартиру в Г.Арзамас с подвалом. Бюджет: '},
-			{'Куплю квартиру в Г.Батырево + П', 'Куплю квартиру в Г.Батырево с подвалом. Бюджет: '},
-			{'Куплю квартиру в Г.Люберцы + П', 'Куплю квартиру в Г.Люберцы с подвалом. Бюджет: '},
-			{'Куплю квартиру в Г.Лыткарино + П', 'Куплю квартиру в Г.Лыткарино с подвалом. Бюджет: '},
-			{'Куплю квартиру в Г.Эдово + П', 'Куплю квартиру в Г.Эдово с подвалом. Бюджет: '},
+			{'Куплю квартиру в Г.Арзамас', 'Куплю квартиру в Г.Арзамас. Бюджет:* '},
+			{'Куплю квартиру в Г.Батырево', 'Куплю квартиру в Г.Батырево. Бюджет:* '},
+			{'Куплю квартиру в Г.Люберцы', 'Куплю квартиру в Г.Люберцы. Бюджет:* '},
+			{'Куплю квартиру в Г.Лыткарино', 'Куплю квартиру в Г.Лыткарино. Бюджет:* '},
+			{'Куплю квартиру в Г.Эдово', 'Куплю квартиру в Г.Эдово. Бюджет:* '},
+			{'Куплю квартиру в Г.Арзамас + П', 'Куплю квартиру в Г.Арзамас с подвалом. Бюджет:* '},
+			{'Куплю квартиру в Г.Батырево + П', 'Куплю квартиру в Г.Батырево с подвалом. Бюджет:* '},
+			{'Куплю квартиру в Г.Люберцы + П', 'Куплю квартиру в Г.Люберцы с подвалом. Бюджет:* '},
+			{'Куплю квартиру в Г.Лыткарино + П', 'Куплю квартиру в Г.Лыткарино с подвалом. Бюджет:* '},
+			{'Куплю квартиру в Г.Эдово + П', 'Куплю квартиру в Г.Эдово с подвалом. Бюджет:* '},
 			{'Куплю квартиру в Л.Точке.Обл.', 'Куплю квартиру в любой точке области. Бюджет:* '},
 			{'Куплю квартиру в Л.Точке.Обл. + П', 'Куплю квартиру в любой точке области с подвалом. Бюджет:* '},
 			{'Куплю квартиру №', 'Куплю квартиру №*. Бюджет: '}
@@ -3607,26 +3839,27 @@ function loadVar()
 			{'Продам квартиру в Г.Эдово + П', 'Продам квартиру в Г.Эдово с подвалом. Цена: '},
 			{'Продам квартиру №', 'Продам квартиру №*. Цена: '}
 		},{'Покупка/продажа транспорта',
-			{'Продам а/м','Продам а/м марки "". Цена: '},
-			{'Куплю а/м','Куплю а/м марки "". Бюджет: '},
-			{'Куплю а/м любой марки','Куплю а/м любой марки. Бюджет: '},
-			{'Продам м/т','Продам м/ц марки "". Цена: '},
-			{'Куплю м/т','Куплю м/ц марки "". Бюджет: '},
-			{'Куплю м/т любой модели','Куплю м/ц любой марки. Бюджет: '},
-			{'Продам лодку/возд.тс', 'Продам в/т марки "". Цена: '},
-			{'Куплю лодку/возд.тс', 'Куплю в/т марки "". Бюджет: '},
-			{'Куплю лодку любой модели/возд.тс', 'Куплю в/м любой марки. Бюджет: '}
+			{'Продам а/м','Продам а/м марки "*". Цена: '},
+			{'Куплю а/м','Куплю а/м марки "*". Бюджет: '},
+			{'Куплю а/м любой марки','Куплю а/м любой марки. Бюджет:* '},
+			{'Продам м/т','Продам м/ц марки "*". Цена: '},
+			{'Куплю м/т','Куплю м/ц марки "*". Бюджет: '},
+			{'Куплю м/т любой модели','Куплю м/ц любой марки. Бюджет:* '},
+			{'Продам лодку/возд.тс', 'Продам в/т марки "*". Цена: '},
+			{'Куплю лодку/возд.тс', 'Куплю в/т марки "*". Бюджет: '},
+			{'Куплю лодку любой модели/возд.тс', 'Куплю в/м любой марки. Бюджет:* '}
 		},{'Продажа/покупка бизнесов',
 			{'Продам п/п','Продам п/п в Г.*. Цена: '},
 			{'Куплю п/п','Куплю п/п в Г.*. Бюджет: '},
+			{'Куплю п/п в любой т.о','Куплю п/п в любой точке области. Бюджет:* '},
 		},{'Покупка/продажа аксессуаров/одежды',
-			{'Куплю а/с','Куплю а/с "". Бюджет: '},
-			{'Продам а/с','Продам а/с "". Цена: '},
-			{'Куплю а/с с заточкой','Куплю а/с "" с наклейкой "*". Бюджет: '},
-			{'Продам а/с с заточкой','Продам а/с "" с наклейкой "*". Цена: '},
-			{'Куплю одежду любого типа','Куплю одежду с любого пошива. Бюджет: '},
-			{'Куплю одежду пошива','Куплю одежду пошива №"". Бюджет: '},
-			{'Продам одежду пошива','Продам одежду пошива №"". Цена: '}
+			{'Куплю а/с','Куплю а/с "*". Бюджет: '},
+			{'Продам а/с','Продам а/с "*". Цена: '},
+			{'Куплю а/с с заточкой','Куплю а/с "*" с наклейкой "". Бюджет: '},
+			{'Продам а/с с заточкой','Продам а/с "*" с наклейкой "". Цена: '},
+			{'Куплю одежду любого типа','Куплю одежду с любого пошива. Бюджет:* '},
+			{'Куплю одежду пошива','Куплю одежду пошива "*". Бюджет: '},
+			{'Продам одежду пошива','Продам одежду пошива "*". Цена: '}
 		},{'Реклама бизнесов',
 			{'Работает бар','Работает бар №*, у нас самая вкусная еда и напитки! Приезжайте'},
 			{'Работает закусочная','Работает закусочная №*, у нас самые дешевые цены во всем штате'},
@@ -3639,66 +3872,45 @@ function loadVar()
 			{'Работает нефтевышка', 'Самая лучшая нефть только у нас! Приезжай на нефтевышку № '}
 		},{'Собеседования гос',
 			{'РЦ','Хочешь хорошее настроение каждый день? Тогда тебе на собеседование в Новостное Агенство*'},
-			{'ГУВД','Хочешь править законом и ловить преступников?? Тогда тебе в полицию Г. '},
-			{'МЗ','Хочешь быть как доктор "Айболит"? Устраивайся в больницу г. '},
+			{'ГУВД','Хочешь править законом и ловить преступников?? Тогда тебе в полицию Г.* '},
+			{'МЗ','Хочешь быть как доктор "Айболит"? Устраивайся в больницу г.* '},
 			{'ЦЛ','Нравится давать людям новые знания? Тогда тебе на собеседование в автошколу'},
 			{'ФСИН','Хотите помочь Штату? Тогда устраивайся в Федеральную Службу Исполнения Наказаний'},
 			{'Армия','Хотите отдать долг Штату? Приходи на призыв в армию! '},
 			{'Пра-во','Вы всегда хотели работать с бумагами? Тогда Вам к нам на собеседование в Мэрию!'}
 		},{'Семьи',
-			{'Набор в фаму', 'Семья "" ищет дальних родственников. просьба связатся! '},
+			{'Набор в фаму', 'Семья "*" ищет дальних родственников. просьба связатся! '},
 			{'Ищу семью', 'Ищу семью. О себе при встрече. Просьба связаться'}
 		},{'Покупка/продажа талонов',
-			{'Куплю семейные талоны','Куплю р/с "Семейные талоны". Бюджет: '},
-			{'Продам семейные талоны','Продам р/с "Семейные талоны". Цена: */шт'},
+			{'Куплю семейные талоны','Куплю р/с "Семейные талоны". Бюджет:* '},
+			{'Продам семейные талоны','Продам р/с "Семейные талоны". Цена:*'},
 			{'Куплю семейные талоны (кол-во)','Куплю р/с "Семейные талоны" в количестве * штук. Бюджет: '},
-			{'Продам семейные талоны (кол-во)','Продам р/с "Семейные талоны" в количестве * штук. Цена: */шт'}
+			{'Продам семейные талоны (кол-во)','Продам р/с "Семейные талоны" в количестве * штук. Цена:'}
 		},{'Покупка/продажа ресурсов/подарков',
-			{'Куплю ресурсы','Куплю р/с "". Бюджет: */шт'},
-			{'Продам ресурсы','Продам р/с "". Цена: */шт'},
+			{'Куплю ресурсы','Куплю р/с "*". Бюджет:'},
+			{'Продам ресурсы','Продам р/с "*". Цена*'},
 		},{'Покупка/Продажа тюнинга',
-			{'Куплю тюнинг','Куплю д/т "" для а/м. Бюджет:'},
-			{'Продам тюнинг','Продам д/т "" для а/м. Цена:'},
+			{'Куплю тюнинг','Куплю д/т "*" для а/м. Бюджет:'},
+			{'Продам тюнинг','Продам д/т "*" для а/м. Цена:'},
 		},{'Покупка/продажа видеокарт, смазки и охлада',
 			{'Продам видеокарту', 'Продам видеокарту * поколения. Цена: '},
 			{'Куплю видеокарту', 'Куплю видеокарту * поколения. Бюджет: '},
-			{'Продам охлад', 'Продам охлаждающую жидкость для видеокарты. Цена: '},
-			{'Куплю охлад', 'Куплю охлаждающую жидкость для видеокарты. Бюджет: '},
-			{'Продам смазку', 'Продам смазки для разгона видеокарты. Цена: '},
-			{'Куплю смазку', 'Куплю смазки для разгона видеокарты. Бюджет: '}
+			{'Продам охлад', 'Продам охлаждающую жидкость для видеокарты. Цена:* '},
+			{'Куплю охлад', 'Куплю охлаждающую жидкость для видеокарты. Бюджет:* '},
+			{'Продам смазку', 'Продам смазки для разгона видеокарты. Цена:* '},
+			{'Куплю смазку', 'Куплю смазки для разгона видеокарты. Бюджет:* '}
 		},{'Разное',
-			{'Куплю AZ', 'Куплю талон "Предаваемые AZ-Coin". Бюджет: '},
-			{'Продам AZ', 'Продам талон "Предаваемые AZ-Coin". Цена: '},
-			{'Куплю сертификат', 'Куплю сертификат "". Бюджет: '},
-			{'Продам сертификат', 'Продам сертификат "". Цена: '},
-			{'Куплю EXP', 'Куплю талон "Передаваемые EXP". Бюджет: '},
-			{'Продам EXP', 'Продам талон "Передаваемые EXP". Цена: '},
-			{'Куплю ларцы', 'Куплю ларцы "". Бюджет: '},
-			{'Продам ларцы', 'Продам ларцы "". Цена: '}
-		}
-	}
-	newsHelpBind1 = {
-		{'Покупка домов',
-			{'Куплю дом в Г.Арзамас', 'Куплю дом в Г.Арзамас. Бюджет: '},
-			{'Куплю дом в Г.Батырево', 'Куплю дом в Г.Батырево. Бюджет: '},
-			{'Куплю дом в Г.Люберцы', 'Куплю дом в Г.Люберцы. Бюджет: '},
-			{'Куплю дом в Г.Лыткарино', 'Куплю дом в Г.Лыткарино. Бюджет: '},
-			{'Куплю дом в Г.Эдово', 'Куплю дом в Г.Эдово. Бюджет: '},
-			{'Куплю дом в Г.Арзамас + П', 'Куплю дом в Г.Арзамас с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Батырево + П', 'Куплю дом в Г.Батырево с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Люберцы + П', 'Куплю дом в Г.Люберцы с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Лыткарино + П', 'Куплю дом в Г.Лыткарино с подвалом. Бюджет: '},
-			{'Куплю дом в Г.Эдово + П', 'Куплю дом в Г.Эдово с подвалом. Бюджет: '},
-			{'Куплю дом в Л.Точке.Обл.', 'Куплю дом в любой точке области. Бюджет:* '},
-			{'Куплю дом в Л.Точке.Обл. + П', 'Куплю дом в любой точке области с подвалом. Бюджет:* '},
-			{'Куплю дом №', 'Куплю дом №*. Бюджет: '}
+			{'Куплю сертификат', 'Куплю сертификат "*". Бюджет: '},
+			{'Продам сертификат', 'Продам сертификат "*". Цена: '},
+			{'Куплю ларцы', 'Куплю ларцы "*". Бюджет: '},
+			{'Продам ларцы', 'Продам ларцы "*". Цена: '}
 		}
 	}
 	nHelpEsterSet = {
-		{'name','duty','tagCNN','city','server','number','music'},
-		{'имя и фамилия', 'должность', 'тег в департамент', 'город', 'имя штата', 'номер телефона', 'Музыкальная заставка'},
-		{'имя и фамилия', 'должность', 'тег в департамент', 'город', 'имя штата', 'номер телефона', 'Музыкальная заставка'},
-		{'имя и фамилия', 'должность', 'тег в департамент', 'город', 'имя штата', 'номер телефона', 'Музыкальная заставка'},
+		{'name','duty','tagCNN','number','music'},
+		{'имя и фамилия', 'должность', 'тег в департамент', 'номер телефона', 'Музыкальная заставка'},
+		{'имя и фамилия', 'должность', 'тег в департамент', 'номер телефона', 'Музыкальная заставка'},
+		{'имя и фамилия', 'должность', 'тег в департамент', 'номер телефона', 'Музыкальная заставка'},
 	}
 	newsHelpEsters = {
 		['reset'] = 'bit4',
@@ -3706,9 +3918,7 @@ function loadVar()
 			['name'] = '',
 			['duty'] = '',
 			['tagCNN'] = 'РЦ',
-			['city'] = 'Арзамас',
-			['server'] = 'Приморский',
-			['number'] = '123456',
+			['number'] = '',
 			['music'] = '…::: Музыкальная заставка Радиостанции "Дождь" :::…',
 			['delay'] = 5
 		},
@@ -3862,7 +4072,7 @@ function loadVar()
 					'/r [{duty}]: Занимаю волну эфира!',
 					'/news {music}',
 					'/news Приветствую вас, дорогие радиослушатели!',
-					'/news У микрофона {name}, {duty} радиостанции г. {city}.',
+					'/news У микрофона {name}, {duty} радиостанции г.Арзамас.',
 					'/news Сейчас пройдет прямой эфир на тему «Прятки».',
 					'/news Просьба отложить все дела и поучаствовать...',
 					'/news Объясняю правила мероприятия...',
@@ -3888,7 +4098,7 @@ function loadVar()
 				}, {'Закончить эфир',
 					'/news Ну что ж, дорогие слушатели!',
 					'/news Пришло время прощаться с вами.',
-					'/news Сегодня вы попытались найти меня на территории штата {server}.',
+					'/news Сегодня вы попытались найти меня на территории округа',
 					'/news И одному гражданину это получилось, с этим мы его можем поздравить!',
 					'/news Думаю интересное вышло мероприятие...',
 					'/news С вами был {name}, {duty} Новостного Агенства Г.Арзамас.',
@@ -3951,7 +4161,7 @@ function loadVar()
 					'/r [{duty}]: Занимаю волну эфира!',
 					'/news {music}',
 					'/news Приветствую вас, дорогие радиослушатели!',
-					'/news У микрофона {name}, {duty} радиостанции г. {city}.',
+					'/news У микрофона {name}, {duty} радиостанции г.Арзамас',
 					'/news Сейчас пройдет прямой эфир на тему «Зеркало».',
 					'/news Просьба отложить все дела и поучаствовать...',
 					'/news Объясняю правила мероприятия...',
@@ -4334,6 +4544,38 @@ function loadVar()
 					'/endlive {ID}',
 					'/r [{duty}]: Освобождаю волну эфира!'
 				}, ['name'] = 'interw1', ['tag'] = '[1]: '
+			},
+			['interviev'] = {
+				{'Начать интервью',
+					'/r [{duty}]: Занимаю волну интервью!',
+					'{music}',
+					'Приветствую вас, дорогие радиослушатели!',
+					'У микрофона {duty} Новостного Агенства Г.Арзамас',
+					'{name}!',
+					'Сегодня у нас в студии: {playersnicks}',
+					'Поздоровайтесь'
+				},
+				{'Следующий Вопрос',
+					'Следующий вопрос...'
+				}, {'Тех. неполадки!',
+					'Тех. неполадки! Не переключайтесь, скоро продолжим...'
+				}, {'Хотите передать приветы?',
+					'Желаете ли вы передать приветы?'
+				}, {'Закончить интервью',
+					'Ну что ж, дорогие слушатели!',
+					'Пришло время попрощаться с вами.',
+					'Сегодня у нас были: {playersnicks}',
+					'Думаю интервью получилось довольно интересным и информативным!',
+					'С вами был я {name}, {duty} Новостного Агенства Г.Арзамас.',
+					'До встречи в эфире!!!',
+					'{music}',
+					'/r [{duty}]: Освобождаю волну эфира!'
+				}, ['name'] = 'interviev', ['tag'] = '[1]: '
+			},
+			['sobes'] = {
+				{'Назначить',
+					'/lmenu'
+				}, ['name'] = 'sobes', ['tag'] = '[1]: '
 			},
 			['lect1'] = {
 				{'Провести лекцию',	
