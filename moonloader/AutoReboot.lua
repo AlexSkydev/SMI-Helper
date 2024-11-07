@@ -1,10 +1,10 @@
 script_name('ML-AutoReboot')
-script_version_number(8)
-script_version('1.1.1')
+script_version_number(7)
+script_version('1.1')
 script_author('FYP')
 script_description('reloads edited scripts automatically')
-script_moonloader(026)
-script_properties('work-in-pause', 'forced-reloading-only')
+script_moonloader(021)
+script_properties('work-in-pause')
 
 local ffi = require 'ffi'
 ffi.cdef[[
@@ -38,7 +38,7 @@ function main()
         if file_time ~= nil and (file_time[1] ~= saved_time[1] or file_time[2] ~= saved_time[2]) then
           local scr = find_script_by_path(fpath)
           if scr ~= nil then
-            print('Reloading "' .. scr.name .. '"... memory: ')
+            print('Reloading "' .. scr.name .. '"...')
             scr:reload()
           else
             print('Loading "' .. fpath .. '"...')
@@ -69,8 +69,6 @@ function init()
   end
 end
 
-
-
 function find_script_by_path(path)
   for _, s in ipairs(script.list()) do
     if s.path == path then
@@ -79,7 +77,7 @@ function find_script_by_path(path)
   end
   return nil
 end
- 
+
 function get_file_modify_time(path)
 	local handle = ffi.C.CreateFileA(path,
 		0x80000000, -- GENERIC_READ

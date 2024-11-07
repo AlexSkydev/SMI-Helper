@@ -44,13 +44,9 @@ function do_lua(code)
   if code:sub(1,1) == '=' then
     code = "print(" .. code:sub(2, -1) .. ")"
   end
-  local func, err = load(code)
-  if func then
-    local result, err = pcall(func)
-    if not result then
-      onSystemMessage(err, TAG.TYPE_ERROR, thisScript())
-    end
-  else
+  local func = load(code)
+  local result, err = pcall(func)
+  if not result then
     onSystemMessage(err, TAG.TYPE_ERROR, thisScript())
   end
 end
@@ -79,7 +75,7 @@ local tags = {
   [TAG.TYPE_ERROR] =     {"error", 0xFF7070},
   [TAG.TYPE_WARN] =      {"warn", 0xF5C28E},
   [TAG.TYPE_SYSTEM] =    {"system", 0xFA9746},
-  [TAG.TYPE_FATAL] =     {"fatal", 0x040404},
+  [TAG.TYPE_FATAL] =     {"fatal", 0xFF0000},
   [TAG.TYPE_EXCEPTION] = {"exception", 0xF5A9A9}
 }
 

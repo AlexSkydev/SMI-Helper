@@ -1,0 +1,2240 @@
+[20:47:14.144636] (system)	Session started.
+[20:47:14.144636] (debug)	Module handle: 65860000
+
+MoonLoader v.026.5-beta loaded.
+Developers: FYP, hnnssy, EvgeN 1137
+
+Copyright (c) 2016, BlastHack Team
+http://blast.hk/moonloader/
+
+[20:47:14.144636] (info)	Working directory: C:\Games\Rodina\moonloader
+[20:47:14.144636] (debug)	FP Control: 0109001F
+[20:47:14.144636] (debug)	Game: GTA SA 1.0.0.0 US
+[20:47:14.144636] (system)	Installing pre-game hooks...
+[20:47:14.151179] (system)	Hooks installed.
+[20:47:22.033850] (debug)	Initializing opcode handler table
+[20:47:22.034852] (debug)	package.path = C:\Games\Rodina\moonloader\lib\?.lua;C:\Games\Rodina\moonloader\lib\?\init.lua;C:\Games\Rodina\moonloader\?.lua;C:\Games\Rodina\moonloader\?\init.lua;.\?.lua;C:\Games\Rodina\moonloader\lib\?.luac;C:\Games\Rodina\moonloader\lib\?\init.luac;C:\Games\Rodina\moonloader\?.luac;C:\Games\Rodina\moonloader\?\init.luac;.\?.luac
+[20:47:22.034852] (debug)	package.cpath = C:\Games\Rodina\moonloader\lib\?.dll;
+[20:47:22.060487] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[20:47:22.060487] (debug)	New script: 18C3907C
+[20:47:22.094628] (system)	ML-AutoReboot: Loaded successfully.
+[20:47:22.094628] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[20:47:22.094628] (debug)	New script: 18C399AC
+[20:47:25.429912] (system)	Keyboard & Mouse: Loaded successfully.
+[20:47:25.429912] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[20:47:25.429912] (debug)	New script: 18C39B34
+[20:47:26.021230] (system)	OS Helper: Loaded successfully.
+[20:47:26.021230] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[20:47:26.021230] (debug)	New script: 18C3A464
+[20:47:26.038760] (system)	Reloader: Loaded successfully.
+[20:47:26.038760] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[20:47:26.038760] (debug)	New script: 18B6E114
+[20:47:26.050318] (system)	ML-ReloadAll: Loaded successfully.
+[20:47:26.050318] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[20:47:26.050318] (debug)	New script: 19048FAC
+[20:47:28.764451] (system)	MenuScript: Loaded successfully.
+[20:47:28.764451] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[20:47:28.764451] (debug)	New script: 19048804
+[20:47:28.789642] (system)	SF Integration: Loaded successfully.
+[20:47:41.402358] (system)	Installing post-load hooks...
+[20:47:41.403359] (system)	Hooks installed.
+[20:47:47.106554] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[20:47:47.106554] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[20:47:47.106554] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[20:47:47.106554] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[20:47:47.106554] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[20:47:47.106554] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[20:58:10.182397] (system)	ML-AutoReboot: Script terminated. (18C3907C)
+[20:58:10.184397] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[20:58:10.184397] (error)	Keyboard & Mouse: Script died due to an error. (18C399AC)
+[20:58:10.186914] (system)	OS Helper: Script terminated. (18C39B34)
+[20:58:10.188923] (system)	Reloader: Script terminated. (18C3A464)
+[20:58:10.188923] (system)	ML-ReloadAll: Script terminated. (18B6E114)
+[20:58:10.188923] (system)	MenuScript: Script terminated. (19048FAC)
+[20:58:10.191926] (system)	SF Integration: Script terminated. (19048804)
+[20:58:10.192926] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[20:58:10.192926] (debug)	New script: 3EE3887C
+[20:58:10.193925] (system)	ML-AutoReboot: Loaded successfully.
+[20:58:10.193925] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[20:58:10.193925] (debug)	New script: 3EE38A04
+[20:58:10.352408] (system)	Keyboard & Mouse: Loaded successfully.
+[20:58:10.352408] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[20:58:10.352408] (debug)	New script: 3EE386F4
+[20:58:10.522355] (system)	OS Helper: Loaded successfully.
+[20:58:10.522355] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[20:58:10.522355] (debug)	New script: 3EE39644
+[20:58:10.523346] (system)	Reloader: Loaded successfully.
+[20:58:10.524347] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[20:58:10.524347] (debug)	New script: 3EE383E4
+[20:58:10.524347] (system)	ML-ReloadAll: Loaded successfully.
+[20:58:10.524347] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[20:58:10.524347] (debug)	New script: 3EE38B8C
+[20:58:10.760022] (system)	MenuScript: Loaded successfully.
+[20:58:10.760022] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[20:58:10.760022] (debug)	New script: 3EE38D14
+[20:58:10.761016] (system)	SF Integration: Loaded successfully.
+[20:58:10.761016] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.luac'...
+[20:58:10.761016] (debug)	New script: 3EE3856C
+[20:58:10.781076] (system)	Rodina News Helper: Loaded successfully.
+[20:58:10.789610] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[20:58:10.789610] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[20:58:10.789610] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[20:58:10.789610] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[20:58:10.789610] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[20:58:10.789610] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:00:04.551402] (system)	ML-AutoReboot: Script terminated. (3EE3887C)
+[21:00:04.552307] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[21:00:04.552307] (error)	Keyboard & Mouse: Script died due to an error. (3EE38A04)
+[21:00:04.554300] (system)	OS Helper: Script terminated. (3EE386F4)
+[21:00:04.555302] (system)	Reloader: Script terminated. (3EE39644)
+[21:00:04.556879] (system)	ML-ReloadAll: Script terminated. (3EE383E4)
+[21:00:04.556879] (system)	MenuScript: Script terminated. (3EE38B8C)
+[21:00:04.557839] (system)	SF Integration: Script terminated. (3EE38D14)
+[21:00:04.557839] (system)	Rodina News Helper: Script terminated. (3EE3856C)
+[21:00:04.562845] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[21:00:04.562845] (debug)	New script: 3EE37DC4
+[21:00:04.563830] (system)	ML-AutoReboot: Loaded successfully.
+[21:00:04.563830] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[21:00:04.563830] (debug)	New script: 3EE380D4
+[21:00:04.585862] (system)	Keyboard & Mouse: Loaded successfully.
+[21:00:04.585862] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[21:00:04.585862] (debug)	New script: 3EE391AC
+[21:00:04.597909] (system)	OS Helper: Loaded successfully.
+[21:00:04.597909] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[21:00:04.597909] (debug)	New script: 3EE3856C
+[21:00:04.598912] (system)	Reloader: Loaded successfully.
+[21:00:04.598912] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[21:00:04.598912] (debug)	New script: 3EE38D14
+[21:00:04.599909] (system)	ML-ReloadAll: Loaded successfully.
+[21:00:04.599909] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[21:00:04.599909] (debug)	New script: 3EE39024
+[21:00:04.622577] (system)	MenuScript: Loaded successfully.
+[21:00:04.622577] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[21:00:04.622577] (debug)	New script: 3EE38E9C
+[21:00:04.624528] (system)	SF Integration: Loaded successfully.
+[21:00:04.624528] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:00:04.624528] (debug)	New script: 3EE39334
+[21:00:04.765230] (system)	Rodina News Helper: Loaded successfully.
+[21:00:04.767763] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[21:00:04.768755] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:00:04.768755] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:00:04.768755] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[21:00:04.768755] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:00:04.768755] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:02:16.340071] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:02:16.406661] (system)	Rodina News Helper: Script terminated. (3EE39334)
+[21:02:16.412959] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:02:16.412959] (debug)	New script: 3EE3825C
+[21:02:16.449650] (system)	Rodina News Helper: Loaded successfully.
+[21:02:49.330063] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:02:49.392885] (system)	Rodina News Helper: Script terminated. (3EE3825C)
+[21:02:49.394885] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:02:49.394885] (debug)	New script: 3EE39644
+[21:02:49.414969] (system)	Rodina News Helper: Loaded successfully.
+[21:02:51.258882] (error)	Rodina News Helper: C:\Games\Rodina\moonloader\SMI-Helper.lua:115: attempt to index global 'serial' (a nil value)
+stack traceback:
+	C:\Games\Rodina\moonloader\SMI-Helper.lua: in function <C:\Games\Rodina\moonloader\SMI-Helper.lua:68>
+[21:02:51.258882] (error)	Rodina News Helper: Script died due to an error. (3EE39644)
+[21:04:24.544317] (script)	ML-AutoReboot: Loading "C:\Games\Rodina\moonloader\SMI-Helper.lua"...
+[21:04:24.544317] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:04:24.544317] (debug)	New script: 3EE39334
+[21:04:24.563363] (system)	Rodina News Helper: Loaded successfully.
+[21:04:52.555398] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:04:52.618049] (system)	Rodina News Helper: Script terminated. (3EE39334)
+[21:04:52.619048] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:04:52.619048] (debug)	New script: 3EE39334
+[21:04:52.636634] (system)	Rodina News Helper: Loaded successfully.
+[21:05:12.190898] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:05:12.254833] (system)	Rodina News Helper: Script terminated. (3EE39334)
+[21:05:12.257355] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:05:12.257355] (debug)	New script: 3EE39644
+[21:05:12.275875] (system)	Rodina News Helper: Loaded successfully.
+[21:06:18.014634] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:06:18.076816] (system)	Rodina News Helper: Script terminated. (3EE39644)
+[21:06:18.080917] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:06:18.080917] (debug)	New script: 3EE39334
+[21:06:18.102968] (system)	Rodina News Helper: Loaded successfully.
+[21:06:29.147034] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:06:29.210104] (system)	Rodina News Helper: Script terminated. (3EE39334)
+[21:06:29.213115] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:06:29.213115] (debug)	New script: 3EE39334
+[21:06:29.232168] (system)	Rodina News Helper: Loaded successfully.
+[21:16:39.375106] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:16:39.437251] (system)	Rodina News Helper: Script terminated. (3EE39334)
+[21:16:39.442274] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:16:39.442274] (debug)	New script: 18B6D96C
+[21:16:39.447270] (error)	SMI-Helper.lua: C:\Games\Rodina\moonloader\SMI-Helper.lua:3928: malformed number near '5.0f'
+[21:16:39.447270] (error)	SMI-Helper.lua: Script died due to an error. (18B6D96C)
+[21:16:40.955655] (system)	ML-AutoReboot: Script terminated. (3EE37DC4)
+[21:16:40.957163] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[21:16:40.957163] (error)	Keyboard & Mouse: Script died due to an error. (3EE380D4)
+[21:16:40.960181] (system)	OS Helper: Script terminated. (3EE391AC)
+[21:16:40.961181] (system)	Reloader: Script terminated. (3EE3856C)
+[21:16:40.962192] (system)	ML-ReloadAll: Script terminated. (3EE38D14)
+[21:16:40.962192] (system)	MenuScript: Script terminated. (3EE39024)
+[21:16:40.967201] (system)	SF Integration: Script terminated. (3EE38E9C)
+[21:16:40.967201] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[21:16:40.967201] (debug)	New script: 18B6DF8C
+[21:16:40.968505] (system)	ML-AutoReboot: Loaded successfully.
+[21:16:40.968505] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[21:16:40.969532] (debug)	New script: 18B6E734
+[21:16:40.997054] (system)	Keyboard & Mouse: Loaded successfully.
+[21:16:40.997054] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[21:16:40.997054] (debug)	New script: 18B6CEB4
+[21:16:41.016143] (system)	OS Helper: Loaded successfully.
+[21:16:41.016143] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[21:16:41.016143] (debug)	New script: 18B6D7E4
+[21:16:41.017144] (system)	Reloader: Loaded successfully.
+[21:16:41.017144] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[21:16:41.017144] (debug)	New script: 18B6E8BC
+[21:16:41.017648] (system)	ML-ReloadAll: Loaded successfully.
+[21:16:41.017648] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[21:16:41.017648] (debug)	New script: 18B6D4D4
+[21:16:41.050307] (system)	MenuScript: Loaded successfully.
+[21:16:41.050307] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[21:16:41.050307] (debug)	New script: 18B6EBCC
+[21:16:41.052310] (system)	SF Integration: Loaded successfully.
+[21:16:41.052310] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:16:41.052310] (debug)	New script: 18B6D34C
+[21:16:41.056301] (error)	SMI-Helper.lua: C:\Games\Rodina\moonloader\SMI-Helper.lua:3928: malformed number near '5.0f'
+[21:16:41.056301] (error)	SMI-Helper.lua: Script died due to an error. (18B6D34C)
+[21:16:41.058814] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[21:16:41.058814] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:16:41.058814] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:16:41.058814] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[21:16:41.058814] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:16:41.058814] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:19:12.574806] (system)	ML-AutoReboot: Script terminated. (18B6DF8C)
+[21:19:12.575823] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[21:19:12.575823] (error)	Keyboard & Mouse: Script died due to an error. (18B6E734)
+[21:19:12.578356] (system)	OS Helper: Script terminated. (18B6CEB4)
+[21:19:12.579339] (system)	Reloader: Script terminated. (18B6D7E4)
+[21:19:12.579339] (system)	ML-ReloadAll: Script terminated. (18B6E8BC)
+[21:19:12.579339] (system)	MenuScript: Script terminated. (18B6D4D4)
+[21:19:12.581338] (system)	SF Integration: Script terminated. (18B6EBCC)
+[21:19:12.582356] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[21:19:12.582356] (debug)	New script: 18B6E734
+[21:19:12.583360] (system)	ML-AutoReboot: Loaded successfully.
+[21:19:12.583360] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[21:19:12.583360] (debug)	New script: 18B6EBCC
+[21:19:12.606059] (system)	Keyboard & Mouse: Loaded successfully.
+[21:19:12.606059] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[21:19:12.606059] (debug)	New script: 18B6D34C
+[21:19:12.617154] (system)	OS Helper: Loaded successfully.
+[21:19:12.617154] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[21:19:12.617154] (debug)	New script: 18B6D7E4
+[21:19:12.618304] (system)	Reloader: Loaded successfully.
+[21:19:12.618304] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[21:19:12.618304] (debug)	New script: 18B6DF8C
+[21:19:12.619292] (system)	ML-ReloadAll: Loaded successfully.
+[21:19:12.619292] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[21:19:12.619292] (debug)	New script: 18B6CEB4
+[21:19:12.642452] (system)	MenuScript: Loaded successfully.
+[21:19:12.642452] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[21:19:12.642452] (debug)	New script: 18B6D96C
+[21:19:12.644452] (system)	SF Integration: Loaded successfully.
+[21:19:12.644452] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:19:12.644452] (debug)	New script: 18B6D4D4
+[21:19:12.674013] (system)	Rodina News Helper: Loaded successfully.
+[21:19:12.676014] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[21:19:12.676014] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:19:12.676014] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:19:12.676014] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[21:19:12.676014] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:19:12.676014] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:19:15.569565] (error)	Rodina News Helper: C:\Games\Rodina\moonloader\lib\mimgui\init.lua:238: missing declaration for symbol 'ImGuiCol_WindowPadding'
+stack traceback:
+	[C]: in function '__index'
+	C:\Games\Rodina\moonloader\lib\mimgui\init.lua:238: in function '__index'
+	C:\Games\Rodina\moonloader\SMI-Helper.lua:3927: in function 'Style'
+	C:\Games\Rodina\moonloader\SMI-Helper.lua:559: in function 'cb'
+	C:\Games\Rodina\moonloader\lib\mimgui\init.lua:86: in function 'InitializeRenderer'
+	C:\Games\Rodina\moonloader\lib\mimgui\init.lua:94: in function <C:\Games\Rodina\moonloader\lib\mimgui\init.lua:91>
+[21:19:15.574565] (error)	Rodina News Helper: Script died due to an error. (18B6D4D4)
+[21:21:10.141814] (system)	ML-AutoReboot: Script terminated. (18B6E734)
+[21:21:10.141814] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[21:21:10.141814] (error)	Keyboard & Mouse: Script died due to an error. (18B6EBCC)
+[21:21:10.143817] (system)	OS Helper: Script terminated. (18B6D34C)
+[21:21:10.145815] (system)	Reloader: Script terminated. (18B6D7E4)
+[21:21:10.145815] (system)	ML-ReloadAll: Script terminated. (18B6DF8C)
+[21:21:10.145815] (system)	MenuScript: Script terminated. (18B6CEB4)
+[21:21:10.147319] (system)	SF Integration: Script terminated. (18B6D96C)
+[21:21:10.147319] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[21:21:10.147319] (debug)	New script: 18B6E424
+[21:21:10.148324] (system)	ML-AutoReboot: Loaded successfully.
+[21:21:10.148324] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[21:21:10.148324] (debug)	New script: 18B6D4D4
+[21:21:10.169698] (system)	Keyboard & Mouse: Loaded successfully.
+[21:21:10.169698] (system)	Loading script 'C:\Games\Rodina\moonloader\mimgui style editor by chapo.lua'...
+[21:21:10.169698] (debug)	New script: 18B6DF8C
+[21:21:10.194297] (system)	mimgui Style Editor by chapo: Loaded successfully.
+[21:21:10.194297] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[21:21:10.194297] (debug)	New script: 18B6D7E4
+[21:21:10.205827] (system)	OS Helper: Loaded successfully.
+[21:21:10.205827] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[21:21:10.205827] (debug)	New script: 18B6D96C
+[21:21:10.205827] (system)	Reloader: Loaded successfully.
+[21:21:10.205827] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[21:21:10.205827] (debug)	New script: 18B6CEB4
+[21:21:10.207341] (system)	ML-ReloadAll: Loaded successfully.
+[21:21:10.207341] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[21:21:10.207341] (debug)	New script: 18B6D03C
+[21:21:10.226512] (system)	MenuScript: Loaded successfully.
+[21:21:10.226512] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[21:21:10.226512] (debug)	New script: 18B6DAF4
+[21:21:10.227520] (system)	SF Integration: Loaded successfully.
+[21:21:10.228546] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:21:10.228546] (debug)	New script: 18B6E8BC
+[21:21:10.247321] (system)	Rodina News Helper: Loaded successfully.
+[21:21:10.250345] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[21:21:10.250345] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:21:10.250345] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:21:10.250345] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[21:21:10.250345] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:21:10.250345] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:22:13.382495] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:13.382495] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:15.274217] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:15.274217] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:15.274217] (script)	mimgui Style Editor by chapo: Text
+[21:22:15.274217] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:15.274217] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:15.274217] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: Text
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: Text
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:17.344062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: Text
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: Text
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:21.109259] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:25.890990] (script)	mimgui Style Editor by chapo: Text
+[21:22:25.890990] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:25.890990] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:25.890990] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:25.912040] (script)	mimgui Style Editor by chapo: Text
+[21:22:25.912040] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:25.912040] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:25.912040] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:25.934096] (script)	mimgui Style Editor by chapo: Text
+[21:22:25.934096] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:25.934096] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:25.934096] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:25.954627] (script)	mimgui Style Editor by chapo: Text
+[21:22:25.954627] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:25.954627] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:25.954627] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.019261] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.019261] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.019261] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.019261] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.040275] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.040275] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.040275] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.040275] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.064159] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.064159] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.064159] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.064159] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.084223] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.085213] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.085213] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.085213] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.106285] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.106285] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.106285] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.106285] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.215838] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.215838] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.215838] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.215838] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.259570] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.259570] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.259570] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.259570] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.279199] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.279199] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.279199] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.279199] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.403937] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.403937] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.403937] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.403937] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.425949] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.425949] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.425949] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.425949] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:26.447565] (script)	mimgui Style Editor by chapo: Text
+[21:22:26.447565] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:26.447565] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:26.447565] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.757169] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.757169] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.757169] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.757169] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.778232] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.778232] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.778232] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.778232] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.801378] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.801378] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.801378] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.801378] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.822087] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.822087] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.822087] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.822087] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.843672] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.843672] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.843672] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.843672] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.866296] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.866296] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.866296] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.866296] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.887840] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.887840] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.887840] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.887840] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.908906] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.908906] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.908906] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.908906] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.971243] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.971243] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.971243] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.971243] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:27.996262] (script)	mimgui Style Editor by chapo: Text
+[21:22:27.996262] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:27.996262] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:27.996262] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.021830] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.021830] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.021830] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.021830] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.044842] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.044842] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.044842] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.044842] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.068495] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.068495] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.068495] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.068495] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.089583] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.089583] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.089583] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.089583] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.110525] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.110525] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.110525] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.110525] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.136230] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.136230] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.136230] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.136230] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.157252] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.157252] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.157252] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.157252] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.184527] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.184527] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.184527] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.184527] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.205428] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.206439] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.206439] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.206439] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.226520] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.226520] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.226520] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.226520] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.270139] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.270139] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.270139] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.270139] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.290747] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.290747] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.290747] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.290747] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.310350] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.310350] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.311361] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.311361] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.336420] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.337408] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.337408] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.337408] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.357445] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.357445] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.357445] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.357445] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.379000] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.379000] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.379000] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.379000] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.404645] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.404645] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.404645] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.404645] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.425697] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.425697] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.425697] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.425697] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.449239] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.449239] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.449239] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.449239] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.471191] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.471191] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.471191] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.471191] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.494910] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.494910] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.494910] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.494910] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.523460] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.523460] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.523460] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.523460] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.554043] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.554043] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.554043] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.554043] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.582598] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.582598] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.582598] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.582598] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.605638] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.605638] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.605638] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.605638] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.627164] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.628168] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.628168] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.628168] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.650216] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.650216] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.650216] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.650216] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.672906] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.672906] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.672906] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.672906] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.692924] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.692924] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.692924] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.692924] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.713970] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.714971] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.714971] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.714971] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.737495] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.737495] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.737495] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.737495] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.758094] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.758094] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.758094] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.758094] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.780140] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.780140] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.780140] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.780140] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.802165] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.802165] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.802165] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.802165] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.823203] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.823203] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.823203] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.823203] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.844794] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.844794] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.844794] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.844794] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.867333] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.867333] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.867333] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.867333] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.929414] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.929414] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.929414] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.929414] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.950430] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.950430] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.950430] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.950430] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:28.971463] (script)	mimgui Style Editor by chapo: Text
+[21:22:28.971463] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:28.971463] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:28.971463] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:29.016080] (script)	mimgui Style Editor by chapo: Text
+[21:22:29.016080] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:29.016080] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:29.016080] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.336327] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.336327] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.336327] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.336327] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.465942] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.465942] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.465942] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.465942] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.485964] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.485964] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.485964] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.485964] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.505631] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.507135] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.507135] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.507135] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.529793] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.529793] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.529793] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.529793] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.791144] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.791144] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.791144] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.791144] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.915661] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.915661] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.915661] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.915661] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:30.998587] (script)	mimgui Style Editor by chapo: Text
+[21:22:30.998587] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:30.998587] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:30.998587] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.102269] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.103342] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.103342] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.103342] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.125465] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.126447] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.126447] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.126447] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.147587] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.147587] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.147587] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.147587] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.168168] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.168168] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.168168] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.168168] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.191201] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.191201] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.191201] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.191201] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.483312] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.483312] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.483312] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.483312] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.503860] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.503860] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.503860] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.503860] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.527450] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.527450] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.527450] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.527450] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.549501] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.549501] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.549501] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.549501] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.572760] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.572760] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.572760] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.572760] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.595390] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.595390] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.595390] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.595390] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.616441] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.617458] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.617458] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.617458] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:31.637981] (script)	mimgui Style Editor by chapo: Text
+[21:22:31.637981] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:31.637981] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:31.637981] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: Text
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: accent1   color_1000
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: Text
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:35.977284] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:38.580971] (script)	mimgui Style Editor by chapo: Text
+[21:22:38.580971] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:38.580971] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:38.580971] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:38.648069] (script)	mimgui Style Editor by chapo: Text
+[21:22:38.648069] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:38.648069] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:38.648069] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:38.672162] (script)	mimgui Style Editor by chapo: Text
+[21:22:38.672162] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:38.672162] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:38.672162] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:38.693723] (script)	mimgui Style Editor by chapo: Text
+[21:22:38.693723] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:38.693723] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:38.693723] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:38.932699] (script)	mimgui Style Editor by chapo: Text
+[21:22:38.932699] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:38.932699] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:38.932699] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.017391] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.017391] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.017391] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.017391] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.064670] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.065668] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.065668] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.065668] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.151626] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.151626] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.151626] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.151626] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.173683] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.173683] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.174671] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.174671] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.223949] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.223949] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.223949] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.223949] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.246273] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.246273] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.246273] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.246273] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.398365] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.398365] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.398365] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.398365] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.441518] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.441518] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.441518] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.441518] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.466062] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.466062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.466062] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.466062] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.759421] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.759421] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.759421] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.759421] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.781550] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.781550] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.781550] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.781550] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.803596] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.803596] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.803596] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.803596] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.825199] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.825199] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.825199] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.825199] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.847327] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.847327] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.847327] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.847327] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.869876] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.869876] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.869876] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.869876] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.889923] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.890929] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.890929] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.890929] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.911980] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.911980] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.911980] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.911980] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.934943] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.934943] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.934943] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.934943] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.955490] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.955490] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.955490] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.955490] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.976596] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.976596] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.976596] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.976596] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:39.998789] (script)	mimgui Style Editor by chapo: Text
+[21:22:39.998789] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:39.998789] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:39.998789] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.019815] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.019815] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.019815] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.019815] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.040853] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.040853] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.040853] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.040853] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.063423] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.063423] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.063423] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.063423] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.086475] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.086475] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.086475] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.086475] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.106512] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.106512] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.106512] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.107513] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.130071] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.130071] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.130071] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.130071] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.151277] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.151277] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.151277] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.151277] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.172348] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.172348] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.172348] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.172348] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.217427] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.217427] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.217427] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.217427] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.241062] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.241062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.241062] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.241062] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.263962] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.263962] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.263962] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.263962] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.284717] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.284717] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.284717] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.284717] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.305756] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.305756] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.305756] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.305756] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.328941] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.328941] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.328941] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.328941] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.349501] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.349501] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.349501] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.349501] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.372214] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.372214] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.372214] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.372214] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.398752] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.398752] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.399828] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.399828] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.421771] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.421771] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.421771] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.421771] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.443377] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.443377] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.443377] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.443377] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.465871] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.465871] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.465871] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.465871] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.485921] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.485921] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.485921] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.485921] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.593189] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.593189] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.593189] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.593189] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.613213] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.614215] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.614215] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.614215] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.641780] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.641780] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.641780] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.641780] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.674361] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.674361] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.674361] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.674361] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.700458] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.700458] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.700458] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.700458] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.725500] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.725500] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.725500] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.725500] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.748055] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.748055] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.748055] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.748055] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.769037] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.769037] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.769037] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.769037] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.791688] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.791688] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.791688] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.791688] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.812270] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.812270] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.812270] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.812270] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.832321] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.832321] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.832321] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.832321] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.854395] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.854395] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.854395] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.854395] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.875034] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.875034] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.875034] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.875034] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.895068] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.895068] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.895068] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.895068] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.916125] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.916125] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.916125] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.916125] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.937678] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.937678] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.937678] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.937678] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:40.958735] (script)	mimgui Style Editor by chapo: Text
+[21:22:40.958735] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:40.958735] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:40.958735] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.003270] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.003270] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.003270] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.003270] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.024864] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.024864] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.024864] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.024864] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.045920] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.045920] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.045920] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.045920] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.131537] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.131537] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.132537] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.132537] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.152579] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.152579] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.152579] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.152579] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.174624] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.174624] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.174624] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.174624] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.199360] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.199360] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.199360] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.199360] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.220282] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.220282] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.220282] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.220282] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.240902] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.240902] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.240902] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.240902] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.347128] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.347128] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.347128] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.347128] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.389706] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.390702] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.390702] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.390702] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.431575] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.431575] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.431575] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.431575] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.457307] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.457307] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.457307] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.457307] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:41.711725] (script)	mimgui Style Editor by chapo: Text
+[21:22:41.711725] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:41.711725] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:41.711725] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.660216] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.661214] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.661214] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.661214] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.680760] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.680760] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.680760] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.680760] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.701407] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.701407] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.701407] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.701407] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.724286] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.724286] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.724286] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.724286] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.745309] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.745309] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.745309] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.745309] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.765541] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.765541] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.765541] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.765541] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.788748] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.788748] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.788748] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.788748] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.811754] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.811754] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.811754] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.811754] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.832004] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.832004] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.832004] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.832004] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.854529] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.854529] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.854529] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.854529] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.875549] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.875549] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.875549] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.875549] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.895696] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.895696] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.895696] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.895696] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.918231] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.918231] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.918231] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.918231] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:43.982162] (script)	mimgui Style Editor by chapo: Text
+[21:22:43.982162] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:43.982162] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:43.982162] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.005214] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.005214] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.005214] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.005214] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.026240] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.026240] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.026240] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.026240] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.047584] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.047584] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.047584] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.047584] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.074651] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.074651] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.074651] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.074651] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.095274] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.095274] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.095274] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.095274] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.117839] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.117839] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.117839] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.117839] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.138888] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.138888] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.138888] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.138888] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.159480] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.159480] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.159480] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.159480] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.180065] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.180065] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.180065] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.181059] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.202118] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.203118] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.203118] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.203118] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.223933] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.223933] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.223933] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.223933] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.244954] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.244954] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.244954] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.244954] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.271146] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.271146] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.271146] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.271146] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.292163] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.292163] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.292163] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.292163] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.319723] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.319723] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.319723] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.319723] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.350795] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.350795] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.351802] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.351802] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.382390] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.382390] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.382390] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.382390] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.410551] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.410551] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.410551] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.410551] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.433566] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.433566] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.433566] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.433566] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.639531] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.639531] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.639531] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.639531] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.662692] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.662692] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.662692] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.662692] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.682602] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.682602] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.682602] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.682602] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.703623] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.703623] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.703623] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.703623] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.725669] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.725669] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.725669] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.725669] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.745728] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.745728] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.745728] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.745728] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.767759] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.767759] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.767759] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.767759] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.790805] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.790805] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.790805] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.790805] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.812825] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.812825] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.812825] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.812825] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:44.981115] (script)	mimgui Style Editor by chapo: Text
+[21:22:44.981115] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:44.981115] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:44.981115] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.004114] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.004114] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.004114] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.004114] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.024154] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.024154] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.024154] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.024154] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.044733] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.044733] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.044733] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.044733] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.067480] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.067480] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.067480] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.067480] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.089217] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.089217] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.089217] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.089217] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.109952] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.109952] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.109952] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.109952] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.134550] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.134550] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.134550] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.134550] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.175181] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.175181] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.175181] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.175181] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.197219] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.197219] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.197219] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.197219] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.220622] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.220622] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.220622] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.220622] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.240651] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.240651] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.240651] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.240651] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.264280] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.265225] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.265225] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.265225] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.288486] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.288486] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.288486] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.288486] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.315546] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.316546] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.316546] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.316546] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.379240] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.379240] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.379240] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.379240] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.401909] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.402821] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.402821] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.402821] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.423924] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.423924] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.423924] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.423924] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.444944] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.444944] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.444944] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.444944] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.467514] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.467514] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.467514] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.467514] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.487186] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.487186] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.487186] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.487186] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.508425] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.508425] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.509479] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.509479] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.532460] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.532460] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.532460] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.532460] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.595302] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.595302] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.595302] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.595302] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.616301] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.616301] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.616301] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.616301] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.636361] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.636361] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.636361] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.636361] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.659474] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.659474] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.659474] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.659474] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.679322] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.679322] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.679322] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.679322] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.705354] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.706357] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.706357] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.706357] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.730434] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.730434] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.730434] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.730434] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.815786] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.815786] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.815786] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.815786] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.840911] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.840911] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.840911] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.840911] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.864453] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.864453] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.864453] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.864453] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.884506] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.884506] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.884506] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.884506] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.904533] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.904533] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.904533] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.904533] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.927171] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.927171] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.927171] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.927171] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.947361] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.947361] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.947361] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.947361] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:45.968928] (script)	mimgui Style Editor by chapo: Text
+[21:22:45.968928] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:45.968928] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:45.968928] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.255051] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.255051] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.255051] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.255051] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.277154] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.277154] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.277154] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.277154] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.298745] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.298745] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.298745] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.298745] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.324809] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.324809] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.324809] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.324809] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.345734] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.345734] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.345734] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.345734] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.366276] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.367278] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.367278] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.367278] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.390399] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.390399] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.390399] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.390399] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.413060] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.413060] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.413060] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.413060] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.434105] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.434105] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.434105] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.434105] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.458265] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.458265] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.458265] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.458265] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.499311] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.499311] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.499311] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.499311] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.542636] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.542636] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.542636] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.542636] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.563230] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.563230] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.563230] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.563230] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.584886] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.584886] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.584886] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.584886] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.605915] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.605915] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.605915] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.605915] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.627158] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.627158] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.628232] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.628232] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.650300] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.650300] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.650300] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.650300] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.671818] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.671818] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.671818] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.671818] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.692907] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.692907] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.692907] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.692907] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.716462] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.716462] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.716462] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.716462] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.758162] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.758162] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.758162] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.758162] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.780202] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.780202] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.780202] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.780202] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.808412] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.808412] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.808412] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.808412] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.829601] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.829601] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.829601] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.829601] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.851636] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.851636] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.851636] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.851636] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.872965] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.872965] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.872965] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.872965] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.897627] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.897627] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.897627] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.897627] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.921238] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.921238] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.921238] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.921238] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.942186] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.942186] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.942186] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.942186] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.963751] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.963751] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.963751] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.963751] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:52.985796] (script)	mimgui Style Editor by chapo: Text
+[21:22:52.985796] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:52.985796] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:52.985796] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.007903] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.007903] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.007903] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.007903] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.029468] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.029468] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.029468] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.029468] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.050879] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.050879] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.050879] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.050879] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.072413] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.072413] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.072413] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.072413] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.093445] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.093445] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.093445] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.093445] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.114505] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.114505] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.114505] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.114505] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.136569] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.136569] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.136569] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.136569] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.157151] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.157151] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.157151] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.157151] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.178407] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.178407] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.178407] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.178407] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.201006] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.201006] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.201006] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.201006] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.222089] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.223090] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.223090] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.223090] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.246616] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.246616] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.247612] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.247612] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.269208] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.270198] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.270198] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.270198] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.289978] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.289978] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.289978] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.289978] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.312016] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.312016] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.312016] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.312016] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.334919] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.334919] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.334919] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.334919] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.354937] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.354937] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.354937] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.354937] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.376585] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.377584] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.377584] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.377584] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.401132] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.401132] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.401132] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.401132] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.424159] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.424159] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.424159] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.424159] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.445720] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.445720] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.445720] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.445720] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.680185] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.680185] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.680185] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.680185] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.702743] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.702743] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.702743] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.702743] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.727390] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.727390] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.728343] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.728343] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.749382] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.749382] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.749382] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.749382] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.770954] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.770954] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.770954] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.770954] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.794611] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.794611] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.794611] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.794611] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.815673] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.815673] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.815673] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.815673] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.861602] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.861602] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.861602] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.861602] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.881521] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.882530] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.882530] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.882530] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.902593] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.902593] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.902593] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.902593] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.925636] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.925636] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.925636] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.925636] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.945664] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.945664] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.945664] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.945664] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.968546] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.968546] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.968546] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.968546] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:53.990574] (script)	mimgui Style Editor by chapo: Text
+[21:22:53.990574] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:53.990574] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:53.990574] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.011655] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.011655] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.011655] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.011655] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.032655] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.032655] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.032655] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.032655] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.054817] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.054817] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.054817] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.054817] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.076404] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.076404] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.076404] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.076404] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.158048] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.158048] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.158048] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.158048] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.180596] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.180596] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.180596] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.180596] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.202234] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.202234] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.202234] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.202234] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.223244] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.223244] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.223244] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.223244] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.244269] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.244269] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.244269] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.244269] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.268320] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.268320] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.268320] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.268320] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.289671] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.289671] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.289671] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.289671] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.310699] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.310699] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.310699] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.310699] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.335749] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.335749] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.335749] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.335749] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.357276] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.357276] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.357276] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.357276] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.380115] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.380115] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.380115] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.380115] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.404170] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.404170] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.404170] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.404170] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.425697] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.425697] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.425697] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.425697] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.448461] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.448461] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.448461] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.448461] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.481431] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.481431] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.481431] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.481431] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.511799] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.511799] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.511799] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.511799] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.537415] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.537415] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.537415] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.537415] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.563062] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.563062] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.563062] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.563062] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.585101] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.585101] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.585101] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.585101] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.606167] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.606167] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.606167] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.606167] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.627714] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.627714] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.627714] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.627714] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.648800] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.648800] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.649791] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.649791] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.670334] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.670334] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.671334] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.671334] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.691634] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.691634] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.691634] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.691634] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.715495] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.715495] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.715495] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.715495] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.737680] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.737680] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.737680] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.737680] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.757719] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.757719] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.757719] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.757719] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.779782] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.779782] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.779782] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.779782] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.801845] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.801845] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.801845] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.801845] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.821927] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.822928] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.822928] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.822928] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.844946] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.844946] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.844946] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.844946] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.867534] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.867534] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.867534] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.867534] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.888122] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.889123] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.889123] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.889123] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.909213] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.909213] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.909213] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.909213] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.931065] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.931065] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.931065] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.931065] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.952112] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.952112] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.952112] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.952112] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.975210] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.975210] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.975210] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.975210] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:54.997266] (script)	mimgui Style Editor by chapo: Text
+[21:22:54.998497] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:54.998497] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:54.998497] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.019507] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.019507] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.019507] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.019507] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.040182] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.040182] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.040182] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.040182] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.063339] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.063339] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.063339] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.063339] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.084378] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.084378] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.084378] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.084378] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.104889] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.104889] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.104889] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.104889] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.128425] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.128425] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.128425] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.128425] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.149424] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.149424] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.149424] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.149424] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.170209] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.170209] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.170209] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.170209] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.322157] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.322157] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.322157] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.322157] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.344446] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.344446] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.344446] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.344446] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.366021] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.366021] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.366021] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.366021] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.388585] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.388585] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.388585] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.388585] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.431927] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.431927] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.431927] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.431927] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.455988] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.455988] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.455988] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.455988] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.537484] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.537484] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.537484] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.537484] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.579125] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.579125] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.579125] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.579125] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.601755] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.601755] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.601755] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.601755] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.623823] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.623823] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.623823] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.623823] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.644837] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.644837] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.644837] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.644837] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.666420] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.666420] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.666420] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.666420] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.686042] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.686042] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.686042] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.686042] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.707158] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.707158] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.707158] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.707158] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:22:55.728824] (script)	mimgui Style Editor by chapo: Text
+[21:22:55.728824] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:22:55.728824] (script)	mimgui Style Editor by chapo: WindowBg
+[21:22:55.728824] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: Text
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: accent1   color_0
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: Text
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:05.084196] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.453522] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.453522] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.453522] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.453522] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.476047] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.476047] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.476047] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.476047] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.496070] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.496070] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.496070] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.496070] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.539692] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.539692] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.539692] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.539692] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.564751] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.564751] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.564751] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.564751] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.588285] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.588285] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.588285] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.588285] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.609329] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.610330] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.610330] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.610330] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.630609] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.630609] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.630609] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.630609] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.652182] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.652182] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.652182] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.652182] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.673803] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.673803] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.673803] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.673803] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.696075] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.696075] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.696075] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.696075] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.720208] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.720208] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.720208] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.720208] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.742239] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.742239] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.742239] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.742239] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.765315] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.765315] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.765315] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.765315] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.788451] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.788451] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.789455] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.789455] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.815472] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.815472] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.815472] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.815472] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.836547] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.836547] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.836547] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.836547] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.860092] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.860092] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.860092] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.860092] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.885659] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.885659] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.885659] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.885659] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.907472] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.907472] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.907472] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.907472] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.932021] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.932021] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.932021] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.932021] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.956038] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.956038] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.956038] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.956038] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:07.979098] (script)	mimgui Style Editor by chapo: Text
+[21:23:07.979098] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:07.979098] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:07.979098] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.004161] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.004161] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.004161] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.004161] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.025186] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.026192] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.026192] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.026192] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.047576] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.047576] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.047576] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.047576] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.073970] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.073970] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.073970] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.073970] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.095831] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.095831] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.095831] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.095831] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.122399] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.122399] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.122399] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.122399] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.143290] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.143290] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.143290] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.143290] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.353215] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.353215] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.353215] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.353215] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.397358] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.397358] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.397358] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.397358] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.489206] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.489206] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.489206] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.489206] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.510521] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.510521] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.510521] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.510521] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.531566] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.531566] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.531566] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.531566] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.553465] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.553465] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.553465] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.553465] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.576031] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.576031] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.576031] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.576031] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.598572] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.598572] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.598572] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.598572] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.619725] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.619725] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.619725] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.619725] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.640281] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.641271] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.641271] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.641271] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.663927] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.663927] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.663927] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.663927] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.684245] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.684245] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.684245] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.684245] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.704446] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.704446] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.704446] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.704446] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.727514] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.727514] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.727514] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.727514] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.748819] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.748819] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.748819] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.748819] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.770413] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.770413] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.770413] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.770413] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.797192] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.797192] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.797192] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.797192] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.818274] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.818274] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.818274] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.818274] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:08.839228] (script)	mimgui Style Editor by chapo: Text
+[21:23:08.839228] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:08.840222] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:08.840222] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: Text
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: accent2   color_900
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: Text
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: accent2   color_400
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:16.445252] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: Text
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: accent2   color_400
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: Text
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: accent2   color_200
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:19.757560] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: Text
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: accent2   color_200
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: Text
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: accent2   color_50
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:22.710356] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: Text
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: accent2   color_50
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: Text
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: accent2   color_100
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:25.907792] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:28.602058] (script)	mimgui Style Editor by chapo: Text
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: accent2   color_100
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: Text
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: accent3   color_400
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:28.603059] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: Text
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: accent3   color_400
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: Text
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: accent2   color_50
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:33.249219] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: Text
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: accent2   color_50
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: Text
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: accent2   color_200
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:35.969994] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: Text
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: accent2   color_200
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: WindowBg
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: accent1   color_900
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: TextDisabled
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: accent2   color_500
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: Text
+[21:23:38.033187] (script)	mimgui Style Editor by chapo: accent2   color_200
+[21:29:09.707518] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:29:09.779673] (system)	Rodina News Helper: Script terminated. (18B6E8BC)
+[21:29:09.781671] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:29:09.781671] (debug)	New script: 18B6E734
+[21:29:09.813728] (system)	Rodina News Helper: Loaded successfully.
+[21:30:32.292196] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:30:32.363004] (system)	Rodina News Helper: Script terminated. (18B6E734)
+[21:30:32.364999] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:30:32.364999] (debug)	New script: 18B6E734
+[21:30:32.392570] (system)	Rodina News Helper: Loaded successfully.
+[21:30:39.125664] (system)	ML-AutoReboot: Script terminated. (18B6E424)
+[21:30:39.126667] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[21:30:39.126667] (error)	Keyboard & Mouse: Script died due to an error. (18B6D4D4)
+[21:30:39.127674] (system)	mimgui Style Editor by chapo: Script terminated. (18B6DF8C)
+[21:30:39.131116] (system)	OS Helper: Script terminated. (18B6D7E4)
+[21:30:39.133120] (system)	Reloader: Script terminated. (18B6D96C)
+[21:30:39.133120] (system)	ML-ReloadAll: Script terminated. (18B6CEB4)
+[21:30:39.134116] (system)	MenuScript: Script terminated. (18B6D03C)
+[21:30:39.135118] (system)	SF Integration: Script terminated. (18B6DAF4)
+[21:30:39.135118] (system)	Rodina News Helper: Script terminated. (18B6E734)
+[21:30:39.137622] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[21:30:39.138639] (debug)	New script: 18B6E8BC
+[21:30:39.139630] (system)	ML-AutoReboot: Loaded successfully.
+[21:30:39.139630] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[21:30:39.139630] (debug)	New script: 18B6E734
+[21:30:39.163928] (system)	Keyboard & Mouse: Loaded successfully.
+[21:30:39.163928] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[21:30:39.163928] (debug)	New script: 18B6DF8C
+[21:30:39.177449] (system)	OS Helper: Loaded successfully.
+[21:30:39.177449] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[21:30:39.177449] (debug)	New script: 18B6EA44
+[21:30:39.178512] (system)	Reloader: Loaded successfully.
+[21:30:39.178512] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[21:30:39.178512] (debug)	New script: 18B6D7E4
+[21:30:39.179513] (system)	ML-ReloadAll: Loaded successfully.
+[21:30:39.179513] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[21:30:39.179513] (debug)	New script: 18B6EBCC
+[21:30:39.204717] (system)	MenuScript: Loaded successfully.
+[21:30:39.204717] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[21:30:39.204717] (debug)	New script: 18B6CEB4
+[21:30:39.206717] (system)	SF Integration: Loaded successfully.
+[21:30:39.206717] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:30:39.206717] (debug)	New script: 18B6D96C
+[21:30:39.228903] (system)	Rodina News Helper: Loaded successfully.
+[21:30:39.230903] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[21:30:39.230903] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:30:39.230903] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:30:39.230903] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[21:30:39.230903] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:30:39.230903] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:30:39.357777] (system)	ML-AutoReboot: Script terminated. (18B6E8BC)
+[21:30:39.357777] (error)	Keyboard & Mouse: C:\Games\Rodina\moonloader\keyboard.lua:1320: bad argument #1 to 'ColorConvertFloat4ToU32' (cannot convert 'nil' to 'struct ImVec4')
+stack traceback:
+	[C]: in function 'ColorConvertFloat4ToU32'
+	C:\Games\Rodina\moonloader\keyboard.lua:1320: in function 'iniSave'
+	C:\Games\Rodina\moonloader\keyboard.lua:1377: in function <C:\Games\Rodina\moonloader\keyboard.lua:1377>
+[21:30:39.357777] (error)	Keyboard & Mouse: Script died due to an error. (18B6E734)
+[21:30:39.359306] (system)	OS Helper: Script terminated. (18B6DF8C)
+[21:30:39.360303] (system)	Reloader: Script terminated. (18B6EA44)
+[21:30:39.361305] (system)	ML-ReloadAll: Script terminated. (18B6D7E4)
+[21:30:39.361305] (system)	MenuScript: Script terminated. (18B6EBCC)
+[21:30:39.362302] (system)	SF Integration: Script terminated. (18B6CEB4)
+[21:30:39.362302] (system)	Rodina News Helper: Script terminated. (18B6D96C)
+[21:30:39.364311] (system)	Loading script 'C:\Games\Rodina\moonloader\AutoReboot.lua'...
+[21:30:39.364311] (debug)	New script: 18B6E8BC
+[21:30:39.365315] (system)	ML-AutoReboot: Loaded successfully.
+[21:30:39.365315] (system)	Loading script 'C:\Games\Rodina\moonloader\keyboard.lua'...
+[21:30:39.365315] (debug)	New script: 18B6E734
+[21:30:39.387377] (system)	Keyboard & Mouse: Loaded successfully.
+[21:30:39.387377] (system)	Loading script 'C:\Games\Rodina\moonloader\oshelper 1.5 release.lua'...
+[21:30:39.387377] (debug)	New script: 18B6D7E4
+[21:30:39.400681] (system)	OS Helper: Loaded successfully.
+[21:30:39.400681] (system)	Loading script 'C:\Games\Rodina\moonloader\reloader.lua'...
+[21:30:39.400681] (debug)	New script: 18B6DF8C
+[21:30:39.400681] (system)	Reloader: Loaded successfully.
+[21:30:39.400681] (system)	Loading script 'C:\Games\Rodina\moonloader\reload_all.lua'...
+[21:30:39.400681] (debug)	New script: 18B6E424
+[21:30:39.401672] (system)	ML-ReloadAll: Loaded successfully.
+[21:30:39.401672] (system)	Loading script 'C:\Games\Rodina\moonloader\script.lua'...
+[21:30:39.401672] (debug)	New script: 18B6D96C
+[21:30:39.419732] (system)	MenuScript: Loaded successfully.
+[21:30:39.419732] (system)	Loading script 'C:\Games\Rodina\moonloader\SF Integration.lua'...
+[21:30:39.419732] (debug)	New script: 18B6D4D4
+[21:30:39.420742] (system)	SF Integration: Loaded successfully.
+[21:30:39.420742] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:30:39.420742] (debug)	New script: 18B6D03C
+[21:30:39.437759] (system)	Rodina News Helper: Loaded successfully.
+[21:30:39.439764] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}settings.cfg
+[21:30:39.439764] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:30:39.439764] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:30:39.439764] (script)	MenuScript: {CC0F00}ERROR:{999999}Ошибка подгрузки файла: {FFAA00}estersBind.cfg
+[21:30:39.439764] (script)	MenuScript: {CAAF00}!!! {999999}Были загружены стандартные значения, для сохранения..
+[21:30:39.439764] (script)	MenuScript: {999999}..своих старых настроек рекомендуется сделать бэкап файла {CAAF00}!!!
+[21:30:41.088729] (error)	Rodina News Helper: C:\Games\Rodina\moonloader\lib\mimgui\init.lua:238: missing declaration for symbol 'ImGuiCol_WindowPadding'
+stack traceback:
+	[C]: in function '__index'
+	C:\Games\Rodina\moonloader\lib\mimgui\init.lua:238: in function '__index'
+	C:\Games\Rodina\moonloader\SMI-Helper.lua:3963: in function 'Style'
+	C:\Games\Rodina\moonloader\SMI-Helper.lua:559: in function 'cb'
+	C:\Games\Rodina\moonloader\lib\mimgui\init.lua:86: in function 'InitializeRenderer'
+	C:\Games\Rodina\moonloader\lib\mimgui\init.lua:94: in function <C:\Games\Rodina\moonloader\lib\mimgui\init.lua:91>
+[21:30:41.091730] (error)	Rodina News Helper: Script died due to an error. (18B6D03C)
+[21:32:07.080422] (script)	ML-AutoReboot: Loading "C:\Games\Rodina\moonloader\SMI-Helper.lua"...
+[21:32:07.080422] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:32:07.080422] (debug)	New script: 18B6DAF4
+[21:32:07.099441] (system)	Rodina News Helper: Loaded successfully.
+[21:32:38.339998] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:32:38.404769] (system)	Rodina News Helper: Script terminated. (18B6DAF4)
+[21:32:38.409266] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:32:38.409266] (debug)	New script: 18B6EA44
+[21:32:38.426779] (system)	Rodina News Helper: Loaded successfully.
+[21:33:35.932003] (script)	ML-AutoReboot: Reloading "Rodina News Helper"...
+[21:33:35.996823] (system)	Rodina News Helper: Script terminated. (18B6EA44)
+[21:33:35.998332] (system)	Loading script 'C:\Games\Rodina\moonloader\SMI-Helper.lua'...
+[21:33:35.998332] (debug)	New script: 18B6EA44
+[21:33:36.017871] (system)	Rodina News Helper: Loaded successfully.
